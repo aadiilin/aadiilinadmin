@@ -63,6 +63,38 @@ const PROJECTS = [
     year: "2024",
     description: "Chief guest welcome poster for the Kashmiri Sadath Uroos Mubarak & Milad Sangamam, designed with warm earthy tones and layered typography.",
     image: `${import.meta.env.BASE_URL}images/guest.jpeg`
+  },
+  {
+    slug: "token-of-love-poster-variety",
+    title: "Token Of Love Poster Variety",
+    role: "Poster Design",
+    year: "2025",
+    description: "A vibrant series of variety posters for the Token of Love campaign, exploring diverse visual approaches with bold typography and dynamic compositions.",
+    image: `${import.meta.env.BASE_URL}images/Token_Of_Love_Poster_Variety.jpg`
+  },
+  {
+    slug: "award-poster-design",
+    title: "Award Poster Design",
+    role: "Poster Design",
+    year: "2025",
+    description: "An elegant award ceremony poster design featuring refined typography, celebratory motifs, and a sophisticated color palette.",
+    image: `${import.meta.env.BASE_URL}images/Award_Poster_Design.jpg`
+  },
+  {
+    slug: "variety-creative-poster-design",
+    title: "Variety Creative Poster Design",
+    role: "Poster Design",
+    year: "2025",
+    description: "A creative variety poster design exploring bold compositions, experimental layouts, and striking visual hierarchies.",
+    image: `${import.meta.env.BASE_URL}images/Variety_Creative_Poster_Design.jpg`
+  },
+  {
+    slug: "token-of-love-poster",
+    title: "Token Of Love Poster",
+    role: "Poster Design",
+    year: "2025",
+    description: "The main campaign poster for Token of Love, blending romantic visual elements with modern design aesthetics and expressive typography.",
+    image: `${import.meta.env.BASE_URL}images/Token_Of_Love_Poster.jpg`
   }
 ];
 
@@ -264,7 +296,7 @@ export function Home() {
           className="mb-16 md:mb-24 flex items-baseline justify-between border-b border-white/10 pb-6"
         >
           <h2 className="font-serif text-3xl md:text-5xl">Selected Works</h2>
-          <span className="text-sm uppercase tracking-widest text-muted-foreground">(06)</span>
+          <span className="text-sm uppercase tracking-widest text-muted-foreground">(10)</span>
         </motion.div>
 
         <div className="grid grid-cols-2 md:grid-cols-12 gap-4 md:gap-10">
@@ -277,12 +309,20 @@ export function Home() {
               "col-span-2 md:col-span-7", // 4. Large
               "col-span-1 md:col-span-6", // 5. Medium
               "col-span-1 md:col-span-6", // 6. Medium
+              "col-span-2 md:col-span-7", // 7. Large
+              "col-span-1 md:col-span-5", // 8. Small
+              "col-span-1 md:col-span-6", // 9. Medium
+              "col-span-1 md:col-span-6", // 10. Medium
             ];
             const aspectRatios = [
               "aspect-[16/10] md:aspect-[16/10]",
               "aspect-square md:aspect-[4/5]",
               "aspect-square md:aspect-square",
               "aspect-video md:aspect-[16/9]",
+              "aspect-square md:aspect-video",
+              "aspect-square md:aspect-video",
+              "aspect-video md:aspect-[16/10]",
+              "aspect-square md:aspect-[4/5]",
               "aspect-square md:aspect-video",
               "aspect-square md:aspect-video",
             ];
@@ -473,9 +513,6 @@ export function Home() {
         </div>
         <div className="text-[10px] text-muted-foreground uppercase tracking-[0.3em] font-bold text-center md:text-right">
           <div>© {new Date().getFullYear()} — Built with Intention</div>
-          <div className="mt-2 text-[8px] opacity-60 tracking-[0.15em]">
-            With the collaboration from <a href="https://qorvode.co.in" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline transition-all">qorvode.ai</a>
-          </div>
         </div>
       </footer>
     </div>
