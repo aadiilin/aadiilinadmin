@@ -26,7 +26,7 @@ const RESPONSES: { keywords: string[]; reply: string }[] = [
   },
   {
     keywords: ["contact", "email", "phone", "reach", "message", "whatsapp", "call", "dm", "connect", "get in touch", "talk", "collaborate"],
-    reply: "Here's how you can connect with Aadiilin:\n📧 Email: adilsarvadka@gmail.com\n📱 Phone / WhatsApp: +91 81378 02554\n📸 Instagram: @aadiil.in\n💼 LinkedIn: linkedin.com/in/adil-sarvadka-51282a406\n\nThe contact form on this site (section 04) sends your message directly to WhatsApp — fastest way to reach him!"
+    reply: "Here's how you can connect with Aadiilin:\n📧 Email: adilsarvadka@gmail.com\n📱 Phone / WhatsApp: +91 81378 02554\n📸 Instagram DM: ig.me/m/aadiil.in\n💼 LinkedIn: linkedin.com/in/adil-sarvadka-51282a406\n\nThe contact form (section 04) lets you send via WhatsApp or Instagram DM!"
   },
   {
     keywords: ["project", "portfolio", "work", "showcase", "done", "built", "designed", "create"],
