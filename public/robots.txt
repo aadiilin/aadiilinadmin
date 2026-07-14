@@ -1,5 +1,18 @@
 User-agent: *
 Allow: /
-Disallow: /?no-js=1
+Disallow: /api/
 
 Sitemap: https://aadiilin.vercel.app/sitemap.xml
+
+# Crawl rules for AI bots
+User-agent: GPTBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /

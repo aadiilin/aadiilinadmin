@@ -5,7 +5,10 @@ import { X, Menu, ExternalLink, Mail, Send } from "lucide-react"
 import { ChatBot } from "@/components/chat-bot"
 import { FABBackground } from "@/components/fab-background"
 import { ContactForm } from "@/components/contact-form"
+import { SearchOverlay } from "@/components/search-overlay"
+import { FAQSection } from "@/components/faq-section"
 import { SEO } from "@/components/seo"
+import { collectionPageSchema, itemListSchema, contactPageSchema } from "@/lib/schemas"
 
 const PROJECTS = [
   { slug: "imbizo", title: "IMBIZO 1.0", role: "Poster & Identity", year: "2025", category: "Event Identity", image: `${import.meta.env.BASE_URL}images/imbizo.jpeg` },
@@ -63,7 +66,7 @@ export function Home() {
   return (
     <div className="min-h-screen bg-bg text-text overflow-x-hidden">
       <FABBackground hidden={selectedProject !== null} />
-      <SEO />
+      <SEO jsonLd={[collectionPageSchema(), itemListSchema(), contactPageSchema()]} />
 
       {/* Lightbox */}
       <AnimatePresence>
@@ -112,10 +115,11 @@ export function Home() {
             </Link>
           </div>
 
-          <div className="hidden md:flex items-center gap-8">
+          <div className="hidden md:flex items-center gap-6">
             <a href="#work" className="text-sm text-muted hover:text-text transition-colors">Work</a>
             <a href="#about" className="text-sm text-muted hover:text-text transition-colors">About</a>
             <a href="#contact" className="text-sm text-muted hover:text-text transition-colors">Contact</a>
+            <SearchOverlay />
             <span className="text-[11px] font-mono font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-accent text-white select-none">
               Open to work
             </span>
@@ -292,6 +296,8 @@ export function Home() {
           </Reveal>
         </div>
       </section>
+
+      <FAQSection />
 
       {/* Footer */}
       <footer className="border-t border-line bg-subtle">

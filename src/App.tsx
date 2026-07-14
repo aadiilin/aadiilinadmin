@@ -6,6 +6,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { HelmetProvider } from 'react-helmet-async';
 import { useEffect } from "react";
 import Lenis from 'lenis';
+import { GlobalSchemas } from '@/components/global-schemas';
 import { Home } from "@/pages/home";
 import { ProjectPage } from "@/pages/project/[slug]";
 import NotFound from "@/pages/not-found";
@@ -88,6 +89,7 @@ function App() {
 
   return (
     <HelmetProvider>
+      <GlobalSchemas />
       <QueryClientProvider client={queryClient}>
         <TooltipProvider>
           <FontLoader />
