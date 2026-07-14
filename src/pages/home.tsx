@@ -101,9 +101,14 @@ export function Home() {
       {/* Header */}
       <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? "bg-bg/90 backdrop-blur-md shadow-[0_1px_0_rgba(26,26,26,0.06)]" : "bg-transparent"}`}>
         <nav className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-          <Link href="/" className="font-heading font-bold text-xl tracking-tight select-none">
-            aadiilin
-          </Link>
+          <div className="flex items-center gap-2">
+            <button onClick={() => setMobileMenu(!mobileMenu)} className="md:hidden relative z-50 p-2 -ml-2">
+              {mobileMenu ? <X size={20} /> : <Menu size={20} />}
+            </button>
+            <Link href="/" className="font-heading font-bold text-xl tracking-tight select-none">
+              aadiilin
+            </Link>
+          </div>
 
           <div className="hidden md:flex items-center gap-8">
             <a href="#work" className="text-sm text-muted hover:text-text transition-colors">Work</a>
@@ -113,10 +118,6 @@ export function Home() {
               Open to work
             </span>
           </div>
-
-          <button onClick={() => setMobileMenu(!mobileMenu)} className="md:hidden relative z-50 p-2">
-            {mobileMenu ? <X size={20} /> : <Menu size={20} />}
-          </button>
         </nav>
 
         <AnimatePresence>
