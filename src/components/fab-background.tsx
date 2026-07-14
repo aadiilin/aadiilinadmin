@@ -64,7 +64,7 @@ export function FABBackground() {
       variants={containerVariants}
       initial="initial"
       animate="animate"
-      className="fixed inset-0 pointer-events-none z-0 flex items-start justify-start"
+      className="fixed inset-0 pointer-events-none z-40 flex items-start justify-start"
     >
       <div className="relative mt-20 ml-6">
         {/* Main FAB */}
