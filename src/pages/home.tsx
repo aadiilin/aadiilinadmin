@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "framer-motion"
 import { useState, useEffect, ReactNode } from "react"
 import { X, Menu, ExternalLink, Mail } from "lucide-react"
 import { ChatBot } from "@/components/chat-bot"
+import { FABBackground } from "@/components/fab-background"
 import { SEO } from "@/components/seo"
 
 const PROJECTS = [
@@ -59,6 +60,7 @@ export function Home() {
 
   return (
     <div className="min-h-screen bg-bg text-text overflow-x-hidden">
+      <FABBackground />
       <SEO />
 
       {/* Lightbox */}
