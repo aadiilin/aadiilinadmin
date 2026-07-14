@@ -25,8 +25,8 @@ const RESPONSES: { keywords: string[]; reply: string }[] = [
     reply: "Pricing depends on project scope and complexity. A simple poster starts around ₹1,500, while a full brand identity package ranges from ₹5,000–₹15,000. For an accurate quote, reach out via email at adilsarvadka@gmail.com or use the contact form to send details directly to WhatsApp."
   },
   {
-    keywords: ["contact", "email", "phone", "reach", "message", "whatsapp", "call", "dm"],
-    reply: "You can reach Aadiilin at:\n• Email: adilsarvadka@gmail.com\n• Phone / WhatsApp: +91 81378 02554\n• Instagram: @aadiil.in\n• LinkedIn: linkedin.com/in/adil-sarvadka-51282a406\nThe contact form on this site sends directly to WhatsApp!"
+    keywords: ["contact", "email", "phone", "reach", "message", "whatsapp", "call", "dm", "connect", "get in touch", "talk", "collaborate"],
+    reply: "Here's how you can connect with Aadiilin:\n📧 Email: adilsarvadka@gmail.com\n📱 Phone / WhatsApp: +91 81378 02554\n📸 Instagram: @aadiil.in\n💼 LinkedIn: linkedin.com/in/adil-sarvadka-51282a406\n\nThe contact form on this site (section 04) sends your message directly to WhatsApp — fastest way to reach him!"
   },
   {
     keywords: ["project", "portfolio", "work", "showcase", "done", "built", "designed", "create"],
@@ -105,12 +105,56 @@ const RESPONSES: { keywords: string[]; reply: string }[] = [
     reply: "Aadiilin has built several digital products including Savelio and FestBoard. These are part of his entrepreneurial projects combining design with full-stack development."
   },
   {
-    keywords: ["bye", "goodbye", "see you", "later", "cya"],
+    keywords: ["bye", "goodbye", "see you", "later", "cya", "exit"],
     reply: "Thanks for stopping by! Feel free to come back anytime if you have more questions about Aadiilin's work. Have a great day!"
+  },
+  {
+    keywords: ["imbizo", "an-nur", "hijra", "keam", "enroute", "guest", "token", "award", "wedding"],
+    reply: "That's one of Aadiilin's projects! You can see it in the 'Selected Work' section above — click on any project card to view the full image in a lightbox. Each project showcases his skills in graphic design, typography, and visual storytelling."
+  },
+  {
+    keywords: ["payment", "pay", "deposit", "advance", "money", "rupees", "currency", "upi", "bank"],
+    reply: "Aadiilin accepts payments via UPI (GPay, PhonePe), direct bank transfer, and PayPal for international clients. A 50% advance is typically required before work begins, with the remaining 50% due on final delivery."
+  },
+  {
+    keywords: ["language", "speak", "malayalam", "hindi", "arabic", "english", "fluent"],
+    reply: "Aadiilin speaks multiple languages: Malayalam (native), English (fluent), Hindi (fluent), and Arabic. He can communicate with clients in any of these languages."
+  },
+  {
+    keywords: ["print", "digital", "social media", "online", "pixel", "resolution", "dpi", "size"],
+    reply: "Aadiilin designs for both print and digital. Print projects use CMYK with 300 DPI resolution, while digital projects use RGB. He can prepare files optimized for social media, web, or professional printing."
+  },
+  {
+    keywords: ["recommend", "suggest", "advice", "tips", "guide", "help me", "idea", "inspiration"],
+    reply: "Great question! Aadiilin always recommends starting with a clear brief — knowing your audience, message, and medium. He offers free initial consultations to discuss your vision and provide guidance before any project begins."
+  },
+  {
+    keywords: ["festival", "event", "muharram", "cultural", "religious", "celebration", "occasion"],
+    reply: "Aadiilin has experience designing for cultural and religious events including Muharram campaigns, Mawlid commemorations, and community festivals. He blends modern design with traditional and cultural aesthetics."
+  },
+  {
+    keywords: ["source", "code", "github", "repository", "open source", "template"],
+    reply: "This portfolio website is open source! You can find the full source code on GitHub at github.com/aadiilin/aadiilin. It's built with React, Vite, TypeScript, and Tailwind CSS."
+  },
+  {
+    keywords: ["meaning", "why aadiilin", "name", "brand name", "professional"],
+    reply: "Aadiilin is the professional brand name chosen by Adil Sarvadka for his graphic design work. It represents his creative identity and is how he presents his design portfolio to the world."
+  },
+  {
+    keywords: ["certificate", "certification", "course", "diploma", "training", "workshop", "learn design"],
+    reply: "Aadiilin developed his skills through hands-on practical experience at Baithul Izza and continues learning through real projects. He believes in learning by doing rather than formal certifications alone."
+  },
+  {
+    keywords: ["target", "audience", "niche", "industry", "sector", "field", "specialize", "focus"],
+    reply: "Aadiilin works across multiple industries including cultural events, educational institutions, community organizations, and small businesses. His style adapts to each client's unique audience and message."
+  },
+  {
+    keywords: ["aadiilin", "aadiil.in", "username", "handle", "profile", "portfolio", "instagram handle", "website"],
+    reply: "Aadiilin is active across platforms:\n🌐 Website: aadiilin.vercel.app\n📸 Instagram: @aadiil.in\n💻 GitHub: github.com/aadiilin\n💼 LinkedIn: linkedin.com/in/adil-sarvadka-51282a406\n📌 Pinterest: @aadiilin"
   },
 ]
 
-const FALLBACK = "I'm not sure I understand — try asking about Aadiilin's background, services, projects, skills, pricing, or how to contact him. You can also check the FAQ section above for common questions!"
+const FALLBACK = "I'm not sure I understand — try asking about Aadiilin's background, services, projects, skills, pricing, or how to contact him. You can also check the FAQ section above for common questions! Here's what I can help with:\n• Who is Aadiilin?\n• Services & pricing\n• Projects & portfolio\n• Contact & social links\n• Skills & tools\n• Design process\n• Availability"
 
 function getBotReply(input: string): string {
   const lower = input.toLowerCase()
@@ -123,7 +167,7 @@ function getBotReply(input: string): string {
 export function ChatBot() {
   const [open, setOpen] = useState(false)
   const [messages, setMessages] = useState<Message[]>([
-    { role: "bot", content: "Hi! I'm Aadiilin's AI assistant. Ask me anything — his background, services, projects, skills, pricing, or how to hire him!" }
+    { role: "bot", content: "👋 Hi! I'm Aadiilin's AI assistant. I can answer anything about him:\n\n🎨 Services & pricing\n📁 Projects & portfolio\n📍 Background & location\n🛠 Skills & tools\n📞 Contact & social links\n\nWhat would you like to know?" }
   ])
   const [input, setInput] = useState("")
   const [typing, setTyping] = useState(false)
