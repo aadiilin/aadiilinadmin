@@ -1,0 +1,21 @@
+{
+  "name": "Aadiilin — Full-Stack Developer & Graphic Designer",
+  "short_name": "Aadiilin",
+  "description": "Portfolio of Aadiilin (Adil Sarvadka), a B.Tech CSE student, full-stack web developer, graphic designer, and SaaS entrepreneur from Kerala.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0a0a0a",
+  "theme_color": "#0a0a0a",
+  "icons": [
+    {
+      "src": "/favicon.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/favicon.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

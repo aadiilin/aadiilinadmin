@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
+Disallow: /?no-js=1
 
 Sitemap: https://aadiilin.vercel.app/sitemap.xml
