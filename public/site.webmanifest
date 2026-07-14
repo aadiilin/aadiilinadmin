@@ -4,8 +4,8 @@
   "description": "Portfolio of Aadiilin (Adil Sarvadka), a B.Tech CSE student, full-stack web developer, graphic designer, and SaaS entrepreneur from Kerala.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#f5f5f5",
-  "theme_color": "#f5f5f5",
+  "background_color": "#0f1111",
+  "theme_color": "#0f1111",
   "icons": [
     {
       "src": "/icon-192.png",
