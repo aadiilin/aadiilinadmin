@@ -119,9 +119,9 @@ export function Home() {
             </span>
           </div>
           <div className="flex flex-col self-end order-1 lg:order-2 col-span-12 px-2 font-bold text-[7.2svw] lg:text-[6svw] 2xl:text-[5svw] xl:text-[5.6svw] uppercase leading-none font-display">
-            <span>I bring</span>
-            <span>ideas to life</span>
-            <span>through design</span>
+            <motion.span initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.2, ease: [0.25, 0.1, 0.25, 1] }}>I bring</motion.span>
+            <motion.span initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.4, ease: [0.25, 0.1, 0.25, 1] }}>ideas to life</motion.span>
+            <motion.span initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.6, ease: [0.25, 0.1, 0.25, 1] }}>through design</motion.span>
           </div>
         </section>
 
@@ -131,7 +131,13 @@ export function Home() {
             <SignatureSVG />
             <div className="aspect-square" />
           </div>
-          <div className="flex flex-col justify-start items-start gap-6 col-span-12 sm:col-span-7 lg:col-span-8 sm:col-start-6 lg:col-start-5 text-base lg:text-xl leading-none">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.7, ease: [0.25, 0.1, 0.25, 1] }}
+            className="flex flex-col justify-start items-start gap-6 col-span-12 sm:col-span-7 lg:col-span-8 sm:col-start-6 lg:col-start-5 text-base lg:text-xl leading-none"
+          >
             <p className="p-2 w-full text-l1 md:text-[4.2svw] text-xl leading-[1.3] md:leading-none font-display">
               I explore how to shape visual identities with craft and taste, building design solutions that resonate.
             </p>
@@ -142,7 +148,7 @@ export function Home() {
               </a>{' '}
               on event identities, campaign visuals, and editorial layouts.
             </p>
-          </div>
+          </motion.div>
         </section>
 
         {/* Projects */}

@@ -58,7 +58,12 @@ function Router() {
 
 function App() {
   useEffect(() => {
+    const scrollEl = document.querySelector('.scroll-container') as HTMLElement | undefined
+    if (!scrollEl) return
+
     const lenis = new Lenis({
+      wrapper: scrollEl,
+      content: scrollEl,
       duration: 1.0,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       orientation: 'vertical',
@@ -67,7 +72,7 @@ function App() {
       wheelMultiplier: 1.0,
       touchMultiplier: 2.0,
       infinite: false,
-      lerp: 0.08, // Slightly lower lerp for more immediate (less lag-inducing) response
+      lerp: 0.08,
     });
 
     function raf(time: number) {
