@@ -1,12 +1,12 @@
 export const SITE_URL = 'https://aadiilin.vercel.app'
-export const SITE_NAME = 'Aadiilin — Full-Stack Developer & Graphic Designer'
+export const SITE_NAME = 'Aadiilin — Freelance Graphic Designer'
 export const SITE_DESCRIPTION =
-  'Portfolio of Aadiilin (Adil Sarvadka), a B.Tech CSE student, full-stack web developer, graphic designer, AI enthusiast, and SaaS entrepreneur from Kerala, India. Creator of FestBoard, Savelio, and more.'
+  'Official portfolio of Aadiilin (Adil Sarvadka), a freelance graphic designer specializing in poster design, brand identity, campaign visuals, and art direction based in Kerala, India.'
 export const DEFAULT_OG_IMAGE = '/opengraph.jpg'
 export const SITE_LOCALE = 'en_IN'
 export const CREATOR_NAME = 'Aadiilin'
 export const CREATOR_ALTERNATE_NAME = 'Adil Sarvadka'
-export const CREATOR_JOB_TITLE = 'Full-Stack Developer & Graphic Designer'
+export const CREATOR_JOB_TITLE = 'Freelance Graphic Designer'
 export const CREATOR_EMAIL = 'adilsarvadka@gmail.com'
 export const CREATOR_PHONE = '+918137802554'
 export const CREATOR_LOCATION = 'Kasaragod, Kerala, India'
@@ -20,7 +20,7 @@ export const SOCIAL_LINKS = {
   pinterest: 'https://in.pinterest.com/aadiilin',
 }
 
-export const DESIGN_SKILLS = [
+export const SKILLS = [
   'Art Direction',
   'Brand Identity',
   'Poster Design',
@@ -29,32 +29,6 @@ export const DESIGN_SKILLS = [
   'Motion Graphics',
   'Packaging Design',
   'Visual Storytelling',
-]
-
-export const DEV_SKILLS = [
-  'Next.js',
-  'React',
-  'TypeScript',
-  'JavaScript',
-  'Tailwind CSS',
-  'Node.js',
-  'Firebase',
-  'Supabase',
-  'PostgreSQL',
-  'REST APIs',
-  'Authentication',
-  'SaaS Architecture',
-]
-
-export const TECH_INTERESTS = [
-  'Artificial Intelligence',
-  'Cyber Security',
-  'Cloud Computing',
-  'SaaS Development',
-  'UI/UX Design',
-  'Web Performance',
-  'Automation',
-  'DevOps',
 ]
 
 export interface Project {
@@ -70,42 +44,6 @@ export interface Project {
 }
 
 export const PROJECTS: Project[] = [
-  {
-    slug: 'festboard',
-    title: 'FestBoard',
-    role: 'SaaS Platform',
-    year: '2025',
-    description:
-      'A multi-tenant SaaS platform for schools, colleges, madrasas, and organizations to manage competitions and events. Features live scoreboard, result management, candidate portal, organization dashboard, analytics, subscription system, and shareable results with certificate generation.',
-    image: `${import.meta.env.BASE_URL}images/festboard.png`,
-    category: 'SaaS',
-    tags: ['SaaS', 'multi-tenant', 'events', 'competitions', 'live scoreboard'],
-    link: 'https://festboard.vercel.app',
-  },
-  {
-    slug: 'savelio',
-    title: 'Savelio',
-    role: 'Price Comparison Platform',
-    year: '2025',
-    description:
-      'An affiliate-based product price comparison platform helping users compare prices across leading Indian e-commerce websites including Amazon, Flipkart, Meesho, JioMart, and more. Features best deals, price history, and cashback information.',
-    image: `${import.meta.env.BASE_URL}images/savelio.png`,
-    category: 'E-Commerce',
-    tags: ['e-commerce', 'price comparison', 'affiliate', 'shopping'],
-    link: 'https://savelio.vercel.app',
-  },
-  {
-    slug: 'zakk-events',
-    title: 'Zakk Events',
-    role: 'Event Management',
-    year: '2025',
-    description:
-      'A modern event management platform for community and organizational events with online publishing, registration management, and administration dashboard.',
-    image: `${import.meta.env.BASE_URL}images/zakk-events.png`,
-    category: 'Event Management',
-    tags: ['events', 'management', 'registration', 'platform'],
-    link: 'https://zakkevents.vercel.app',
-  },
   {
     slug: 'imbizo',
     title: 'IMBIZO 1.0',
@@ -221,18 +159,3 @@ export const PROJECTS: Project[] = [
 export function findProjectBySlug(slug: string): Project | undefined {
   return PROJECTS.find((p) => p.slug === slug)
 }
-
-export const EDUCATION = {
-  degree: 'Bachelor of Technology (B.Tech)',
-  field: 'Computer Science and Engineering (Cyber Security)',
-  institution: 'Al Azhar College of Engineering and Technology',
-  location: 'Perumbillichira, Kerala',
-}
-
-export const LANGUAGES_SPOKEN = ['English', 'Malayalam', 'Arabic (Learning)']
-
-export const ABOUT_PARAGRAPHS = [
-  'I am a B.Tech CSE student specializing in Cyber Security, a full-stack web developer, graphic designer, and AI enthusiast from Kerala, India. I build modern web applications, AI-powered platforms, and scalable SaaS products that solve real-world problems.',
-  'My approach combines technical precision with creative design thinking. Whether it\'s developing a multi-tenant SaaS platform or crafting a brand identity, I focus on building experiences that are as functional as they are beautiful.',
-  'I am passionate about AI, cybersecurity, and entrepreneurship, and I am on a mission to build innovative products that improve education, businesses, and communities.',
-]
