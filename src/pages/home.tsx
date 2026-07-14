@@ -28,18 +28,35 @@ export function Home() {
   const y = useTransform(scrollYProgress, [0, 1], ["0%", "20%"]);
   const [selectedProject, setSelectedProject] = useState<typeof PROJECTS[0] | null>(null);
 
+  const personId = `${SITE_URL}#person`
+  const businessId = `${SITE_URL}#business`
+  const collectionId = `${SITE_URL}#collection`
+  const siteId = `${SITE_URL}#website`
+
+  const definedTermSetSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'DefinedTermSet',
+    '@id': `${SITE_URL}#skills`,
+    name: 'Aadiilin Skills & Expertise',
+    description: 'Complete taxonomy of technical and creative skills possessed by Aadiilin.',
+    hasDefinedTerm: [...DEV_SKILLS, ...DESIGN_SKILLS, ...TECH_INTERESTS].map((skill, i) => ({
+      '@type': 'DefinedTerm',
+      '@id': `${SITE_URL}#skill/${skill.toLowerCase().replace(/\s+/g, '-')}`,
+      name: skill,
+      inDefinedTermSet: `${SITE_URL}#skills`,
+      position: i + 1,
+    })),
+  }
+
   const websiteSchema = {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
+    '@id': siteId,
     name: SITE_NAME,
     url: SITE_URL,
     description: SITE_DESCRIPTION,
     inLanguage: 'en-IN',
-    publisher: {
-      '@type': 'Person',
-      name: CREATOR_NAME,
-      alternateName: CREATOR_ALTERNATE_NAME,
-    },
+    publisher: { '@id': personId },
     potentialAction: {
       '@type': 'SearchAction',
       target: {
@@ -48,15 +65,44 @@ export function Home() {
       },
       'query-input': 'required name=search_term_string',
     },
+    mainEntity: { '@id': personId },
+  }
+
+  const webPageSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    '@id': collectionId,
+    name: SITE_NAME,
+    description: SITE_DESCRIPTION,
+    url: SITE_URL,
+    isPartOf: { '@id': siteId },
+    about: { '@id': personId },
+    mainEntity: { '@id': `${SITE_URL}#item-list` },
+    mentions: [
+      { '@type': 'DefinedTermSet', '@id': `${SITE_URL}#skills` },
+      ...PROJECTS.map((p) => ({ '@type': 'CreativeWork', name: p.title, url: `${SITE_URL}/project/${p.slug}` })),
+    ],
+    hasPart: [
+      { '@type': 'WPHeader', name: 'Hero Section' },
+      { '@type': 'WPFooter', name: 'Footer' },
+      { '@type': 'SiteNavigationElement', name: 'Main Navigation' },
+      { '@type': 'ImageGallery', name: 'Portfolio Gallery' },
+    ],
+    speakable: {
+      '@type': 'SpeakableSpecification',
+      cssSelector: ['h1', 'h2', '.faq-question', '#about p'],
+    },
   }
 
   const personSchema = {
     '@context': 'https://schema.org',
     '@type': 'Person',
+    '@id': personId,
     name: CREATOR_NAME,
-    alternateName: CREATOR_ALTERNATE_NAME,
+    alternateName: [CREATOR_ALTERNATE_NAME, 'Mohammed Adil Sarvadka'],
     givenName: 'Adil',
     familyName: 'Sarvadka',
+    additionalName: 'Mohammed',
     jobTitle: CREATOR_JOB_TITLE,
     url: SITE_URL,
     image: `${SITE_URL}${CREATOR_IMAGE}`,
@@ -65,6 +111,11 @@ export function Home() {
     sameAs: Object.values(SOCIAL_LINKS).filter(Boolean),
     description: SITE_DESCRIPTION,
     knowsAbout: [...DESIGN_SKILLS, ...DEV_SKILLS, ...TECH_INTERESTS],
+    knows: [...DEV_SKILLS.slice(0, 6), ...DESIGN_SKILLS.slice(0, 4)].map((skill) => ({
+      '@type': 'DefinedTerm',
+      '@id': `${SITE_URL}#skill/${skill.toLowerCase().replace(/\s+/g, '-')}`,
+      name: skill,
+    })),
     address: {
       '@type': 'PostalAddress',
       addressLocality: 'Kasaragod',
@@ -80,37 +131,38 @@ export function Home() {
         addressCountry: 'IN',
       },
     },
-    nationality: {
-      '@type': 'Country',
-      name: 'IN',
-    },
+    nationality: { '@type': 'Country', name: 'IN' },
     hasOccupation: [
       {
         '@type': 'Occupation',
         name: 'Full-Stack Web Developer',
         description: 'Building modern web applications, SaaS platforms, and AI-powered solutions using Next.js, React, TypeScript, Node.js, and cloud technologies.',
-        skills: 'Next.js, React, TypeScript, JavaScript, Node.js, Firebase, Supabase, PostgreSQL, SaaS Architecture',
-        occupationLocation: {
-          '@type': 'City',
-          name: 'Kasaragod',
-        },
+        skills: DEV_SKILLS.join(', '),
+        occupationLocation: { '@type': 'City', name: 'Kasaragod' },
       },
       {
         '@type': 'Occupation',
         name: 'Graphic Designer',
         description: 'Creating brand identities, poster designs, campaign visuals, and editorial layouts with a focus on bold typography and visual storytelling.',
-        skills: 'Art Direction, Brand Identity, Typography, Editorial Layout, Motion Graphics',
-        occupationLocation: {
-          '@type': 'City',
-          name: 'Kasaragod',
-        },
+        skills: DESIGN_SKILLS.join(', '),
+        occupationLocation: { '@type': 'City', name: 'Kasaragod' },
       },
     ],
+    memberOf: {
+      '@type': 'CollegeOrUniversity',
+      name: EDUCATION.institution,
+    },
+    seeks: {
+      '@type': 'Demand',
+      name: 'Freelance Projects & Collaborations',
+      description: 'Actively seeking web development, graphic design, and SaaS development projects.',
+    },
   }
 
   const faqSchema = {
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
+    '@id': `${SITE_URL}#faq`,
     mainEntity: [
       {
         '@type': 'Question',
@@ -179,17 +231,30 @@ export function Home() {
     ],
   }
 
+  const imageGallerySchema = {
+    '@context': 'https://schema.org',
+    '@type': 'ImageGallery',
+    '@id': `${SITE_URL}#gallery`,
+    name: 'Aadiilin Portfolio Gallery',
+    description: 'Graphic design portfolio showcasing poster designs, brand identities, campaign visuals, and editorial layouts.',
+    url: SITE_URL,
+    author: { '@id': personId },
+    mainEntityOfPage: { '@id': collectionId },
+    image: PROJECTS.filter(p => !['SaaS', 'E-Commerce', 'Event Management'].includes(p.category || '')).map(p => ({
+      '@type': 'ImageObject',
+      url: `${SITE_URL}${p.image}`,
+      caption: `${p.title} — ${p.role} by Aadiilin`,
+      representativeOfPage: false,
+    })),
+  }
+
   const serviceSchema = {
     '@context': 'https://schema.org',
     '@type': 'Service',
+    '@id': `${SITE_URL}#service`,
     name: 'Web Development & Graphic Design Services by Aadiilin',
     description: 'Professional web development and graphic design services including full-stack web development, SaaS platform development, poster design, brand identity, campaign visuals, and editorial layout.',
-    provider: {
-      '@type': 'Person',
-      name: CREATOR_NAME,
-      alternateName: CREATOR_ALTERNATE_NAME,
-      url: SITE_URL,
-    },
+    provider: { '@id': personId },
     areaServed: [
       { '@type': 'City', name: 'Kasaragod' },
       { '@type': 'City', name: 'Calicut' },
@@ -218,32 +283,13 @@ export function Home() {
     ],
   }
 
-  const speakableSchema = {
-    '@context': 'https://schema.org',
-    '@type': 'WebPage',
-    name: SITE_NAME,
-    url: SITE_URL,
-    speakable: {
-      '@type': 'SpeakableSpecification',
-      cssSelector: ['h1', 'h2', '.faq-question', '#about p'],
-    },
-  }
-
-  const imageObjectSchema = {
-    '@context': 'https://schema.org',
-    '@type': 'ImageObject',
-    url: `${SITE_URL}/opengraph.jpg`,
-    width: 1200,
-    height: 630,
-    caption: `${CREATOR_NAME} — ${CREATOR_JOB_TITLE} Portfolio`,
-    representativeOfPage: true,
-  }
-
   const creativeWorkSchemas = PROJECTS.map((project) => {
     const isSoftware = ['SaaS', 'E-Commerce', 'Event Management'].includes(project.category || '')
+    const projectId = `${SITE_URL}/project/${project.slug}#creative-work`
     return {
       '@context': 'https://schema.org',
       '@type': isSoftware ? 'SoftwareApplication' : 'CreativeWork',
+      '@id': projectId,
       name: project.title,
       description: project.description,
       url: `${SITE_URL}/project/${project.slug}`,
@@ -251,28 +297,21 @@ export function Home() {
       ...(isSoftware ? {
         applicationCategory: project.category,
         operatingSystem: 'Web',
-        offers: {
-          '@type': 'Offer',
-          price: '0',
-          priceCurrency: 'USD',
-        },
+        offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
       } : {}),
-      creator: {
-        '@type': 'Person',
-        name: CREATOR_NAME,
-        url: SITE_URL,
-      },
+      creator: { '@id': personId },
       dateCreated: project.year,
       keywords: [project.role, CREATOR_NAME, ...(project.tags || [])].join(', '),
       genre: project.category || project.role,
-      about: project.description,
+      about: { '@id': personId },
+      isPartOf: { '@id': collectionId },
     }
   })
 
   const localBusinessSchema = {
     '@context': 'https://schema.org',
     '@type': ['LocalBusiness', 'ProfessionalService'],
-    '@id': `${SITE_URL}#business`,
+    '@id': businessId,
     name: CREATOR_NAME,
     alternateName: CREATOR_ALTERNATE_NAME,
     description: SITE_DESCRIPTION,
@@ -283,7 +322,7 @@ export function Home() {
     telephone: CREATOR_PHONE,
     priceRange: '$$',
     areaServed: [
-      { '@type': 'City', name: 'Kasaradod' },
+      { '@type': 'City', name: 'Kasaragod' },
       { '@type': 'City', name: 'Calicut' },
       { '@type': 'State', name: 'Kerala' },
       { '@type': 'Country', name: 'IN' },
@@ -308,26 +347,18 @@ export function Home() {
     },
     sameAs: Object.values(SOCIAL_LINKS).filter(Boolean),
     foundingDate: '2024',
-    founder: {
-      '@type': 'Person',
-      name: 'Mohammed Adil Sarvadka',
-      alternateName: CREATOR_ALTERNATE_NAME,
-      url: SITE_URL,
-    },
-    hasOfferCatalog: {
-      '@type': 'OfferCatalog',
-      name: 'Services',
-      itemListElement: [...DESIGN_SKILLS, ...DEV_SKILLS].map((skill, i) => ({
-        '@type': 'Offer',
-        itemOffered: { '@type': 'Service', name: skill },
-        position: i + 1,
-      })),
+    founder: { '@id': personId },
+    makesOffer: { '@id': `${SITE_URL}#service` },
+    parentOrganization: {
+      '@type': 'CollegeOrUniversity',
+      name: EDUCATION.institution,
     },
   }
 
   const contactPointSchema = {
     '@context': 'https://schema.org',
     '@type': 'ContactPoint',
+    '@id': `${SITE_URL}#contact`,
     name: `${CREATOR_NAME} Contact`,
     url: SITE_URL,
     email: CREATOR_EMAIL,
@@ -335,15 +366,23 @@ export function Home() {
     contactType: 'customer service',
     availableLanguage: ['English', 'Malayalam', 'Hindi'],
     areaServed: 'IN',
+    hoursAvailable: {
+      '@type': 'OpeningHoursSpecification',
+      dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+      opens: '09:00',
+      closes: '18:00',
+    },
   }
 
   const itemListSchema = {
     '@context': 'https://schema.org',
     '@type': 'ItemList',
+    '@id': `${SITE_URL}#item-list`,
     name: `${CREATOR_NAME} — Portfolio Projects`,
     description: 'A curated collection of web development, SaaS products, and graphic design projects by Aadiilin.',
     url: SITE_URL,
     numberOfItems: PROJECTS.length,
+    mainEntityOfPage: { '@id': collectionId },
     itemListElement: PROJECTS.map((project, i) => ({
       '@type': 'ListItem',
       position: i + 1,
@@ -354,26 +393,10 @@ export function Home() {
     })),
   }
 
-  const collectionPageSchema = {
-    '@context': 'https://schema.org',
-    '@type': 'CollectionPage',
-    name: SITE_NAME,
-    description: SITE_DESCRIPTION,
-    url: SITE_URL,
-    mainEntity: {
-      '@type': 'ItemList',
-      url: SITE_URL,
-      numberOfItems: PROJECTS.length,
-    },
-    about: {
-      '@type': 'Person',
-      name: CREATOR_NAME,
-    },
-  }
-
   const howToSchema = {
     '@context': 'https://schema.org',
     '@type': 'HowTo',
+    '@id': `${SITE_URL}#how-to-work`,
     name: 'How to Work with Aadiilin',
     description: 'The process of collaborating with Aadiilin on a web development or graphic design project.',
     step: [
@@ -407,28 +430,38 @@ export function Home() {
   const educationSchema = {
     '@context': 'https://schema.org',
     '@type': 'CollegeOrUniversity',
+    '@id': `${SITE_URL}#education`,
     name: EDUCATION.institution,
     description: `${CREATOR_NAME} is pursuing ${EDUCATION.degree} in ${EDUCATION.field} at ${EDUCATION.institution}, ${EDUCATION.location}.`,
     url: SITE_URL,
-    alumni: {
-      '@type': 'Person',
-      name: CREATOR_NAME,
-      alternateName: CREATOR_ALTERNATE_NAME,
-    },
+    alumni: { '@id': personId },
+  }
+
+  const imageObjectSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'ImageObject',
+    '@id': `${SITE_URL}#og-image`,
+    url: `${SITE_URL}/opengraph.jpg`,
+    width: 1200,
+    height: 630,
+    caption: `${CREATOR_NAME} — ${CREATOR_JOB_TITLE} Portfolio`,
+    representativeOfPage: true,
+    author: { '@id': personId },
   }
 
   const allSchemas = [
+    definedTermSetSchema,
     websiteSchema,
+    webPageSchema,
     personSchema,
     localBusinessSchema,
     contactPointSchema,
     educationSchema,
     faqSchema,
+    imageGallerySchema,
     serviceSchema,
     howToSchema,
-    speakableSchema,
     imageObjectSchema,
-    collectionPageSchema,
     itemListSchema,
     ...creativeWorkSchemas,
   ]
