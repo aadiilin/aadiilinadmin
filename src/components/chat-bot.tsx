@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { X, Send, Sparkles, MessageSquare } from "lucide-react"
+import { X, Send, Sparkles } from "lucide-react"
 
 interface Message {
   role: "user" | "bot"
@@ -82,10 +82,15 @@ export function ChatBot() {
     <>
       <button
         onClick={() => setOpen(!open)}
-        className="fixed bottom-6 right-6 z-[90] w-12 h-12 rounded-full flex items-center justify-center shadow-lg transition-all duration-200 bg-surface border border-line hover:border-faint"
+        className="fixed bottom-6 right-6 z-[90] flex items-center gap-1.5 px-4 py-2.5 rounded-full bg-text text-white text-sm font-medium shadow-lg hover:opacity-90 transition-opacity"
         aria-label="Toggle chat"
       >
-        {open ? <X size={18} className="text-text" /> : <MessageSquare size={18} className="text-text" />}
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M12 2a4 4 0 014 4c0 2-2 3-2 5h-4c0-2-2-3-2-5a4 4 0 014-4z" />
+          <path d="M8 14h8" />
+          <path d="M9 18h6" />
+        </svg>
+        Ask AI
       </button>
 
       <AnimatePresence>
