@@ -265,9 +265,11 @@ export function Home() {
 
           <Reveal delay={0.2} className="md:col-span-2 md:mt-0 mt-8">
             <div className="aspect-[3/4] bg-surface rounded-2xl border border-line/50 overflow-hidden">
-              <div className="w-full h-full bg-gradient-to-br from-yellow/20 via-surface to-subtle flex items-center justify-center">
-                <span className="font-heading font-bold text-6xl text-faint select-none">A</span>
-              </div>
+              <img
+                src={`${import.meta.env.BASE_URL}images/adil-portrait.jpg`}
+                alt="Aadiilin"
+                className="w-full h-full object-cover"
+              />
             </div>
           </Reveal>
         </div>
