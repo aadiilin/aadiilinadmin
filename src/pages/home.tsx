@@ -307,6 +307,13 @@ export function Home() {
       closes: '18:00',
     },
     sameAs: Object.values(SOCIAL_LINKS).filter(Boolean),
+    foundingDate: '2024',
+    founder: {
+      '@type': 'Person',
+      name: 'Mohammed Adil Sarvadka',
+      alternateName: CREATOR_ALTERNATE_NAME,
+      url: SITE_URL,
+    },
     hasOfferCatalog: {
       '@type': 'OfferCatalog',
       name: 'Services',
