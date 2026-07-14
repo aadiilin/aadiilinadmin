@@ -2,7 +2,7 @@
 import { motion, AnimatePresence } from "framer-motion"
 import { Instagram, Linkedin, Github, Menu, X } from "lucide-react"
 import { FaWhatsapp } from "react-icons/fa"
-import { useState } from "react"
+import { useState, ReactNode } from "react"
 import { CanvasBackground } from "@/components/canvas-background"
 import { ScrollProgress } from "@/components/scroll-progress"
 import { Clock } from "@/components/clock"
@@ -23,13 +23,28 @@ const PROJECTS = [
   { slug: "token-of-love-poster", title: "Token Of Love Poster", role: "Poster Design", year: "2025", category: "Graphic Design", image: `${import.meta.env.BASE_URL}images/Token_Of_Love_Poster.jpg` },
 ]
 
+function Reveal({ children, delay = 0, className = "" }: { children: ReactNode; delay?: number; className?: string }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 8 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-40px" }}
+      transition={{ duration: 0.7, delay, ease: [0.25, 1, 0.5, 1] }}
+      className={className}
+    >
+      {children}
+    </motion.div>
+  )
+}
+
 export function Home() {
   const [menuOpen, setMenuOpen] = useState(false)
   const [selectedProject, setSelectedProject] = useState<typeof PROJECTS[0] | null>(null)
 
   return (
     <div className="min-h-screen bg-bg text-l1 overflow-hidden selection:bg-selection selection:text-black">
-      <CanvasBackground />
+      <div className="z-30 fixed inset-0 pointer-events-none"><CanvasBackground /></div>
+      <div className="-z-1 fixed inset-0"><CanvasBackground /></div>
       <ScrollProgress />
       <ChatBot />
 
@@ -68,15 +83,15 @@ export function Home() {
         )}
       </AnimatePresence>
 
-      {/* Fixed header */}
-      <header className="z-50 fixed inset-0 flex flex-col justify-between font-mono pointer-events-none text-l1">
+      {/* Header */}
+      <header className="z-50 fixed inset-0 flex flex-col justify-between font-mono pointer-events-none text-l1 transition-colors duration-300 ease-out">
         <div className="flex justify-between items-center px-4 lg:px-14 py-4 lg:py-7 text-base">
-          <Link href="/" className="border-dotted-hover p-2 font-sans font-bold uppercase pointer-events-auto">
-            aadiilin
-          </Link>
+          <Link href="/" className="border-dotted-hover p-2 font-sans font-bold uppercase pointer-events-auto">aadiilin</Link>
           <div className="hidden lg:flex flex-wrap justify-between items-center gap-x-3 gap-y-2 pointer-events-auto">
             <a href="#work" className="border-dotted-hover p-2 uppercase cursor-pointer">Work</a>
             <a href="#contact" className="border-dotted-hover p-2 uppercase cursor-pointer">Contact</a>
+            <span className="border-dotted-hover p-2 uppercase cursor-pointer pointer-events-auto">THEME[A]</span>
+            <span className="border-dotted-hover p-2 uppercase cursor-pointer pointer-events-auto">SOUND[|]</span>
           </div>
           <button onClick={() => setMenuOpen(!menuOpen)} className="lg:hidden border-dotted-hover p-2 uppercase cursor-pointer pointer-events-auto">
             {menuOpen ? <X size={16} /> : <Menu size={16} />}
@@ -85,12 +100,7 @@ export function Home() {
 
         <AnimatePresence>
           {menuOpen && (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="lg:hidden fixed inset-0 z-40 bg-bg flex flex-col items-center justify-center gap-8"
-            >
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="lg:hidden fixed inset-0 z-40 bg-bg flex flex-col items-center justify-center gap-8">
               <a href="#work" onClick={() => setMenuOpen(false)} className="text-4xl font-display font-bold uppercase">Work</a>
               <a href="#contact" onClick={() => setMenuOpen(false)} className="text-4xl font-display font-bold uppercase">Contact</a>
             </motion.div>
@@ -107,7 +117,7 @@ export function Home() {
       <div className="scroll-container fixed inset-0 w-full h-full overflow-y-auto overscroll-contain no-scrollbar">
         {/* Hero */}
         <section className="grid grid-cols-12 grid-rows-[auto_1fr] px-4 lg:px-14 py-18 lg:py-24 w-full h-dvh lg:h-screen">
-          <div className="flex flex-col order-2 lg:order-1 lg:grid lg:grid-cols-12 col-span-12 font-mono text-base">
+          <Reveal className="flex flex-col order-2 lg:order-1 lg:grid lg:grid-cols-12 col-span-12 font-mono text-base">
             <span className="hidden lg:block lg:col-span-3 xl:col-span-2 lg:col-start-1 xl:col-start-1 p-2 font-sans font-medium text-[4svw] sm:text-2xl lg:text-3xl leading-tight">
               Graphic<br />Design
             </span>
@@ -117,27 +127,21 @@ export function Home() {
             <span className="col-span-12 lg:col-span-6 xl:col-span-4 lg:col-start-7 xl:col-start-9 mt-auto lg:mt-0 p-2">
               I'm Aadiilin, a freelance graphic designer from Kasaragod, Kerala — crafting brand identities, poster design, campaign visuals, and art direction.
             </span>
-          </div>
-          <div className="flex flex-col self-end order-1 lg:order-2 col-span-12 px-2 font-bold text-[7.2svw] lg:text-[6svw] 2xl:text-[5svw] xl:text-[5.6svw] uppercase leading-none font-display">
-            <motion.span initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.2, ease: [0.25, 0.1, 0.25, 1] }}>I bring</motion.span>
-            <motion.span initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.4, ease: [0.25, 0.1, 0.25, 1] }}>ideas to life</motion.span>
-            <motion.span initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.6, ease: [0.25, 0.1, 0.25, 1] }}>through design</motion.span>
-          </div>
+          </Reveal>
+          <Reveal delay={0.2} className="flex flex-col self-end order-1 lg:order-2 col-span-12 px-2 font-bold text-[7.2svw] lg:text-[6svw] 2xl:text-[5svw] xl:text-[5.6svw] uppercase leading-none font-display">
+            <span style={{ fontVariationSettings: "'wdth' 120" }}>I bring</span>
+            <span style={{ fontVariationSettings: "'wdth' 120" }}>ideas to life</span>
+            <span style={{ fontVariationSettings: "'wdth' 120" }}>through design</span>
+          </Reveal>
         </section>
 
         {/* About */}
         <section className="grid grid-cols-12 px-4 lg:px-14 py-18 lg:py-24 lg:pb-28 w-full">
-          <div className="relative col-span-12 sm:col-span-4 lg:col-span-3 p-2">
+          <Reveal className="relative col-span-12 sm:col-span-4 lg:col-span-3 p-2">
             <SignatureSVG />
             <div className="aspect-square" />
-          </div>
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.7, ease: [0.25, 0.1, 0.25, 1] }}
-            className="flex flex-col justify-start items-start gap-6 col-span-12 sm:col-span-7 lg:col-span-8 sm:col-start-6 lg:col-start-5 text-base lg:text-xl leading-none"
-          >
+          </Reveal>
+          <Reveal delay={0.15} className="flex flex-col justify-start items-start gap-6 col-span-12 sm:col-span-7 lg:col-span-8 sm:col-start-6 lg:col-start-5 text-base lg:text-xl leading-none">
             <p className="p-2 w-full text-l1 md:text-[4.2svw] text-xl leading-[1.3] md:leading-none font-display">
               I explore how to shape visual identities with craft and taste, building design solutions that resonate.
             </p>
@@ -148,7 +152,7 @@ export function Home() {
               </a>{' '}
               on event identities, campaign visuals, and editorial layouts.
             </p>
-          </motion.div>
+          </Reveal>
         </section>
 
         {/* Projects */}
@@ -168,7 +172,7 @@ export function Home() {
                 "col-span-6 lg:col-start-9 lg:col-span-4 xl:col-start-10 xl:col-span-3",
               ]
               return (
-                <article key={project.slug} className={spans[i] || "col-span-12 lg:col-span-6"}>
+                <Reveal key={project.slug} delay={i * 0.04} className={spans[i] || "col-span-12 lg:col-span-6"}>
                   <button onClick={() => setSelectedProject(project)} className="group block space-y-3 p-2 text-left w-full">
                     <div aria-hidden className="relative w-full pointer-events-none select-none" style={{ aspectRatio: "1 / 1" }}>
                       <span className="absolute top-0 right-0 z-10 bg-selection px-1 font-mono text-black text-xs uppercase pointer-events-none select-none">
@@ -186,57 +190,48 @@ export function Home() {
                       </div>
                     </div>
                   </button>
-                </article>
+                </Reveal>
               )
             })}
           </div>
         </section>
 
         {/* Divider */}
-        <div className="relative transition-colors duration-300 text-l1" style={{ height: "8px" }}>
-          <div className="top-0 sticky grid grid-cols-12 grid-rows-6 px-4 lg:px-14 py-18 lg:py-24 w-full" style={{ minHeight: "1px" }}>
-            <div className="flex flex-col justify-center items-center col-span-12 row-span-6 font-bold text-[7.2svw] lg:text-[6.8svw] uppercase leading-none font-display">
-              <span>Create</span>
-              <span>with</span>
-              <span>purpose</span>
-            </div>
-          </div>
-        </div>
-
-        {/* Contact */}
-        <footer id="contact" className="z-10 relative flex flex-col justify-center p-6 lg:p-16 w-full h-dvh lg:h-screen pointer-events-none">
-          <div className="gap-2 grid grid-cols-12 font-bold text-[7.2svw] lg:text-[6svw] 2xl:text-[5svw] xl:text-[5.6svw] uppercase leading-none font-display">
-            <span className="col-span-6 md:col-span-5 xl:col-span-4 md:col-start-2 xl:col-start-3 text-left pointer-events-auto">Let's</span>
-            <span className="col-span-6 md:col-span-5 xl:col-span-4 text-right pointer-events-auto">Create</span>
-          </div>
-          <div className="gap-2 grid grid-cols-12 font-bold text-[7.2svw] lg:text-[6svw] 2xl:text-[5svw] xl:text-[5.6svw] uppercase leading-none font-display">
-            <span className="col-span-12 md:col-start-2 xl:col-start-3 text-left pointer-events-auto">Something</span>
-          </div>
-          <div className="gap-2 grid grid-cols-12 font-bold text-[7.2svw] lg:text-[6svw] 2xl:text-[5svw] xl:text-[5.6svw] uppercase leading-none font-display">
-            <span className="col-span-12 md:col-end-12 xl:col-end-11 text-right pointer-events-auto">Extraordinary</span>
-          </div>
-
-          <div className="absolute inset-0 flex flex-col justify-end px-4 lg:px-14 py-18 lg:py-24 font-mono text-sm lg:text-base">
-            <div className="flex lg:flex-row flex-col justify-between w-full">
-              <a href="mailto:adilsarvadka@gmail.com" className="border-dotted-hover p-2 uppercase pointer-events-auto">
-                adilsarvadka@gmail.com
-              </a>
-              <div className="flex flex-row items-center gap-2 lg:gap-4">
-                <a href="https://www.instagram.com/aadiil.in" target="_blank" rel="noopener noreferrer" className="border-dotted-hover p-2 uppercase pointer-events-auto flex items-center gap-1">
-                  Instagram
-                </a>
-                <a href="https://wa.me/918137802554" target="_blank" rel="noopener noreferrer" className="border-dotted-hover p-2 uppercase pointer-events-auto flex items-center gap-1">
-                  WhatsApp
-                </a>
-                <a href="https://www.linkedin.com/in/adil-sarvadka-51282a406" target="_blank" rel="noopener noreferrer" className="border-dotted-hover p-2 uppercase pointer-events-auto flex items-center gap-1">
-                  LinkedIn
-                </a>
-                <a href="https://github.com/aadiilin" target="_blank" rel="noopener noreferrer" className="border-dotted-hover p-2 uppercase pointer-events-auto flex items-center gap-1">
-                  GitHub
-                </a>
+        <Reveal>
+          <div className="relative transition-colors duration-300 text-l1" style={{ height: "8px" }}>
+            <div className="top-0 sticky grid grid-cols-12 grid-rows-6 px-4 lg:px-14 py-18 lg:py-24 w-full" style={{ minHeight: "1px" }}>
+              <div className="flex flex-col justify-center items-center col-span-12 row-span-6 font-bold text-[7.2svw] lg:text-[6.8svw] uppercase leading-none font-display">
+                <span style={{ fontVariationSettings: "'wdth' 120" }}>Create</span>
+                <span style={{ fontVariationSettings: "'wdth' 120" }}>with</span>
+                <span style={{ fontVariationSettings: "'wdth' 120" }}>purpose</span>
               </div>
             </div>
           </div>
+        </Reveal>
+
+        {/* Contact */}
+        <footer id="contact" className="z-10 relative flex flex-col justify-center p-6 lg:p-16 w-full h-dvh lg:h-screen pointer-events-none">
+          <Reveal className="gap-2 grid grid-cols-12 font-bold text-[7.2svw] lg:text-[6svw] 2xl:text-[5svw] xl:text-[5.6svw] uppercase leading-none font-display">
+            <span className="col-span-6 md:col-span-5 xl:col-span-4 md:col-start-2 xl:col-start-3 text-left pointer-events-auto" style={{ fontVariationSettings: "'wdth' 120" }}>Let's</span>
+            <span className="col-span-6 md:col-span-5 xl:col-span-4 text-right pointer-events-auto" style={{ fontVariationSettings: "'wdth' 120" }}>Create</span>
+          </Reveal>
+          <Reveal delay={0.1} className="gap-2 grid grid-cols-12 font-bold text-[7.2svw] lg:text-[6svw] 2xl:text-[5svw] xl:text-[5.6svw] uppercase leading-none font-display">
+            <span className="col-span-12 md:col-start-2 xl:col-start-3 text-left pointer-events-auto" style={{ fontVariationSettings: "'wdth' 120" }}>Something</span>
+          </Reveal>
+          <Reveal delay={0.2} className="gap-2 grid grid-cols-12 font-bold text-[7.2svw] lg:text-[6svw] 2xl:text-[5svw] xl:text-[5.6svw] uppercase leading-none font-display">
+            <span className="col-span-12 md:col-end-12 xl:col-end-11 text-right pointer-events-auto" style={{ fontVariationSettings: "'wdth' 120" }}>Extraordinary</span>
+          </Reveal>
+          <Reveal delay={0.3} className="absolute inset-0 flex flex-col justify-end px-4 lg:px-14 py-18 lg:py-24 font-mono text-sm lg:text-base">
+            <div className="flex lg:flex-row flex-col justify-between w-full">
+              <a href="mailto:adilsarvadka@gmail.com" className="border-dotted-hover p-2 uppercase pointer-events-auto">adilsarvadka@gmail.com</a>
+              <div className="flex flex-row items-center gap-2 lg:gap-4">
+                <a href="https://www.instagram.com/aadiil.in" target="_blank" rel="noopener noreferrer" className="border-dotted-hover p-2 uppercase pointer-events-auto flex items-center gap-1">Instagram</a>
+                <a href="https://wa.me/918137802554" target="_blank" rel="noopener noreferrer" className="border-dotted-hover p-2 uppercase pointer-events-auto flex items-center gap-1">WhatsApp</a>
+                <a href="https://www.linkedin.com/in/adil-sarvadka-51282a406" target="_blank" rel="noopener noreferrer" className="border-dotted-hover p-2 uppercase pointer-events-auto flex items-center gap-1">LinkedIn</a>
+                <a href="https://github.com/aadiilin" target="_blank" rel="noopener noreferrer" className="border-dotted-hover p-2 uppercase pointer-events-auto flex items-center gap-1">GitHub</a>
+              </div>
+            </div>
+          </Reveal>
         </footer>
       </div>
     </div>

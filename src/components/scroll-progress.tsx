@@ -34,7 +34,7 @@ export function ScrollProgress() {
 
   return (
     <div
-      className="fixed left-1/2 top-1/2 z-40 flex h-1 w-[140px] -translate-x-1/2 -translate-y-1/2 items-center pointer-events-none"
+      className="fixed left-1/2 top-1/2 z-40 flex h-1.5 w-[140px] -translate-x-1/2 -translate-y-1/2 items-center pointer-events-none"
       style={{ opacity: visible ? 1 : 0, transition: "opacity 250ms cubic-bezier(0.25, 1, 0.5, 1)" }}
       aria-hidden
     >
