@@ -1,9 +1,10 @@
 ﻿import { Link } from "wouter"
 import { motion, AnimatePresence } from "framer-motion"
 import { useState, useEffect, ReactNode } from "react"
-import { X, Menu, ExternalLink, Mail } from "lucide-react"
+import { X, Menu, ExternalLink, Mail, Send } from "lucide-react"
 import { ChatBot } from "@/components/chat-bot"
 import { FABBackground } from "@/components/fab-background"
+import { ContactForm } from "@/components/contact-form"
 import { SEO } from "@/components/seo"
 
 const PROJECTS = [
@@ -275,8 +276,24 @@ export function Home() {
         </div>
       </section>
 
+      {/* Contact Form */}
+      <section id="contact" className="max-w-6xl mx-auto px-6 pb-20 sm:pb-24">
+        <Reveal>
+          <div className="flex items-center gap-4 mb-10">
+            <span className="font-mono text-xs text-muted uppercase tracking-widest">04</span>
+            <h2 className="font-heading font-bold text-2xl sm:text-3xl tracking-tight">Get in Touch</h2>
+            <div className="flex-1 h-px bg-line" />
+          </div>
+        </Reveal>
+        <div className="max-w-xl">
+          <Reveal delay={0.05}>
+            <ContactForm />
+          </Reveal>
+        </div>
+      </section>
+
       {/* Footer */}
-      <footer id="contact" className="border-t border-line bg-subtle">
+      <footer className="border-t border-line bg-subtle">
         <div className="max-w-6xl mx-auto px-6 py-16 sm:py-20">
           <Reveal>
             <p className="font-mono text-sm text-muted">That's the work. Here's the awkward reaching out part.</p>
