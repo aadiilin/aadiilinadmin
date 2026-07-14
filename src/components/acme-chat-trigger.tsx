@@ -43,12 +43,8 @@ export function AcmeChatTrigger({ onToggle, open }: AcmeChatTriggerProps) {
       className="fixed bottom-6 right-6 z-[90] w-[172px] h-[196px] rounded-2xl shadow-lg overflow-hidden border border-white/20 hover:border-white/40 transition-all duration-300 text-left cursor-pointer"
       aria-label="Toggle chat"
     >
-      {/* Gradient background */}
-      <div className="absolute inset-0 bg-[#F0ECF5]" />
-      <div className="absolute -top-12 -left-12 w-36 h-36 rounded-full bg-[#CBD1F7] opacity-60 blur-3xl" />
-      <div className="absolute -top-8 -right-8 w-28 h-28 rounded-full bg-[#C29BE4] opacity-50 blur-3xl" />
-      <div className="absolute -bottom-8 -left-8 w-28 h-28 rounded-full bg-[#E9ACC5] opacity-50 blur-3xl" />
-      <div className="absolute -bottom-10 -right-10 w-32 h-32 rounded-full bg-[#E67C8F] opacity-60 blur-3xl" />
+      {/* Flat background */}
+      <div className="absolute inset-0 bg-[#E8E4DE]" />
 
       {/* Content */}
       <div className="relative z-10 p-4 h-full flex flex-col">
