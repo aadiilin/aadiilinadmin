@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "framer-motion"
 import { useState, useEffect, ReactNode } from "react"
 import { X, Menu, ExternalLink, Mail } from "lucide-react"
 import { ChatBot } from "@/components/chat-bot"
+import { LottiePlayer } from "@/components/lottie-player"
 import { SEO } from "@/components/seo"
 
 const PROJECTS = [
@@ -228,11 +229,51 @@ export function Home() {
         </div>
       </section>
 
+      {/* Motion */}
+      <section id="motion" className="max-w-6xl mx-auto px-6 pb-20 sm:pb-24">
+        <Reveal>
+          <div className="flex items-center gap-4 mb-10">
+            <span className="font-mono text-xs text-muted uppercase tracking-widest">02</span>
+            <h2 className="font-heading font-bold text-2xl sm:text-3xl tracking-tight">Motion</h2>
+            <div className="flex-1 h-px bg-line" />
+          </div>
+        </Reveal>
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
+          <Reveal delay={0.05}>
+            <div className="bg-surface rounded-2xl overflow-hidden border border-line/50">
+              <LottiePlayer src="/lottie/fab-menu.json" className="w-full aspect-square" />
+              <div className="p-4 border-t border-line/50">
+                <h3 className="font-heading font-bold text-sm tracking-tight">FAB Menu</h3>
+                <p className="font-mono text-xs text-muted mt-1">Expand / collapse interaction</p>
+              </div>
+            </div>
+          </Reveal>
+          <Reveal delay={0.1}>
+            <div className="bg-surface rounded-2xl overflow-hidden border border-line/50">
+              <LottiePlayer src="/lottie/gradient-bg.json" className="w-full aspect-square" />
+              <div className="p-4 border-t border-line/50">
+                <h3 className="font-heading font-bold text-sm tracking-tight">Gradient BG</h3>
+                <p className="font-mono text-xs text-muted mt-1">Ambient mesh background</p>
+              </div>
+            </div>
+          </Reveal>
+          <Reveal delay={0.15}>
+            <div className="bg-surface rounded-2xl overflow-hidden border border-line/50">
+              <LottiePlayer src="/lottie/ai-chat.json" className="w-full aspect-square" />
+              <div className="p-4 border-t border-line/50">
+                <h3 className="font-heading font-bold text-sm tracking-tight">AI Chat Demo</h3>
+                <p className="font-mono text-xs text-muted mt-1">Product UI mockup</p>
+              </div>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
       {/* About */}
       <section id="about" className="max-w-6xl mx-auto px-6 pb-20 sm:pb-24">
         <Reveal>
           <div className="flex items-center gap-4 mb-10">
-            <span className="font-mono text-xs text-muted uppercase tracking-widest">02</span>
+            <span className="font-mono text-xs text-muted uppercase tracking-widest">03</span>
             <h2 className="font-heading font-bold text-2xl sm:text-3xl tracking-tight">About</h2>
             <div className="flex-1 h-px bg-line" />
           </div>
