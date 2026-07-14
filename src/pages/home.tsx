@@ -29,7 +29,7 @@ const SKILLS = [
 const MARQUEE_ITEMS = [...SKILLS, ...SKILLS]
 
 const STATS = [
-  { value: "3+", label: "Years Designing" },
+  { value: "1+", label: "Years Designing" },
   { value: "10+", label: "Projects Delivered" },
   { value: "5+", label: "Brands Served" },
   { value: "0", label: "Shortcuts Taken" },
