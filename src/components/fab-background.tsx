@@ -35,7 +35,7 @@ const containerVariants = {
   },
 }
 
-export function FABBackground() {
+export function FABBackground({ hidden = false }: { hidden?: boolean }) {
   const [phase, setPhase] = useState<"idle" | "expanded" | "collapsing" | "paused">("idle")
 
   useEffect(() => {
@@ -64,7 +64,7 @@ export function FABBackground() {
       variants={containerVariants}
       initial="initial"
       animate="animate"
-      className="fixed inset-0 pointer-events-none z-40 flex items-start justify-start"
+      className={`fixed inset-0 pointer-events-none z-40 flex items-start justify-start transition-opacity duration-300 ${hidden ? "opacity-0" : "opacity-100"}`}
     >
       <div className="relative mt-20 ml-6">
         {/* Main FAB */}

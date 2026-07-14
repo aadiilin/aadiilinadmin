@@ -60,7 +60,7 @@ export function Home() {
 
   return (
     <div className="min-h-screen bg-bg text-text overflow-x-hidden">
-      <FABBackground />
+      <FABBackground hidden={selectedProject !== null} />
       <SEO />
 
       {/* Lightbox */}
