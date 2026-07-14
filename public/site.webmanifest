@@ -1,11 +1,11 @@
 {
-  "name": "Aadiilin — Full-Stack Developer & Graphic Designer",
+  "name": "Aadiilin — Freelance Graphic Designer",
   "short_name": "Aadiilin",
-  "description": "Portfolio of Aadiilin (Adil Sarvadka), a B.Tech CSE student, full-stack web developer, graphic designer, and SaaS entrepreneur from Kerala.",
+  "description": "Portfolio of Aadiilin (Adil Sarvadka), a freelance graphic designer from Kerala specializing in poster design, brand identity, and campaign visuals.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#0f1111",
-  "theme_color": "#0f1111",
+  "background_color": "#F2EEE3",
+  "theme_color": "#F2EEE3",
   "icons": [
     {
       "src": "/icon-192.png",

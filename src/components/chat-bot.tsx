@@ -22,7 +22,7 @@ const RESPONSES: { keywords: string[]; reply: string }[] = [
   },
   {
     keywords: ["price", "cost", "rate", "hire", "charge"],
-    reply: "For project inquiries and pricing, please reach out via the contact form on this site or email adilsarvadka@gmail.com."
+    reply: "For project inquiries and pricing, please reach out via the contact section on this site or email adilsarvadka@gmail.com."
   },
   {
     keywords: ["contact", "email", "phone", "reach", "message"],
@@ -30,7 +30,7 @@ const RESPONSES: { keywords: string[]; reply: string }[] = [
   },
   {
     keywords: ["project", "portfolio", "work", "seen", "showcase"],
-    reply: "Check out the 'Selected Works' section above! It features projects like IMBIZO 1.0, An-Nur Fifteen Hundred, Hijra Talk Series, KEAM 2025 Results, Enroute, and more."
+    reply: "Check out the 'Selected Work' section above! It features projects like IMBIZO 1.0, An-Nur Fifteen Hundred, Hijra Talk Series, KEAM 2025 Results, Enroute, and more."
   },
   {
     keywords: ["thanks", "thank", "appreciate"],
@@ -82,10 +82,10 @@ export function ChatBot() {
     <>
       <button
         onClick={() => setOpen(!open)}
-        className="fixed bottom-6 right-6 z-[90] w-12 h-12 rounded-full flex items-center justify-center shadow-2xl transition-all duration-200 border border-line bg-be hover:bg-be/80"
+        className="fixed bottom-6 right-6 z-[90] w-12 h-12 rounded-full flex items-center justify-center shadow-lg transition-all duration-200 bg-surface border border-line hover:border-faint"
         aria-label="Toggle chat"
       >
-        {open ? <X size={18} className="text-l1" /> : <MessageSquare size={18} className="text-l1" />}
+        {open ? <X size={18} className="text-text" /> : <MessageSquare size={18} className="text-text" />}
       </button>
 
       <AnimatePresence>
@@ -95,15 +95,15 @@ export function ChatBot() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 10, scale: 0.95 }}
             transition={{ duration: 0.15, ease: "easeOut" }}
-            className="fixed bottom-24 right-6 z-[90] w-[340px] max-w-[calc(100vw-2rem)] h-[460px] max-h-[calc(100vh-10rem)] bg-bg border border-line rounded-2xl shadow-2xl flex flex-col overflow-hidden"
+            className="fixed bottom-24 right-6 z-[90] w-[340px] max-w-[calc(100vw-2rem)] h-[460px] max-h-[calc(100vh-10rem)] bg-surface border border-line rounded-2xl shadow-2xl flex flex-col overflow-hidden"
           >
             <div className="flex items-center gap-3 px-4 py-3 border-b border-line">
-              <div className="w-8 h-8 rounded-full bg-be flex items-center justify-center">
-                <Sparkles size={14} className="text-selection" />
+              <div className="w-8 h-8 rounded-full bg-subtle flex items-center justify-center">
+                <Sparkles size={14} className="text-accent" />
               </div>
               <div className="flex-1 min-w-0">
-                <div className="font-sans font-bold text-sm text-l1">AI Assistant</div>
-                <div className="text-[10px] text-l3 uppercase tracking-wider">Ask about Aadiilin's work</div>
+                <div className="font-heading font-bold text-sm text-text">AI Assistant</div>
+                <div className="text-[10px] text-muted uppercase tracking-wider">Ask about Aadiilin's work</div>
               </div>
             </div>
 
@@ -113,8 +113,8 @@ export function ChatBot() {
                   <div
                     className={`max-w-[85%] px-3 py-2.5 rounded-xl text-sm leading-relaxed ${
                       msg.role === "user"
-                        ? "bg-selection text-black rounded-br-sm"
-                        : "bg-be text-l1 rounded-bl-sm"
+                        ? "bg-accent text-white rounded-br-sm"
+                        : "bg-subtle text-text rounded-bl-sm"
                     }`}
                   >
                     {msg.content}
@@ -123,10 +123,10 @@ export function ChatBot() {
               ))}
               {typing && (
                 <div className="flex justify-start">
-                  <div className="bg-be px-3 py-2.5 rounded-xl rounded-bl-sm flex items-center gap-1.5">
-                    <span className="w-1.5 h-1.5 bg-l3 rounded-full animate-bounce" style={{ animationDelay: "0ms" }} />
-                    <span className="w-1.5 h-1.5 bg-l3 rounded-full animate-bounce" style={{ animationDelay: "150ms" }} />
-                    <span className="w-1.5 h-1.5 bg-l3 rounded-full animate-bounce" style={{ animationDelay: "300ms" }} />
+                  <div className="bg-subtle px-3 py-2.5 rounded-xl rounded-bl-sm flex items-center gap-1.5">
+                    <span className="w-1.5 h-1.5 bg-faint rounded-full animate-bounce" style={{ animationDelay: "0ms" }} />
+                    <span className="w-1.5 h-1.5 bg-faint rounded-full animate-bounce" style={{ animationDelay: "150ms" }} />
+                    <span className="w-1.5 h-1.5 bg-faint rounded-full animate-bounce" style={{ animationDelay: "300ms" }} />
                   </div>
                 </div>
               )}
@@ -142,14 +142,14 @@ export function ChatBot() {
                   onChange={(e) => setInput(e.target.value)}
                   onKeyDown={(e) => e.key === "Enter" && handleSend()}
                   placeholder="Ask me anything..."
-                  className="flex-1 bg-be rounded-xl px-3 py-2 text-sm outline-none focus:ring-1 focus:ring-selection/40 text-l1 placeholder:text-l3"
+                  className="flex-1 bg-subtle rounded-xl px-3 py-2 text-sm outline-none focus:ring-1 focus:ring-accent/30 text-text placeholder:text-faint"
                 />
                 <button
                   onClick={handleSend}
                   disabled={!input.trim() || typing}
-                  className="w-9 h-9 rounded-xl bg-be flex items-center justify-center disabled:opacity-40 disabled:cursor-not-allowed hover:bg-be/80 transition-colors shrink-0"
+                  className="w-9 h-9 rounded-xl bg-subtle flex items-center justify-center disabled:opacity-40 disabled:cursor-not-allowed hover:bg-subtle/80 transition-colors shrink-0"
                 >
-                  <Send size={14} className="text-l1" />
+                  <Send size={14} className="text-text" />
                 </button>
               </div>
             </div>

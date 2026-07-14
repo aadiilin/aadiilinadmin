@@ -12,11 +12,10 @@ import NotFound from "@/pages/not-found";
 
 const queryClient = new QueryClient();
 
-// Font imports are better handled in index.html, but we ensure they're loaded here just in case.
 const FontLoader = () => {
   useEffect(() => {
     const link = document.createElement("link");
-    link.href = "https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600&family=Syne:wght@700;800&display=swap";
+    link.href = "https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700;12..96,800&family=Instrument+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap";
     link.rel = "stylesheet";
     document.head.appendChild(link);
     return () => {
@@ -33,7 +32,7 @@ function Router() {
       <div key={location} className="relative">
         {/* Curtain wipe overlay */}
         <motion.div
-          className="fixed inset-0 bg-black z-[100] origin-top pointer-events-none"
+          className="fixed inset-0 bg-text z-[100] origin-top pointer-events-none"
           initial={{ scaleY: 1 }}
           animate={{ scaleY: 0 }}
           exit={{ scaleY: 0 }}

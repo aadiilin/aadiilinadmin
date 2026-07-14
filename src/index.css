@@ -2,78 +2,45 @@
 @import "tw-animate-css";
 
 @theme inline {
-  --color-l1: var(--label-1);
-  --color-l2: var(--label-2);
-  --color-l3: var(--label-3);
-  --color-l4: var(--label-4);
-  --color-line: var(--line);
-  --color-bg: var(--background-1);
-  --color-be: var(--background-elevated);
-  --color-selection: var(--selection-bg);
+  --color-bg: #F2EEE3;
+  --color-surface: #FFFFFF;
+  --color-subtle: #F5F4EE;
+  --color-accent: #FF3B1F;
+  --color-yellow: #FFC83D;
+  --color-green: #7CFFB2;
+  --color-blue: #1E37D8;
+  --color-text: #1A1A1A;
+  --color-muted: rgba(26, 26, 26, 0.6);
+  --color-faint: rgba(26, 26, 26, 0.35);
+  --color-line: rgba(26, 26, 26, 0.08);
 
-  --font-sans: 'Inter', 'system-ui', sans-serif;
-  --font-mono: 'JetBrains Mono', 'monospace', monospace;
-  --font-mono-2: 'JetBrains Mono', 'monospace', monospace;
-  --font-display: 'Space Grotesk', 'Inter', sans-serif;
-
-  --cubic-66: cubic-bezier(0.66, 0, 0.01, 1);
+  --font-sans: 'Instrument Sans', 'system-ui', sans-serif;
+  --font-heading: 'Bricolage Grotesque', 'sans-serif';
+  --font-mono: 'Space Mono', 'monospace', monospace;
 }
 
-:root {
-  color-scheme: dark;
-  --label-1: rgba(255, 255, 255, 1);
-  --label-2: rgba(230, 232, 232, 0.6);
-  --label-3: rgba(230, 232, 232, 0.32);
-  --label-4: rgba(230, 232, 232, 0.16);
-  --line: rgba(230, 232, 232, 0.08);
-  --background-1: #0f1111;
-  --background-elevated: #191b1b;
-  --selection-bg: #c0fe04;
-}
-
-html, body {
-  height: 100%;
-  overflow: hidden;
-  scrollbar-width: none;
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background-color: var(--background-1);
-  color: var(--label-1);
+  background-color: #F2EEE3;
+  color: #1A1A1A;
+  font-family: 'Instrument Sans', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 ::selection {
-  background-color: var(--selection-bg);
-  color: #000;
+  background-color: #FF3B1F;
+  color: #FFFFFF;
 }
 
-.no-scrollbar::-webkit-scrollbar {
-  display: none;
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
 }
 
-.no-scrollbar {
-  scrollbar-width: none;
-}
-
-.border-dotted-hover {
-  position: relative;
-}
-
-.border-dotted-hover::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border: 2px dashed transparent;
-  pointer-events: none;
-  transition: border-color 200ms ease;
-}
-
-.border-dotted-hover:hover::before {
-  border-color: var(--label-1);
-}
-
-.font-wdth-120 {
-  font-variation-settings: 'wdth' 120;
+.animate-marquee {
+  animation: marquee 40s linear infinite;
 }
