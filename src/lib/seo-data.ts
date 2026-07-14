@@ -154,6 +154,17 @@ export const PROJECTS: Project[] = [
     category: 'Poster Design',
     tags: ['romantic', 'campaign', 'modern design', 'expressive'],
   },
+  {
+    slug: 'wedding',
+    title: 'WEDDING',
+    role: 'Wedding Design',
+    year: '2025',
+    description:
+      'Wedding design project showcasing elegant typography and ornate decorative motifs for a traditional ceremony invitation suite.',
+    image: `${import.meta.env.BASE_URL}images/weddingnu.jpeg`,
+    category: 'Graphic Design',
+    tags: ['wedding', 'invitation', 'typography', 'elegant'],
+  },
 ]
 
 export function findProjectBySlug(slug: string): Project | undefined {

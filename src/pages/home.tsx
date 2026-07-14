@@ -18,6 +18,7 @@ const PROJECTS = [
   { slug: "award-poster-design", title: "Award Poster Design", role: "Poster Design", year: "2025", category: "Poster Design", image: `${import.meta.env.BASE_URL}images/Award_Poster_Design.jpg` },
   { slug: "variety-creative-poster-design", title: "Variety Creative Poster Design", role: "Poster Design", year: "2025", category: "Poster Design", image: `${import.meta.env.BASE_URL}images/Variety_Creative_Poster_Design.jpg` },
   { slug: "token-of-love-poster", title: "Token Of Love Poster", role: "Poster Design", year: "2025", category: "Poster Design", image: `${import.meta.env.BASE_URL}images/Token_Of_Love_Poster.jpg` },
+  { slug: "wedding", title: "WEDDING", role: "Wedding Design", year: "2025", category: "Graphic Design", image: `${import.meta.env.BASE_URL}images/weddingnu.jpeg` },
 ]
 
 const SKILLS = [
