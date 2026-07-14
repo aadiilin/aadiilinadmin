@@ -34,11 +34,11 @@ export function ScrollProgress() {
 
   return (
     <div
-      className="fixed left-1/2 top-6 z-40 flex h-1 w-[140px] -translate-x-1/2 items-center pointer-events-none"
+      className="fixed left-1/2 top-1/2 z-40 flex h-1 w-[140px] -translate-x-1/2 -translate-y-1/2 items-center pointer-events-none"
       style={{ opacity: visible ? 1 : 0, transition: "opacity 250ms cubic-bezier(0.25, 1, 0.5, 1)" }}
       aria-hidden
     >
-      <div className="relative h-full w-full overflow-hidden rounded-full bg-line">
+      <div className="relative h-full w-full overflow-hidden rounded-full bg-l3">
         <div
           className="absolute inset-y-0 left-0 rounded-full bg-l1"
           style={{ width: `${progress}%`, transition: "width 120ms cubic-bezier(0.22, 1, 0.36, 1)", willChange: "width" }}
