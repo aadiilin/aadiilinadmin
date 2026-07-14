@@ -1,7 +1,6 @@
 import { useState, useRef, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { X, Send, Sparkles } from "lucide-react"
-import { AcmeChatTrigger } from "@/components/acme-chat-trigger"
+import { X, Send, Sparkles, MessageSquare } from "lucide-react"
 
 interface Message {
   role: "user" | "bot"
@@ -81,7 +80,13 @@ export function ChatBot() {
 
   return (
     <>
-      <AcmeChatTrigger onToggle={() => setOpen(!open)} open={open} />
+      <button
+        onClick={() => setOpen(!open)}
+        className="fixed bottom-6 right-6 z-[90] w-12 h-12 rounded-full flex items-center justify-center shadow-lg transition-all duration-200 bg-surface border border-line hover:border-faint"
+        aria-label="Toggle chat"
+      >
+        {open ? <X size={18} className="text-text" /> : <MessageSquare size={18} className="text-text" />}
+      </button>
 
       <AnimatePresence>
         {open && (
@@ -90,7 +95,7 @@ export function ChatBot() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 10, scale: 0.95 }}
             transition={{ duration: 0.15, ease: "easeOut" }}
-            className="fixed bottom-[216px] right-6 z-[90] w-[340px] max-w-[calc(100vw-2rem)] h-[460px] max-h-[calc(100vh-10rem)] bg-surface border border-line rounded-2xl shadow-2xl flex flex-col overflow-hidden"
+            className="fixed bottom-24 right-6 z-[90] w-[340px] max-w-[calc(100vw-2rem)] h-[460px] max-h-[calc(100vh-10rem)] bg-surface border border-line rounded-2xl shadow-2xl flex flex-col overflow-hidden"
           >
             <div className="flex items-center gap-3 px-4 py-3 border-b border-line">
               <div className="w-8 h-8 rounded-full bg-subtle flex items-center justify-center">
