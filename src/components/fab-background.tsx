@@ -10,10 +10,10 @@ const DUR_COLLAPSE = 1.2
 const DUR_PAUSE = 1.2
 
 const EXPANDED_Y = [
-  -(GAP * 1.5),
-  -(GAP * 0.5),
   GAP * 0.5,
   GAP * 1.5,
+  GAP * 2.5,
+  GAP * 3.5,
 ]
 
 const iconPaths = [
@@ -64,9 +64,9 @@ export function FABBackground() {
       variants={containerVariants}
       initial="initial"
       animate="animate"
-      className="fixed inset-0 pointer-events-none z-0 flex items-center justify-center"
+      className="fixed inset-0 pointer-events-none z-0 flex items-start justify-start"
     >
-      <div className="relative">
+      <div className="relative mt-20 ml-6">
         {/* Main FAB */}
         <motion.div
           animate={{
@@ -74,7 +74,7 @@ export function FABBackground() {
             opacity: isExpanded ? 0.5 : 1,
           }}
           transition={{ duration: 0.3, ease: "easeInOut" }}
-          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
+          className="absolute left-0 top-0"
           style={{ width: BTN_SIZE, height: BTN_SIZE }}
         >
           <div className="w-full h-full rounded-full bg-text flex items-center justify-center shadow-lg">
@@ -104,7 +104,7 @@ export function FABBackground() {
                 ease: [0.34, 1.2, 0.64, 1],
                 delay: phase === "collapsing" ? 0 : i * 0.06,
               }}
-              className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
+              className="absolute left-0 top-0"
               style={{ width: BTN_SIZE, height: BTN_SIZE }}
             >
               <div className="w-full h-full rounded-full bg-accent flex items-center justify-center shadow-lg text-white">
