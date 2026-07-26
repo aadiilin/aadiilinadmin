@@ -698,11 +698,11 @@ export function Home() {
               <form className="space-y-5" onSubmit={(e) => {
                 e.preventDefault()
                 const form = e.currentTarget
-                const name = (form.querySelector('[name="name"]') as HTMLInputElement)?.value || ""
-                const email = (form.querySelector('[name="email"]') as HTMLInputElement)?.value || ""
-                const msg = (form.querySelector('[name="message"]') as HTMLTextAreaElement)?.value || ""
-                const budget = (form.querySelector('[name="budget"]:checked') as HTMLInputElement)?.value || "Not specified"
-                const text = `Hi Aadiilin!%0A%0A*Name:* ${encodeURIComponent(name)}%0A*Email:* ${encodeURIComponent(email)}%0A*Budget:* ${encodeURIComponent(budget)}%0A*Message:* ${encodeURIComponent(msg)}`
+                const name = (form.querySelector('[name="name"]') as HTMLInputElement)?.value || "Not provided"
+                const email = (form.querySelector('[name="email"]') as HTMLInputElement)?.value || "Not provided"
+                const msg = (form.querySelector('[name="message"]') as HTMLTextAreaElement)?.value || "Not provided"
+                const budget = (form.querySelector('[name="budget"]:checked') as HTMLInputElement)?.value || "To be discussed"
+                const text = `Hello Aadiilin,%0A%0AI hope this message finds you well. My name is *${encodeURIComponent(name)}* and I am reaching out to discuss a potential design collaboration with you.%0A%0A*── Project Overview ──*%0A${encodeURIComponent(msg)}%0A%0A*── Budget Range ──*%0A${encodeURIComponent(budget)}%0A%0A*── Contact Details ──*%0AEmail: ${encodeURIComponent(email)}%0A%0AI came across your portfolio and was truly impressed by your work — particularly in brand identity and poster design. I believe your creative vision aligns perfectly with what I am looking for.%0A%0AI look forward to hearing from you and discussing this further at your earliest convenience.%0A%0ABest regards,%0A${encodeURIComponent(name)}`
                 window.open(`https://wa.me/918137802554?text=${text}`, "_blank")
               }}>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
