@@ -361,14 +361,14 @@ export function Home() {
 
       {/* ━━━━━━ Marquee Strips ━━━━━━ */}
       {([
-        { bg: "bg-[#FF7A00]", text: "text-white", line: "#FFFFFF" },
-        { bg: "bg-[#1A1A1A]", text: "text-[#FF7A00]", line: "#FF7A00" },
-        { bg: "bg-[#FF7A00]", text: "text-white", line: "#FFFFFF" },
+        { bg: "bg-[#FF7A00]", text: "text-white", line: "#FFFFFF", rev: false, y: "-translate-y-1" },
+        { bg: "bg-[#1A1A1A]", text: "text-[#FF7A00]", line: "#FF7A00", rev: true, y: "translate-y-0" },
+        { bg: "bg-[#FF7A00]", text: "text-white", line: "#FFFFFF", rev: false, y: "translate-y-1" },
       ] as const).map((strip, si) => (
         <div key={si} className={`relative overflow-hidden ${strip.bg} flex items-center ${si === 1 ? "py-6" : "py-4"}`}
           style={{ marginLeft: "calc(-50vw + 50%)", marginRight: "calc(-50vw + 50%)", width: "100vw" }}>
           <div className="flex whitespace-nowrap">
-            <div className="flex animate-marquee items-center gap-0">
+            <div className={`flex ${strip.rev ? "animate-marquee-rev" : "animate-marquee"} items-center gap-0 ${strip.y}`}>
               {[...MARQUEE_ITEMS, ...MARQUEE_ITEMS].map((skill, i) => (
                 <span key={i} className="mx-4 flex items-center gap-6 shrink-0">
                   <svg width="140" height="18" viewBox="0 0 140 18" className="shrink-0" fill="none">
@@ -381,7 +381,7 @@ export function Home() {
                 </span>
               ))}
             </div>
-            <div className="flex animate-marquee items-center gap-0">
+            <div className={`flex ${strip.rev ? "animate-marquee-rev" : "animate-marquee"} items-center gap-0 ${strip.y}`}>
               {[...MARQUEE_ITEMS, ...MARQUEE_ITEMS].map((skill, i) => (
                 <span key={`${i}-d`} className="mx-4 flex items-center gap-6 shrink-0">
                   <svg width="140" height="18" viewBox="0 0 140 18" className="shrink-0" fill="none">
