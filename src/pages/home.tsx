@@ -360,35 +360,36 @@ export function Home() {
       </section>
 
       {/* ━━━━━━ Marquee Strips ━━━━━━ */}
-      {([
-        { bg: "bg-[#FF7A00]", text: "text-white", line: "#FFFFFF", rev: false, y: "-translate-y-1" },
-        { bg: "bg-[#1A1A1A]", text: "text-[#FF7A00]", line: "#FF7A00", rev: true, y: "translate-y-0" },
-        { bg: "bg-[#FF7A00]", text: "text-white", line: "#FFFFFF", rev: false, y: "translate-y-1" },
-      ] as const).map((strip, si) => (
-        <div key={si} className={`relative overflow-hidden ${strip.bg} flex items-center ${si === 1 ? "py-6" : "py-4"}`}
-          style={{ marginLeft: "calc(-50vw + 50%)", marginRight: "calc(-50vw + 50%)", width: "100vw" }}>
+      <div className="relative" style={{ zIndex: 0 }}>
+        {/* Orange top strip — angled down right→left, goes behind black strip */}
+        <div className="relative overflow-hidden bg-[#FF7A00] flex items-center py-4"
+          style={{
+            marginLeft: "calc(-50vw + 50%)", marginRight: "calc(-50vw + 50%)", width: "100vw",
+            transform: "rotate(-1.8deg)", transformOrigin: "right center",
+            zIndex: 0, marginBottom: "-18px",
+          }}>
           <div className="flex whitespace-nowrap">
-            <div className={`flex ${strip.rev ? "animate-marquee-rev" : "animate-marquee"} items-center gap-0 ${strip.y}`}>
+            <div className="flex animate-marquee items-center gap-0">
               {[...MARQUEE_ITEMS, ...MARQUEE_ITEMS].map((skill, i) => (
                 <span key={i} className="mx-4 flex items-center gap-6 shrink-0">
                   <svg width="140" height="18" viewBox="0 0 140 18" className="shrink-0" fill="none">
                     <path d="M8 9 C 22 -2, 36 20, 50 9 C 60 2, 72 16, 82 9 C 92 2, 104 16, 114 9 C 120 5, 128 13, 132 9"
-                      stroke={strip.line} strokeWidth="1.5" strokeLinecap="round" fill="none" opacity="0.5" />
+                      stroke="#FFFFFF" strokeWidth="1.5" strokeLinecap="round" fill="none" opacity="0.5" />
                   </svg>
-                  <span className={`font-heading font-bold text-[11px] sm:text-xs uppercase tracking-[0.18em] ${strip.text} border-2 border-current rounded-full px-5 py-1.5 shrink-0`}>
+                  <span className="font-heading font-bold text-[11px] sm:text-xs uppercase tracking-[0.18em] text-white border-2 border-white rounded-full px-5 py-1.5 shrink-0">
                     {skill}
                   </span>
                 </span>
               ))}
             </div>
-            <div className={`flex ${strip.rev ? "animate-marquee-rev" : "animate-marquee"} items-center gap-0 ${strip.y}`}>
+            <div className="flex animate-marquee items-center gap-0">
               {[...MARQUEE_ITEMS, ...MARQUEE_ITEMS].map((skill, i) => (
                 <span key={`${i}-d`} className="mx-4 flex items-center gap-6 shrink-0">
                   <svg width="140" height="18" viewBox="0 0 140 18" className="shrink-0" fill="none">
                     <path d="M8 9 C 22 -2, 36 20, 50 9 C 60 2, 72 16, 82 9 C 92 2, 104 16, 114 9 C 120 5, 128 13, 132 9"
-                      stroke={strip.line} strokeWidth="1.5" strokeLinecap="round" fill="none" opacity="0.5" />
+                      stroke="#FFFFFF" strokeWidth="1.5" strokeLinecap="round" fill="none" opacity="0.5" />
                   </svg>
-                  <span className={`font-heading font-bold text-[11px] sm:text-xs uppercase tracking-[0.18em] ${strip.text} border-2 border-current rounded-full px-5 py-1.5 shrink-0`}>
+                  <span className="font-heading font-bold text-[11px] sm:text-xs uppercase tracking-[0.18em] text-white border-2 border-white rounded-full px-5 py-1.5 shrink-0">
                     {skill}
                   </span>
                 </span>
@@ -396,7 +397,79 @@ export function Home() {
             </div>
           </div>
         </div>
-      ))}
+
+        {/* Black middle strip — on top, scrolls reverse */}
+        <div className="relative overflow-hidden bg-[#1A1A1A] flex items-center py-6"
+          style={{
+            marginLeft: "calc(-50vw + 50%)", marginRight: "calc(-50vw + 50%)", width: "100vw",
+            zIndex: 10, marginTop: "-4px",
+          }}>
+          <div className="flex whitespace-nowrap">
+            <div className="flex animate-marquee-rev items-center gap-0">
+              {[...MARQUEE_ITEMS, ...MARQUEE_ITEMS].map((skill, i) => (
+                <span key={i} className="mx-4 flex items-center gap-6 shrink-0">
+                  <svg width="140" height="18" viewBox="0 0 140 18" className="shrink-0" fill="none">
+                    <path d="M8 9 C 22 -2, 36 20, 50 9 C 60 2, 72 16, 82 9 C 92 2, 104 16, 114 9 C 120 5, 128 13, 132 9"
+                      stroke="#FF7A00" strokeWidth="1.5" strokeLinecap="round" fill="none" opacity="0.5" />
+                  </svg>
+                  <span className="font-heading font-bold text-[11px] sm:text-xs uppercase tracking-[0.18em] text-[#FF7A00] border-2 border-[#FF7A00] rounded-full px-5 py-1.5 shrink-0">
+                    {skill}
+                  </span>
+                </span>
+              ))}
+            </div>
+            <div className="flex animate-marquee-rev items-center gap-0">
+              {[...MARQUEE_ITEMS, ...MARQUEE_ITEMS].map((skill, i) => (
+                <span key={`${i}-d`} className="mx-4 flex items-center gap-6 shrink-0">
+                  <svg width="140" height="18" viewBox="0 0 140 18" className="shrink-0" fill="none">
+                    <path d="M8 9 C 22 -2, 36 20, 50 9 C 60 2, 72 16, 82 9 C 92 2, 104 16, 114 9 C 120 5, 128 13, 132 9"
+                      stroke="#FF7A00" strokeWidth="1.5" strokeLinecap="round" fill="none" opacity="0.5" />
+                  </svg>
+                  <span className="font-heading font-bold text-[11px] sm:text-xs uppercase tracking-[0.18em] text-[#FF7A00] border-2 border-[#FF7A00] rounded-full px-5 py-1.5 shrink-0">
+                    {skill}
+                  </span>
+                </span>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Orange bottom strip — below */}
+        <div className="relative overflow-hidden bg-[#FF7A00] flex items-center py-4"
+          style={{
+            marginLeft: "calc(-50vw + 50%)", marginRight: "calc(-50vw + 50%)", width: "100vw",
+            zIndex: 0, marginTop: "-4px",
+          }}>
+          <div className="flex whitespace-nowrap">
+            <div className="flex animate-marquee items-center gap-0">
+              {[...MARQUEE_ITEMS, ...MARQUEE_ITEMS].map((skill, i) => (
+                <span key={i} className="mx-4 flex items-center gap-6 shrink-0">
+                  <svg width="140" height="18" viewBox="0 0 140 18" className="shrink-0" fill="none">
+                    <path d="M8 9 C 22 -2, 36 20, 50 9 C 60 2, 72 16, 82 9 C 92 2, 104 16, 114 9 C 120 5, 128 13, 132 9"
+                      stroke="#FFFFFF" strokeWidth="1.5" strokeLinecap="round" fill="none" opacity="0.5" />
+                  </svg>
+                  <span className="font-heading font-bold text-[11px] sm:text-xs uppercase tracking-[0.18em] text-white border-2 border-white rounded-full px-5 py-1.5 shrink-0">
+                    {skill}
+                  </span>
+                </span>
+              ))}
+            </div>
+            <div className="flex animate-marquee items-center gap-0">
+              {[...MARQUEE_ITEMS, ...MARQUEE_ITEMS].map((skill, i) => (
+                <span key={`${i}-d`} className="mx-4 flex items-center gap-6 shrink-0">
+                  <svg width="140" height="18" viewBox="0 0 140 18" className="shrink-0" fill="none">
+                    <path d="M8 9 C 22 -2, 36 20, 50 9 C 60 2, 72 16, 82 9 C 92 2, 104 16, 114 9 C 120 5, 128 13, 132 9"
+                      stroke="#FFFFFF" strokeWidth="1.5" strokeLinecap="round" fill="none" opacity="0.5" />
+                  </svg>
+                  <span className="font-heading font-bold text-[11px] sm:text-xs uppercase tracking-[0.18em] text-white border-2 border-white rounded-full px-5 py-1.5 shrink-0">
+                    {skill}
+                  </span>
+                </span>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
 
       {/* ━━━━━━ Featured Work ━━━━━━ */}
       <section id="work" className="max-w-[1320px] mx-auto px-6 py-24 sm:py-32">
