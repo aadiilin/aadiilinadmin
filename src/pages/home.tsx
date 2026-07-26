@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "framer-motion"
 import { useState, useEffect, useRef, ReactNode } from "react"
 import { X, Menu, ChevronRight, ArrowUpRight, Star, Mail, Check } from "lucide-react"
 import { SEO } from "@/components/seo"
+import { ChatBot } from "@/components/chat-bot"
 import { collectionPageSchema, itemListSchema, contactPageSchema } from "@/lib/schemas"
 
 const PROJECTS = [
@@ -861,6 +862,8 @@ export function Home() {
           </div>
         </div>
       </footer>
+
+      <ChatBot />
     </div>
   )
 }
