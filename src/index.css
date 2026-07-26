@@ -5,7 +5,8 @@
   --color-bg: #F2EEE3;
   --color-surface: #FFFFFF;
   --color-subtle: #F5F4EE;
-  --color-accent: #FF3B1F;
+  --color-accent: #FF7A00;
+  --color-accent-hover: #E66A00;
   --color-yellow: #FFC83D;
   --color-green: #7CFFB2;
   --color-blue: #1E37D8;
@@ -17,6 +18,9 @@
   --font-sans: 'Instrument Sans', 'system-ui', sans-serif;
   --font-heading: 'Bricolage Grotesque', 'sans-serif';
   --font-mono: 'Space Mono', 'monospace', monospace;
+
+  --animate-marquee: marquee 30s linear infinite;
+  --animate-scroll: scroll 40s linear infinite;
 }
 
 html {
@@ -32,7 +36,7 @@ body {
 }
 
 ::selection {
-  background-color: #FF3B1F;
+  background-color: #FF7A00;
   color: #FFFFFF;
 }
 
@@ -41,6 +45,39 @@ body {
   100% { transform: translateX(-50%); }
 }
 
+@keyframes scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-100%); }
+}
+
 .animate-marquee {
-  animation: marquee 40s linear infinite;
+  animation: marquee 30s linear infinite;
+}
+
+.animate-scroll {
+  animation: scroll 40s linear infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+}
+
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}
+
+
+.gradient-mask {
+  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
