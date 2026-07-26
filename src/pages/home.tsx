@@ -367,7 +367,7 @@ export function Home() {
           style={{
             marginLeft: "calc(-50vw + 50%)", marginRight: "calc(-50vw + 50%)", width: "100vw",
             transform: "rotate(-1.8deg)", transformOrigin: "right center",
-            zIndex: 0, marginBottom: "-18px", marginTop: "-12px",
+            zIndex: 0, marginBottom: "-18px",
           }}>
           <div className="flex whitespace-nowrap">
             <div className="flex animate-marquee items-center gap-0">
@@ -403,7 +403,7 @@ export function Home() {
         <div className="relative overflow-hidden bg-[#1A1A1A] flex items-center py-6"
           style={{
             marginLeft: "calc(-50vw + 50%)", marginRight: "calc(-50vw + 50%)", width: "100vw",
-            zIndex: 10, marginTop: "-4px",
+            zIndex: 10,
           }}>
           <div className="flex whitespace-nowrap">
             <div className="flex animate-marquee-rev items-center gap-0">
