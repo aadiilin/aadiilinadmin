@@ -625,37 +625,12 @@ export function Home() {
         </StaggerGrid>
       </section>
 
-      {/* ━━━━━━ Testimonials ━━━━━━ */}
-      <section className="max-w-[1320px] mx-auto px-6 pb-24 sm:pb-32">
-        <AnimatedSection>
-          <SectionLabel num="05" label="Client Feedback" />
-          <p className="text-muted text-sm sm:text-base max-w-xl mb-12 -mt-2">5.0 is my average rating — every client matters.</p>
-        </AnimatedSection>
 
-        <StaggerGrid className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {TESTIMONIALS.map(t => (
-            <GridItem key={t.name}>
-              <div className="bg-surface rounded-[20px] p-8 border border-line/50 hover:border-line/30 hover:shadow-md transition-all duration-300 h-full flex flex-col">
-                <div className="flex gap-1 mb-5">
-                  {Array.from({ length: t.rating }).map((_, j) => (
-                    <Star key={j} size={14} className="text-accent fill-accent" />
-                  ))}
-                </div>
-                <p className="text-sm text-muted leading-relaxed flex-1 mb-6">&ldquo;{t.quote}&rdquo;</p>
-                <div>
-                  <div className="font-heading font-bold text-sm">{t.name}</div>
-                  <div className="font-mono text-xs text-muted mt-0.5">{t.role}</div>
-                </div>
-              </div>
-            </GridItem>
-          ))}
-        </StaggerGrid>
-      </section>
 
       {/* ━━━━━━ Awards ━━━━━━ */}
       <section className="max-w-[1320px] mx-auto px-6 pb-24 sm:pb-32">
         <AnimatedSection>
-          <SectionLabel num="06" label="Recognition" />
+          <SectionLabel num="05" label="Recognition" />
         </AnimatedSection>
 
         <StaggerGrid className="grid grid-cols-1 sm:grid-cols-3 gap-6 mt-12">
@@ -674,7 +649,7 @@ export function Home() {
       {/* ━━━━━━ About ━━━━━━ */}
       <section id="about" className="max-w-[1320px] mx-auto px-6 pb-24 sm:pb-32">
         <AnimatedSection>
-          <SectionLabel num="07" label="About" />
+          <SectionLabel num="06" label="About" />
         </AnimatedSection>
 
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-10 lg:gap-16 mt-4">
@@ -720,17 +695,26 @@ export function Home() {
                 </p>
               </AnimatedSection>
 
-              <form className="space-y-5">
+              <form className="space-y-5" onSubmit={(e) => {
+                e.preventDefault()
+                const form = e.currentTarget
+                const name = (form.querySelector('[name="name"]') as HTMLInputElement)?.value || ""
+                const email = (form.querySelector('[name="email"]') as HTMLInputElement)?.value || ""
+                const msg = (form.querySelector('[name="message"]') as HTMLTextAreaElement)?.value || ""
+                const budget = (form.querySelector('[name="budget"]:checked') as HTMLInputElement)?.value || "Not specified"
+                const text = `Hi Aadiilin!%0A%0A*Name:* ${encodeURIComponent(name)}%0A*Email:* ${encodeURIComponent(email)}%0A*Budget:* ${encodeURIComponent(budget)}%0A*Message:* ${encodeURIComponent(msg)}`
+                window.open(`https://wa.me/918137802554?text=${text}`, "_blank")
+              }}>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                  <input type="text" placeholder="Your Name" className="w-full px-5 py-3.5 bg-bg/10 border border-bg/20 rounded-xl text-sm focus:outline-none focus:border-accent transition-colors placeholder:text-bg/40 text-bg" />
-                  <input type="email" placeholder="Your Email" className="w-full px-5 py-3.5 bg-bg/10 border border-bg/20 rounded-xl text-sm focus:outline-none focus:border-accent transition-colors placeholder:text-bg/40 text-bg" />
+                  <input name="name" type="text" placeholder="Your Name" className="w-full px-5 py-3.5 bg-bg/10 border border-bg/20 rounded-xl text-sm focus:outline-none focus:border-accent transition-colors placeholder:text-bg/40 text-bg" />
+                  <input name="email" type="email" placeholder="Your Email" className="w-full px-5 py-3.5 bg-bg/10 border border-bg/20 rounded-xl text-sm focus:outline-none focus:border-accent transition-colors placeholder:text-bg/40 text-bg" />
                 </div>
-                <textarea placeholder="Tell me about your project" rows={5} className="w-full px-5 py-3.5 bg-bg/10 border border-bg/20 rounded-xl text-sm focus:outline-none focus:border-accent transition-colors placeholder:text-bg/40 text-bg resize-none" />
+                <textarea name="message" placeholder="Tell me about your project" rows={5} className="w-full px-5 py-3.5 bg-bg/10 border border-bg/20 rounded-xl text-sm focus:outline-none focus:border-accent transition-colors placeholder:text-bg/40 text-bg resize-none" />
                 <div className="flex flex-wrap gap-3">
                   <div className="w-full text-xs font-mono text-bg/60 uppercase tracking-wider mb-1">Budget?</div>
                   {["up to $200", "$200-$500", "$500-$1k", "$1k-$5k", ">$5k"].map(b => (
                     <label key={b} className="flex items-center gap-2 px-4 py-2.5 bg-bg/10 border border-bg/20 rounded-full text-xs font-mono cursor-pointer hover:border-accent transition-colors">
-                      <input type="radio" name="budget" className="accent-accent" />
+                      <input type="radio" name="budget" value={b} className="accent-accent" />
                       {b}
                     </label>
                   ))}
