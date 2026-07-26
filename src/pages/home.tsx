@@ -366,7 +366,7 @@ export function Home() {
           style={{
             marginLeft: "calc(-50vw + 50%)", marginRight: "calc(-50vw + 50%)", width: "100vw",
             transform: "rotate(-1.8deg)", transformOrigin: "right center",
-            zIndex: 0, marginBottom: "-18px",
+            zIndex: 0, marginBottom: "-18px", marginTop: "-12px",
           }}>
           <div className="flex whitespace-nowrap">
             <div className="flex animate-marquee items-center gap-0">
