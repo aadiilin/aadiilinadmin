@@ -434,11 +434,12 @@ export function Home() {
           </div>
         </div>
 
-        {/* Orange bottom strip — below */}
+        {/* Orange bottom strip — angled down left→right, in front of black strip */}
         <div className="relative overflow-hidden bg-[#FF7A00] flex items-center py-4"
           style={{
             marginLeft: "calc(-50vw + 50%)", marginRight: "calc(-50vw + 50%)", width: "100vw",
-            zIndex: 0, marginTop: "-4px",
+            transform: "rotate(1.8deg)", transformOrigin: "left center",
+            zIndex: 20, marginTop: "-18px",
           }}>
           <div className="flex whitespace-nowrap">
             <div className="flex animate-marquee items-center gap-0">
