@@ -4,71 +4,23 @@ import { useState, useEffect, useRef, ReactNode } from "react"
 import { X, Menu, ChevronRight, ArrowUpRight, Star, Mail, Check } from "lucide-react"
 import { SEO } from "@/components/seo"
 import { ChatBot } from "@/components/chat-bot"
+import { getContent, imageUrl } from "@/lib/content-store"
 import { collectionPageSchema, itemListSchema, contactPageSchema } from "@/lib/schemas"
 
-const PROJECTS = [
-  { slug: "imbizo", title: "IMBIZO 1.0", role: "Poster & Identity", year: "2025", category: "Event Identity", image: `${import.meta.env.BASE_URL}images/imbizo.jpeg` },
-  { slug: "an-nur", title: "An-Nur Fifteen Hundred", role: "Campaign Design", year: "2025", category: "Campaign Design", image: `${import.meta.env.BASE_URL}images/annur.jpeg` },
-  { slug: "hijra", title: "Hijra Talk Series", role: "Event Identity", year: "2025", category: "Event Identity", image: `${import.meta.env.BASE_URL}images/hijra.jpeg` },
-  { slug: "keam-2025", title: "KEAM 2025 Results", role: "Editorial Layout", year: "2025", category: "Editorial Design", image: `${import.meta.env.BASE_URL}images/keam.jpeg` },
-  { slug: "enroute", title: "Enroute", role: "Travel Campaign", year: "2024", category: "Campaign Design", image: `${import.meta.env.BASE_URL}images/enroute.jpeg` },
-  { slug: "guest-welcome", title: "Hearty Welcomes", role: "Event Poster", year: "2024", category: "Event Poster", image: `${import.meta.env.BASE_URL}images/guest.jpeg` },
-]
+const content = getContent()
 
-const SKILLS = ["Poster Design", "Brand Identity", "Campaign Visuals", "Art Direction", "Typography", "Editorial Layout", "Packaging Design", "Visual Storytelling"]
+const PROJECTS = content.projects.map((p) => ({
+  ...p,
+  image: p.image.startsWith("http") || p.image.startsWith("/") ? p.image : imageUrl(p.image),
+}))
 
-const MARQUEE_ITEMS = [...SKILLS, ...SKILLS]
+const SKILLS = content.skills
 
-const STATS = [
-  { value: "1+", label: "Years Designing" },
-  { value: "10+", label: "Projects Delivered" },
-  { value: "5+", label: "Brands Served" },
-  { value: "5.0", label: "Client Rating" },
-]
+const STATS = content.stats
 
-const SERVICES_DATA = {
-  slides: [
-    {
-      title: "Bring your ideas to life",
-      items: [
-        { num: "01", title: "Poster Design", desc: "Impactful posters that command attention and communicate your message with clarity and style." },
-        { num: "02", title: "Event Identity", desc: "Complete visual identities for events — from conferences to cultural gatherings." },
-        { num: "03", title: "Campaign Visuals", desc: "Cohesive visual campaigns that tell your story across every touchpoint." },
-      ],
-    },
-    {
-      title: "Build brands that last",
-      items: [
-        { num: "01", title: "Brand Identity", desc: "Complete visual identity systems including colors, typography, and brand guidelines." },
-        { num: "02", title: "Logo Design", desc: "Custom logos that capture your brand essence and make a lasting impression." },
-        { num: "03", title: "Art Direction", desc: "Creative direction and visual strategy that elevates your brand presence." },
-      ],
-    },
-    {
-      title: "Print that stands out",
-      items: [
-        { num: "01", title: "Editorial Layout", desc: "Beautifully structured layouts for magazines, books, reports, and publications." },
-        { num: "02", title: "Print Collateral", desc: "Business cards, brochures, flyers, and all print materials crafted with care." },
-        { num: "03", title: "Packaging Design", desc: "Packaging that grabs attention on shelves and communicates brand value instantly." },
-      ],
-    },
-    {
-      title: "Digital & motion",
-      items: [
-        { num: "01", title: "Social Media Graphics", desc: "Scroll-stopping visuals optimized for every social media platform." },
-        { num: "02", title: "Web & UI Graphics", desc: "Digital assets and interface graphics for websites and applications." },
-        { num: "03", title: "Motion Graphics", desc: "Animated visuals and motion design that bring your brand to life." },
-      ],
-    },
-  ],
-}
+const SERVICES_DATA = content.services
 
-const INDUSTRIES = [
-  { title: "Events", desc: "Memorable event identities that captivate audiences from first glance to last impression." },
-  { title: "Education", desc: "Engaging materials and campaign visuals that make learning content stand out." },
-  { title: "Branding", desc: "Strategic brand development for businesses looking to establish or refresh identity." },
-  { title: "Media", desc: "Editorial design and campaign visuals for media houses and content creators." },
-]
+const INDUSTRIES = content.industries
 
 const WHY_US = [
   { title: "Design that tells stories", desc: "Every project begins with your story — crafted visuals that communicate and connect." },
@@ -89,14 +41,7 @@ const AWARDS = [
   { title: "Creative Excellence", org: "Design Recognition", desc: "Featured in multiple design showcases" },
 ]
 
-const SOCIAL_LINKS = [
-  { label: "Instagram", href: "https://www.instagram.com/aadiil.in" },
-  { label: "LinkedIn", href: "https://www.linkedin.com/in/adil-sarvadka-51282a406" },
-  { label: "WhatsApp", href: "https://wa.me/918137802554" },
-  { label: "GitHub", href: "https://github.com/aadiilin" },
-  { label: "Behance", href: "https://www.behance.net/aadiilin" },
-  { label: "Dribbble", href: "https://dribbble.com/aadiilin" },
-]
+const SOCIAL_LINKS = content.socialLinks
 
 function SectionLabel({ num, label }: { num: string; label?: string }) {
   return (
@@ -304,9 +249,9 @@ export function Home() {
           <AnimatedSection>
             <div className="text-xs sm:text-sm font-mono text-white/50 uppercase tracking-wider mb-5">Freelance Graphic Designer</div>
             <h1 className="font-heading font-extrabold text-[clamp(2.5rem,9vw,6rem)] leading-[0.95] tracking-tighter max-w-5xl">
-              <span className="block overflow-hidden"><motion.span initial={{ y: "100%" }} whileInView={{ y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: 0.1, ease: [0.25, 1, 0.5, 1] }} className="inline-block">I craft visual</motion.span></span>
-              <span className="block overflow-hidden"><motion.span initial={{ y: "100%" }} whileInView={{ y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: 0.2, ease: [0.25, 1, 0.5, 1] }} className="inline-block text-[#FF7A00]">stories</motion.span></span>
-              <span className="block overflow-hidden"><motion.span initial={{ y: "100%" }} whileInView={{ y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: 0.3, ease: [0.25, 1, 0.5, 1] }} className="inline-block">that connect.</motion.span></span>
+              <span className="block overflow-hidden"><motion.span initial={{ y: "100%" }} whileInView={{ y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: 0.1, ease: [0.25, 1, 0.5, 1] }} className="inline-block">{content.hero.line1}</motion.span></span>
+              <span className="block overflow-hidden"><motion.span initial={{ y: "100%" }} whileInView={{ y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: 0.2, ease: [0.25, 1, 0.5, 1] }} className="inline-block text-[#FF7A00]">{content.hero.line2}</motion.span></span>
+              <span className="block overflow-hidden"><motion.span initial={{ y: "100%" }} whileInView={{ y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: 0.3, ease: [0.25, 1, 0.5, 1] }} className="inline-block">{content.hero.line3}</motion.span></span>
             </h1>
           </AnimatedSection>
 
@@ -617,13 +562,13 @@ export function Home() {
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-10 lg:gap-16 mt-4">
           <AnimatedSection delay={0.1} className="lg:col-span-3">
             <p className="font-heading font-bold text-2xl sm:text-3xl tracking-tight leading-tight">
-              Hi, I'm Aadiilin — a freelance graphic designer crafting bold visuals from Kasaragod, Kerala.
+              {content.about.intro}
             </p>
             <p className="mt-5 text-muted leading-relaxed">
-              I specialize in brand identities, poster design, campaign visuals, and art direction that tell stories and drive impact. Every project is built on a foundation of strategic thinking and bold creative vision.
+              {content.about.paragraph1}
             </p>
             <p className="mt-4 text-muted leading-relaxed">
-              I've partnered with organizations like Baithul Izza on event identities and campaign visuals. Currently available for freelance projects — let's create something great together.
+              {content.about.paragraph2}
             </p>
             <div className="mt-8 flex flex-wrap gap-2.5">
               {SKILLS.map(s => (

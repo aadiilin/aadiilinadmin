@@ -8,6 +8,7 @@ import { useEffect } from "react";
 import Lenis from 'lenis';
 import { GlobalSchemas } from '@/components/global-schemas';
 import { Home } from "@/pages/home";
+import { Admin } from "@/pages/admin";
 import { ProjectPage } from "@/pages/project/[slug]";
 import NotFound from "@/pages/not-found";
 
@@ -47,6 +48,7 @@ function Router() {
         >
           <Switch location={location}>
             <Route path="/" component={Home} />
+            <Route path="/admin" component={Admin} />
             <Route path="/project/:slug" component={ProjectPage} />
             <Route component={NotFound} />
           </Switch>
