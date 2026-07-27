@@ -24,20 +24,31 @@ export function Navigation() {
     return () => { document.body.style.overflow = '' }
   }, [menuOpen])
 
+  const [prevLocation, setPrevLocation] = useState(location)
+  const [flash, setFlash] = useState(false)
+
+  useEffect(() => {
+    if (location === prevLocation) return
+    setPrevLocation(location)
+    setFlash(true)
+    const timer = setTimeout(() => setFlash(false), 400)
+    return () => clearTimeout(timer)
+  }, [location, prevLocation])
+
   return (
     <>
-      <nav className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 md:px-12 h-20 mix-blend-exclusion">
-        <Link href="/" className="flex items-center gap-3">
+      <nav className="fixed left-8 top-1/2 -translate-y-1/2 z-50 flex flex-col items-center gap-12 mix-blend-exclusion">
+        <Link href="/" className="flex flex-col items-center gap-1">
           <span className="font-display text-lg font-bold text-white tracking-tight">A</span>
-          <span className="font-serif italic text-white/60 text-lg">aadiilin</span>
+          <span className="font-serif italic text-white/60 text-sm">aadiilin</span>
         </Link>
 
         <button
           onClick={() => setMenuOpen(true)}
-          className="flex flex-col items-end gap-1.5 py-2 group"
+          className="flex flex-col items-center gap-1 py-2 group"
           aria-label="Open menu"
         >
-          <span className="text-sm font-bold tracking-[0.15em] text-white/80 font-display group-hover:text-white transition-colors">
+          <span className="text-xs font-bold tracking-[0.15em] text-white/80 font-display group-hover:text-white transition-colors">
             MENU
           </span>
         </button>
@@ -50,7 +61,7 @@ export function Navigation() {
             animate={{ clipPath: 'circle(150% at 100% 0%)' }}
             exit={{ clipPath: 'circle(0% at 100% 0%)' }}
             transition={{ duration: 0.6, ease: [0.76, 0, 0.24, 1] }}
-            className="fixed inset-0 z-[100] bg-[#0F0F0F] flex flex-col items-center justify-center"
+            className="fixed inset-0 z-[100] bg-[#0F0F0F] flex flex-col justify-between p-12 md:p-16"
           >
             <button
               onClick={() => setMenuOpen(false)}
@@ -59,13 +70,13 @@ export function Navigation() {
               Close
             </button>
 
-            <div className="flex flex-col items-center gap-8 md:gap-12">
+            <div className="flex flex-col items-start gap-8 md:gap-10 mt-20">
               {navItems.map((item, i) => (
                 <motion.div
                   key={item.href}
-                  initial={{ opacity: 0, y: 60 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: 60 }}
+                  initial={{ opacity: 0, x: -40 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -40 }}
                   transition={{ duration: 0.5, delay: 0.1 * i, ease: [0.76, 0, 0.24, 1] }}
                 >
                   <Link
@@ -73,10 +84,10 @@ export function Navigation() {
                     onClick={() => setMenuOpen(false)}
                     className="group relative block"
                   >
-                    <span className="font-serif text-7xl md:text-9xl italic text-white/20 transition-colors duration-300 group-hover:text-white">
+                    <span className="font-serif text-6xl md:text-8xl italic text-white/20 transition-colors duration-300 group-hover:text-white">
                       {item.label}
                     </span>
-                    <span className="absolute inset-0 flex items-center justify-center font-display text-7xl md:text-9xl font-bold text-white opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                    <span className="absolute inset-0 flex items-center justify-start font-display text-6xl md:text-8xl font-bold text-white opacity-0 transition-opacity duration-300 group-hover:opacity-100">
                       {item.label}
                     </span>
                   </Link>
@@ -84,10 +95,9 @@ export function Navigation() {
               ))}
             </div>
 
-            <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4">
-              <div className="flex items-center gap-2 text-white/30 text-xs tracking-[0.2em] uppercase font-sans">
+            <div className="flex flex-col items-start gap-4">
+              <div className="flex flex-col items-start gap-2 text-white/30 text-xs tracking-[0.2em] uppercase font-sans">
                 <a href="tel:+918137802554" className="hover:text-white transition-colors">+91 81378 02554</a>
-                <span className="text-white/10 mx-2">/</span>
                 <a href="mailto:adilsarvadka@gmail.com" className="hover:text-white transition-colors">adilsarvadka@gmail.com</a>
               </div>
               <div className="flex items-center gap-4 text-white/30">
@@ -109,6 +119,18 @@ export function Navigation() {
               </div>
             </div>
           </motion.div>
+        )}
+      </AnimatePresence>
+
+      <AnimatePresence>
+        {flash && (
+          <motion.div
+            initial={{ opacity: 1 }}
+            animate={{ opacity: 0 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3, ease: [0.76, 0, 0.24, 1] }}
+            className="fixed inset-0 z-[200] bg-white pointer-events-none"
+          />
         )}
       </AnimatePresence>
     </>

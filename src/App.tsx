@@ -7,6 +7,7 @@ import { GlobalSchemas } from '@/components/global-schemas';
 import { Navigation } from '@/components/navigation';
 import { Footer } from '@/components/footer';
 import { CustomCursor } from '@/components/custom-cursor';
+import { PageLoader } from '@/components/page-loader';
 import { Home } from "@/pages/home";
 import { Work } from "@/pages/work";
 import { About } from "@/pages/about";
@@ -93,6 +94,7 @@ function App() {
     <HelmetProvider>
       <GlobalSchemas />
       <FontLoader />
+      <PageLoader />
       <CustomCursor />
       <WouterRouter base={import.meta.env.BASE_URL.replace(/\/$/, "")}>
         <Router />

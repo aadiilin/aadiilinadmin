@@ -53,40 +53,44 @@ function HeroSection() {
         <div className="max-w-7xl">
           <div className="mb-2 md:mb-3">
             <motion.span
-              initial={{ opacity: 0, y: 80 }}
-              animate={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, y: '70%', rotateX: -92, skewX: '3deg' }}
+              animate={{ opacity: 1, y: 0, rotateX: 0, skewX: '0deg' }}
               transition={{ duration: 0.8, delay: 0.1, ease: [0.76, 0, 0.24, 1] }}
               className="font-serif italic text-7xl md:text-9xl lg:text-[10rem] text-white/85 leading-none block"
+              style={{ transformStyle: 'preserve-3d' }}
             >
               High
             </motion.span>
           </div>
           <div className="mb-2 md:mb-3">
             <motion.span
-              initial={{ opacity: 0, y: 80 }}
-              animate={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, y: '70%', rotateX: -92, skewX: '3deg' }}
+              animate={{ opacity: 1, y: 0, rotateX: 0, skewX: '0deg' }}
               transition={{ duration: 0.8, delay: 0.2, ease: [0.76, 0, 0.24, 1] }}
               className="font-serif italic text-7xl md:text-9xl lg:text-[10rem] text-white/85 leading-none block"
+              style={{ transformStyle: 'preserve-3d' }}
             >
               end
             </motion.span>
           </div>
           <div className="mb-2 md:mb-3">
             <motion.span
-              initial={{ opacity: 0, y: 80 }}
-              animate={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, y: '70%', rotateX: -92, skewX: '3deg' }}
+              animate={{ opacity: 1, y: 0, rotateX: 0, skewX: '0deg' }}
               transition={{ duration: 0.8, delay: 0.3, ease: [0.76, 0, 0.24, 1] }}
               className="font-display font-bold text-7xl md:text-9xl lg:text-[10rem] text-white leading-none block"
+              style={{ transformStyle: 'preserve-3d' }}
             >
               digital
             </motion.span>
           </div>
           <div>
             <motion.span
-              initial={{ opacity: 0, y: 80 }}
-              animate={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, y: '70%', rotateX: -92, skewX: '3deg' }}
+              animate={{ opacity: 1, y: 0, rotateX: 0, skewX: '0deg' }}
               transition={{ duration: 0.8, delay: 0.4, ease: [0.76, 0, 0.24, 1] }}
               className="font-display font-bold text-7xl md:text-9xl lg:text-[10rem] text-white/70 leading-none block"
+              style={{ transformStyle: 'preserve-3d' }}
             >
               experiences
             </motion.span>
