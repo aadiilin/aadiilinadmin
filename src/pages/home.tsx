@@ -381,9 +381,13 @@ export function Home() {
               {[...s.items, ...s.items].map((item, i) => (
                 <span key={i} className="flex shrink-0 items-center gap-4 sm:gap-8 pr-4 sm:pr-8">
                   {si === 0 ? (
-                    <span className={`font-heading font-extrabold text-lg sm:text-2xl uppercase tracking-[0.15em] ${s.text} shrink-0`}>
-                      {item}
-                    </span>
+                    <svg width="160" height="24" viewBox="0 0 300 40" className="shrink-0 sm:w-[200px] sm:h-[30px]" fill="none">
+                      <text x="50%" y="55%" dominantBaseline="middle" textAnchor="middle"
+                        fontFamily="'Bricolage Grotesque', sans-serif" fontWeight="800"
+                        fontSize="28" letterSpacing="4" fill={s.dot}>
+                        aadiilin
+                      </text>
+                    </svg>
                   ) : (
                     <>
                       <svg width="100" height="16" viewBox="0 0 140 20" className="shrink-0 sm:w-[140px] sm:h-[20px]" fill="none">
@@ -404,9 +408,13 @@ export function Home() {
               {[...s.items, ...s.items].map((item, i) => (
                 <span key={`${i}-d`} className="flex shrink-0 items-center gap-8 pr-8">
                   {si === 0 ? (
-                    <span className={`font-heading font-extrabold text-lg sm:text-2xl uppercase tracking-[0.15em] ${s.text} shrink-0`}>
-                      {item}
-                    </span>
+                    <svg width="200" height="30" viewBox="0 0 300 40" className="shrink-0" fill="none">
+                      <text x="50%" y="55%" dominantBaseline="middle" textAnchor="middle"
+                        fontFamily="'Bricolage Grotesque', sans-serif" fontWeight="800"
+                        fontSize="28" letterSpacing="4" fill={s.dot}>
+                        aadiilin
+                      </text>
+                    </svg>
                   ) : (
                     <>
                       <svg width="140" height="20" viewBox="0 0 140 20" className="shrink-0" fill="none">
