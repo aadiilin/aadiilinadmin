@@ -1,136 +1,130 @@
-import { useEffect, useRef } from "react"
+import { useEffect, useRef } from 'react'
+import * as THREE from 'three'
 
 export function CanvasBackground() {
-  const canvasRef = useRef<HTMLCanvasElement>(null)
+  const containerRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    const canvas = canvasRef.current
-    if (!canvas) return
+    const container = containerRef.current
+    if (!container) return
 
-    const ctx = canvas.getContext("2d")
-    if (!ctx) return
+    const scene = new THREE.Scene()
+    const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000)
+    camera.position.z = 300
 
+    const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true })
+    renderer.setSize(window.innerWidth, window.innerHeight)
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
+    container.appendChild(renderer.domElement)
+
+    // 3D Particles Mesh Grid
+    const particleCount = 1200
+    const geometry = new THREE.BufferGeometry()
+    const positions = new Float32Array(particleCount * 3)
+    const scales = new Float32Array(particleCount)
+    const originalY = new Float32Array(particleCount)
+
+    let i = 0, j = 0
+    const numX = 40
+    const numZ = 30
+    const gap = 20
+
+    for (let ix = 0; ix < numX; ix++) {
+      for (let iz = 0; iz < numZ; iz++) {
+        const x = ix * gap - (numX * gap) / 2
+        const z = iz * gap - (numZ * gap) / 2
+        const y = Math.sin(ix * 0.3) * 15 + Math.cos(iz * 0.3) * 15
+
+        positions[i] = x
+        positions[i + 1] = y - 100
+        positions[i + 2] = z
+        originalY[j] = positions[i + 1]
+
+        scales[j] = Math.random() * 2 + 1
+        i += 3
+        j++
+      }
+    }
+
+    geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3))
+    geometry.setAttribute('scale', new THREE.BufferAttribute(scales, 1))
+
+    // Particle Shader Material
+    const material = new THREE.PointsMaterial({
+      color: 0xffffff,
+      size: 2.2,
+      transparent: true,
+      opacity: 0.25,
+      blending: THREE.AdditiveBlending,
+    })
+
+    const particles = new THREE.Points(geometry, material)
+    scene.add(particles)
+
+    // Mouse Interaction Variables
+    let mouseX = 0
+    let mouseY = 0
+    let targetMouseX = 0
+    let targetMouseY = 0
+
+    const onMouseMove = (e: MouseEvent) => {
+      targetMouseX = (e.clientX - window.innerWidth / 2) * 0.1
+      targetMouseY = (e.clientY - window.innerHeight / 2) * 0.1
+    }
+
+    window.addEventListener('mousemove', onMouseMove)
+
+    // Animation Loop
+    let count = 0
     let animId: number
-    let width = 0
-    let height = 0
-    let mouse = { x: -1000, y: -1000, targetX: -1000, targetY: -1000, radius: 250 }
 
-    interface Particle {
-      x: number
-      y: number
-      baseX: number
-      baseY: number
-      vx: number
-      vy: number
-      size: number
-      alpha: number
-    }
+    const animate = () => {
+      count += 0.03
+      mouseX += (targetMouseX - mouseX) * 0.05
+      mouseY += (targetMouseY - mouseY) * 0.05
 
-    let particles: Particle[] = []
+      camera.position.x += (mouseX - camera.position.x) * 0.05
+      camera.position.y += (-mouseY - camera.position.y) * 0.05
+      camera.lookAt(scene.position)
 
-    function resize() {
-      if (!canvas) return
-      width = canvas.width = window.innerWidth
-      height = canvas.height = window.innerHeight
-      initParticles()
-    }
+      const positionAttr = geometry.attributes.position as THREE.BufferAttribute
+      const posArr = positionAttr.array as Float32Array
 
-    function initParticles() {
-      particles = []
-      const step = Math.max(35, Math.floor(Math.sqrt((width * height) / 400)))
-      for (let x = 0; x < width; x += step) {
-        for (let y = 0; y < height; y += step) {
-          particles.push({
-            x,
-            y,
-            baseX: x,
-            baseY: y,
-            vx: (Math.random() - 0.5) * 0.4,
-            vy: (Math.random() - 0.5) * 0.4,
-            size: Math.random() * 1.5 + 0.5,
-            alpha: Math.random() * 0.25 + 0.05,
-          })
+      let pIdx = 0
+      for (let ix = 0; ix < numX; ix++) {
+        for (let iz = 0; iz < numZ; iz++) {
+          posArr[pIdx + 1] = originalY[pIdx / 3] + Math.sin((ix + count) * 0.3) * 12 + Math.sin((iz + count) * 0.5) * 12
+          pIdx += 3
         }
       }
+
+      positionAttr.needsUpdate = true
+      renderer.render(scene, camera)
+      animId = requestAnimationFrame(animate)
     }
 
-    function onMouseMove(e: MouseEvent) {
-      mouse.targetX = e.clientX
-      mouse.targetY = e.clientY
+    animate()
+
+    const onResize = () => {
+      camera.aspect = window.innerWidth / window.innerHeight
+      camera.updateProjectionMatrix()
+      renderer.setSize(window.innerWidth, window.innerHeight)
     }
 
-    function draw() {
-      if (!canvas || !ctx) return
-      ctx.clearRect(0, 0, width, height)
-
-      // Smooth mouse interpolation
-      mouse.x += (mouse.targetX - mouse.x) * 0.1
-      mouse.y += (mouse.targetY - mouse.y) * 0.1
-
-      // Subtle gradient radial spot following mouse
-      if (mouse.x > 0 && mouse.y > 0) {
-        const gradient = ctx.createRadialGradient(
-          mouse.x,
-          mouse.y,
-          0,
-          mouse.x,
-          mouse.y,
-          mouse.radius * 1.8
-        )
-        gradient.addColorStop(0, "rgba(255, 255, 255, 0.04)")
-        gradient.addColorStop(0.5, "rgba(200, 200, 255, 0.015)")
-        gradient.addColorStop(1, "rgba(0, 0, 0, 0)")
-        ctx.fillStyle = gradient
-        ctx.fillRect(0, 0, width, height)
-      }
-
-      // Draw mesh nodes & connection lines
-      for (let i = 0; i < particles.length; i++) {
-        const p = particles[i]
-
-        // Mouse displacement force
-        const dx = mouse.x - p.x
-        const dy = mouse.y - p.y
-        const dist = Math.sqrt(dx * dx + dy * dy)
-
-        if (dist < mouse.radius) {
-          const force = (1 - dist / mouse.radius) * 45
-          const angle = Math.atan2(dy, dx)
-          p.x -= Math.cos(angle) * force * 0.05
-          p.y -= Math.sin(angle) * force * 0.05
-        }
-
-        // Elastic return to base position
-        p.x += (p.baseX - p.x) * 0.03 + p.vx
-        p.y += (p.baseY - p.y) * 0.03 + p.vy
-
-        // Draw particle dot
-        ctx.beginPath()
-        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2)
-        ctx.fillStyle = `rgba(255, 255, 255, ${p.alpha})`
-        ctx.fill()
-      }
-
-      animId = requestAnimationFrame(draw)
-    }
-
-    resize()
-    draw()
-
-    window.addEventListener("resize", resize)
-    window.addEventListener("mousemove", onMouseMove)
+    window.addEventListener('resize', onResize)
 
     return () => {
       cancelAnimationFrame(animId)
-      window.removeEventListener("resize", resize)
-      window.removeEventListener("mousemove", onMouseMove)
+      window.removeEventListener('mousemove', onMouseMove)
+      window.removeEventListener('resize', onResize)
+      if (renderer.domElement.parentNode) {
+        renderer.domElement.parentNode.removeChild(renderer.domElement)
+      }
+      renderer.dispose()
+      geometry.dispose()
+      material.dispose()
     }
   }, [])
 
-  return (
-    <canvas
-      ref={canvasRef}
-      className="fixed inset-0 z-0 pointer-events-none opacity-80"
-    />
-  )
+  return <div ref={containerRef} className="fixed inset-0 z-0 pointer-events-none opacity-70" />
 }

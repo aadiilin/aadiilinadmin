@@ -5,9 +5,18 @@ import { SEO } from '@/components/seo'
 import { PROJECTS } from '@/lib/seo-data'
 import { collectionPageSchema, itemListSchema, contactPageSchema } from '@/lib/schemas'
 import { CanvasBackground } from '@/components/canvas-background'
+import { HeroTitle3D } from '@/components/hero-title-3d'
+import { ProjectCard3D } from '@/components/project-card-3d'
 import { soundManager } from '@/lib/sound'
 
 const featured = PROJECTS.slice(0, 4)
+
+const heroLines = [
+  { text: 'High', style: 'serif' as const, italic: true, opacity: 'text-white/90' },
+  { text: 'end', style: 'serif' as const, italic: true, opacity: 'text-white/70' },
+  { text: 'digital', style: 'display' as const, italic: false, opacity: 'text-white' },
+  { text: 'experiences', style: 'display' as const, italic: false, opacity: 'text-white/80' },
+]
 
 function HeroSection() {
   return (
@@ -15,47 +24,7 @@ function HeroSection() {
       <CanvasBackground />
 
       <div className="relative z-10 max-w-7xl mx-auto w-full my-auto">
-        <div className="flex flex-col items-start space-y-1 md:space-y-2">
-          <motion.div
-            initial={{ opacity: 0, y: '80%', rotateX: -80 }}
-            animate={{ opacity: 1, y: 0, rotateX: 0 }}
-            transition={{ duration: 0.9, delay: 0.1, ease: [0.76, 0, 0.24, 1] }}
-          >
-            <span className="font-serif italic text-6xl sm:text-8xl md:text-9xl lg:text-[11rem] text-white/90 leading-[0.85] block tracking-tight">
-              High
-            </span>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: '80%', rotateX: -80 }}
-            animate={{ opacity: 1, y: 0, rotateX: 0 }}
-            transition={{ duration: 0.9, delay: 0.2, ease: [0.76, 0, 0.24, 1] }}
-          >
-            <span className="font-serif italic text-6xl sm:text-8xl md:text-9xl lg:text-[11rem] text-white/70 leading-[0.85] block tracking-tight">
-              end
-            </span>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: '80%', rotateX: -80 }}
-            animate={{ opacity: 1, y: 0, rotateX: 0 }}
-            transition={{ duration: 0.9, delay: 0.3, ease: [0.76, 0, 0.24, 1] }}
-          >
-            <span className="font-display font-black text-6xl sm:text-8xl md:text-9xl lg:text-[11rem] text-white leading-[0.85] block tracking-tight uppercase">
-              digital
-            </span>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: '80%', rotateX: -80 }}
-            animate={{ opacity: 1, y: 0, rotateX: 0 }}
-            transition={{ duration: 0.9, delay: 0.4, ease: [0.76, 0, 0.24, 1] }}
-          >
-            <span className="font-display font-bold text-6xl sm:text-8xl md:text-9xl lg:text-[11rem] text-white/80 leading-[0.85] block tracking-tight lowercase">
-              experiences
-            </span>
-          </motion.div>
-        </div>
+        <HeroTitle3D lines={heroLines} />
 
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -82,10 +51,17 @@ function HeroSection() {
         transition={{ duration: 1, delay: 1.2 }}
         className="relative z-10 flex justify-center pt-8"
       >
-        <div className="flex flex-col items-center gap-2 text-white/40 hover:text-white transition-colors cursor-pointer" onClick={() => window.scrollTo({ top: window.innerHeight, behavior: 'smooth' })}>
+        <div
+          className="flex flex-col items-center gap-2 text-white/40 hover:text-white transition-colors cursor-pointer"
+          onClick={() => {
+            soundManager.playClick()
+            window.scrollTo({ top: window.innerHeight, behavior: 'smooth' })
+          }}
+          data-cursor="pointer"
+        >
           <span className="text-[10px] font-mono tracking-widest uppercase">SCROLL DOWN</span>
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" className="animate-bounce">
-            <path d="M12 5v14M5 12l7 7 7-7" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+            <path d="M12 5v14M5 12l7 7-7-7" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
           </svg>
         </div>
       </motion.div>
@@ -196,11 +172,11 @@ function FeaturedWork() {
             className="text-xs font-mono tracking-widest text-white/50 hover:text-white uppercase border-b border-white/20 pb-1 hover:border-white transition-all self-start md:self-auto"
             data-cursor="pointer"
           >
-            VIEW ALL PROJECTS [4+]
+            VIEW ALL PROJECTS [4]
           </Link>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16">
           {featured.map((project, i) => (
             <motion.div
               key={project.slug}
@@ -208,41 +184,7 @@ function FeaturedWork() {
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.7, delay: 0.15 * i, ease: [0.76, 0, 0.24, 1] }}
             >
-              <Link
-                href={`/project/${project.slug}`}
-                className="group block"
-                onMouseEnter={() => soundManager.playHover()}
-                onClick={() => soundManager.playClick()}
-                data-cursor="pointer"
-                data-cursor-text="VIEW"
-              >
-                <div className="relative overflow-hidden rounded-xl mb-6 aspect-[16/10] bg-[#141414] border border-white/10 group-hover:border-white/30 transition-all duration-500">
-                  <img
-                    src={project.image}
-                    alt={project.title}
-                    className="w-full h-full object-cover grayscale opacity-80 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700"
-                    loading="lazy"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60 group-hover:opacity-30 transition-opacity" />
-                  
-                  <div className="absolute top-4 right-4 bg-black/70 backdrop-blur-md px-3 py-1 rounded-full border border-white/10 text-[11px] font-mono text-white/80">
-                    {project.index || `${i + 1}/4`}
-                  </div>
-                </div>
-
-                <div className="flex items-baseline justify-between border-b border-white/10 pb-4 group-hover:border-white/40 transition-colors">
-                  <h3 className="font-display text-2xl md:text-4xl font-bold text-white group-hover:text-white/80 transition-colors uppercase">
-                    {project.title}
-                  </h3>
-                  <span className="font-mono text-xs text-white/40">
-                    {project.year}
-                  </span>
-                </div>
-                <div className="flex items-center justify-between mt-3 text-xs font-mono text-white/50">
-                  <span>{project.role}</span>
-                  <span>{project.category}</span>
-                </div>
-              </Link>
+              <ProjectCard3D project={project} index={i} />
             </motion.div>
           ))}
         </div>

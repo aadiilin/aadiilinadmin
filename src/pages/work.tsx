@@ -1,11 +1,11 @@
 import { useState } from 'react'
-import { Link } from 'wouter'
 import { motion } from 'framer-motion'
 import { SEO } from '@/components/seo'
 import { PROJECTS } from '@/lib/seo-data'
+import { ProjectCard3D } from '@/components/project-card-3d'
 import { soundManager } from '@/lib/sound'
 
-const categories = ['All', 'Branding & WebGL', 'Interactive Platform', 'Luxury E-Commerce', 'Experimental Web', 'Event Identity']
+const categories = ['All', 'Branding & WebGL', 'Interactive Platform', 'Luxury E-Commerce', 'Experimental Web']
 
 export function Work() {
   const [selectedCategory, setSelectedCategory] = useState('All')
@@ -64,7 +64,7 @@ export function Work() {
           ))}
         </div>
 
-        {/* Projects Grid */}
+        {/* 3D Projects Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16">
           {filteredProjects.map((project, i) => (
             <motion.div
@@ -73,37 +73,7 @@ export function Work() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.08 * i, ease: [0.76, 0, 0.24, 1] }}
             >
-              <Link
-                href={`/project/${project.slug}`}
-                className="group block"
-                onMouseEnter={() => soundManager.playHover()}
-                onClick={() => soundManager.playClick()}
-                data-cursor="pointer"
-                data-cursor-text="EXPLORE"
-              >
-                <div className="relative overflow-hidden rounded-xl mb-5 aspect-[16/10] bg-[#141414] border border-white/10 group-hover:border-white/30 transition-all duration-500">
-                  <img
-                    src={project.image}
-                    alt={project.title}
-                    className="w-full h-full object-cover grayscale opacity-80 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700"
-                    loading="lazy"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60 group-hover:opacity-20 transition-opacity" />
-                  <div className="absolute top-4 right-4 bg-black/80 backdrop-blur-md px-3 py-1 rounded-full text-[11px] font-mono text-white/80 border border-white/10">
-                    {project.year}
-                  </div>
-                </div>
-
-                <div className="flex items-baseline justify-between border-b border-white/10 pb-3 group-hover:border-white/40 transition-colors">
-                  <h2 className="font-display text-2xl md:text-3xl font-bold text-white group-hover:text-white/80 transition-colors uppercase">
-                    {project.title}
-                  </h2>
-                  <span className="font-mono text-xs text-white/40">{project.category}</span>
-                </div>
-                <p className="text-white/60 text-xs font-sans mt-3 line-clamp-2 leading-relaxed">
-                  {project.description}
-                </p>
-              </Link>
+              <ProjectCard3D project={project} index={i} />
             </motion.div>
           ))}
         </div>
