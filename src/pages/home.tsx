@@ -294,13 +294,13 @@ export function Home() {
                   className="font-heading font-bold text-3xl tracking-tight hover:text-accent transition-colors">{item}</a>
               ))}
             </motion.div>
-          )}
+      )}
         </AnimatePresence>
       </motion.header>
 
       {/* ━━━━━━ Hero ━━━━━━ */}
       <section className="bg-[#080D10] text-white relative overflow-hidden" style={{ clipPath: "polygon(0 0, 100% 0, 100% calc(100% - 48px), 0 100%)" }}>
-        <div className="max-w-[1320px] mx-auto px-6 pt-36 pb-0 w-full">
+        <div className="max-w-[1320px] mx-auto px-6 pt-36 pb-16 w-full">
           <AnimatedSection>
             <div className="text-xs sm:text-sm font-mono text-white/50 uppercase tracking-wider mb-5">Freelance Graphic Designer</div>
             <h1 className="font-heading font-extrabold text-[clamp(2.5rem,9vw,6rem)] leading-[0.95] tracking-tighter max-w-5xl">
@@ -361,6 +361,7 @@ export function Home() {
       </section>
 
       {/* ━━━━━━ Marquee Strips ━━━━━━ */}
+      <div style={{ marginTop: "-48px" }}>
       {[
         { bg: "bg-[#FF7A00]", text: "text-white", border: "border-white", line: "#FFFFFF", dot: "#FFFFFF", rev: false },
         { bg: "bg-[#1A1A1A]", text: "text-[#FF7A00]", border: "border-[#FF7A00]", line: "#FF7A00", dot: "#FF7A00", rev: true },
@@ -410,6 +411,7 @@ export function Home() {
           </div>
         </div>
       ))}
+      </div>
 
       {/* ━━━━━━ Featured Work ━━━━━━ */}
       <section id="work" className="max-w-[1320px] mx-auto px-6 py-24 sm:py-32">
