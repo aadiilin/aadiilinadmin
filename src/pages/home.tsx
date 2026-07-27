@@ -379,14 +379,14 @@ export function Home() {
           <div className="flex whitespace-nowrap">
             <div className={`flex ${s.rev ? "animate-marquee-rev" : "animate-marquee"} items-center gap-0`}>
               {[...MARQUEE_ITEMS, ...MARQUEE_ITEMS].map((skill, i) => (
-                <span key={i} className="flex shrink-0 items-center gap-8 pr-8">
-                  <svg width="140" height="20" viewBox="0 0 140 20" className="shrink-0" fill="none">
+                <span key={i} className="flex shrink-0 items-center gap-4 sm:gap-8 pr-4 sm:pr-8">
+                  <svg width="100" height="16" viewBox="0 0 140 20" className="shrink-0 sm:w-[140px] sm:h-[20px]" fill="none">
                     <path d="M8 10 C 22 -3, 36 23, 50 10 C 64 -3, 78 23, 92 10 C 102 1, 114 19, 122 10 C 128 4, 134 16, 138 10"
                       stroke={s.line} strokeWidth="2.5" strokeLinecap="round" fill="none" />
                     <circle cx="6" cy="10" r="3" fill={s.dot} />
                     <circle cx="134" cy="10" r="2.5" fill={s.dot} opacity="0.6" />
                   </svg>
-                  <span className={`font-heading font-bold text-[11px] sm:text-xs uppercase tracking-[0.18em] ${s.text} ${s.border} border-2 rounded-full px-5 py-1.5 shrink-0`}>
+                  <span className={`font-heading font-bold text-[10px] sm:text-xs uppercase tracking-[0.18em] ${s.text} ${s.border} border-2 rounded-full px-3 sm:px-5 py-1 sm:py-1.5 shrink-0`}>
                     {skill}
                   </span>
                 </span>
