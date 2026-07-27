@@ -1,11 +1,11 @@
 {
   "name": "Aadiilin — Freelance Graphic Designer",
   "short_name": "Aadiilin",
-  "description": "Portfolio of Aadiilin (Adil Sarvadka), a freelance graphic designer from Kerala specializing in poster design, brand identity, and campaign visuals.",
+  "description": "Portfolio of Aadiilin (Adil Kattathadukka), a freelance graphic designer from Kerala specializing in poster design, brand identity, and campaign visuals.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#F2EEE3",
-  "theme_color": "#F2EEE3",
+  "background_color": "#0F0F0F",
+  "theme_color": "#0F0F0F",
   "icons": [
     {
       "src": "/icon-192.png",

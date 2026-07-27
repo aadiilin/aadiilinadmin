@@ -1,10 +1,121 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://aadiilin.vercel.app/</loc>
     <lastmod>2025-07-15</lastmod>
-    <changefreq>monthly</changefreq>
+    <changefreq>weekly</changefreq>
     <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://aadiilin.vercel.app/project/imbizo</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://aadiilin.vercel.app/images/imbizo.jpeg</image:loc>
+      <image:title>IMBIZO 1.0</image:title>
+      <image:caption>Poster and identity for IMBIZO 1.0 arts fest by Baithul Izza</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://aadiilin.vercel.app/project/an-nur</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://aadiilin.vercel.app/images/annur.jpeg</image:loc>
+      <image:title>An-Nur Fifteen Hundred</image:title>
+      <image:caption>Commemorative campaign poster for An-Nur 1500</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://aadiilin.vercel.app/project/hijra</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://aadiilin.vercel.app/images/hijra.jpeg</image:loc>
+      <image:title>Hijra Talk Series</image:title>
+      <image:caption>Event identity for Hijra Talk Series under Muharram campaign</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://aadiilin.vercel.app/project/keam-2025</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://aadiilin.vercel.app/images/keam.jpeg</image:loc>
+      <image:title>KEAM 2025 Results</image:title>
+      <image:caption>Results announcement design for Science Orbit at Baithul Izza</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://aadiilin.vercel.app/project/enroute</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://aadiilin.vercel.app/images/enroute.jpeg</image:loc>
+      <image:title>Enroute</image:title>
+      <image:caption>Visual campaign for Enroute Kerala–Karnataka–Tamil Nadu trip</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://aadiilin.vercel.app/project/guest-welcome</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://aadiilin.vercel.app/images/guest.jpeg</image:loc>
+      <image:title>Hearty Welcomes</image:title>
+      <image:caption>Chief guest welcome poster for Kashmiri Sadath Uroos Mubarak &amp; Milad Sangamam</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://aadiilin.vercel.app/project/token-of-love-poster-variety</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://aadiilin.vercel.app/images/Token_Of_Love_Poster_Variety.jpg</image:loc>
+      <image:title>Token Of Love Poster Variety</image:title>
+      <image:caption>Vibrant poster series for the Token of Love campaign</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://aadiilin.vercel.app/project/award-poster-design</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://aadiilin.vercel.app/images/Award_Poster_Design.jpg</image:loc>
+      <image:title>Award Poster Design</image:title>
+      <image:caption>Elegant award ceremony poster design</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://aadiilin.vercel.app/project/variety-creative-poster-design</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://aadiilin.vercel.app/images/Variety_Creative_Poster_Design.jpg</image:loc>
+      <image:title>Variety Creative Poster Design</image:title>
+      <image:caption>Creative variety poster design with bold compositions</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://aadiilin.vercel.app/project/token-of-love-poster</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://aadiilin.vercel.app/images/Token_Of_Love_Poster.jpg</image:loc>
+      <image:title>Token Of Love Poster</image:title>
+      <image:caption>Main campaign poster for Token of Love</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://aadiilin.vercel.app/project/wedding</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://aadiilin.vercel.app/images/weddingnu.jpeg</image:loc>
+      <image:title>WEDDING</image:title>
+      <image:caption>Wedding design project with elegant typography and decorative motifs</image:caption>
+    </image:image>
   </url>
 </urlset>

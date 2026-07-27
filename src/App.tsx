@@ -1,24 +1,24 @@
 import { Switch, Route, Router as WouterRouter, useLocation } from "wouter";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { AnimatePresence, motion } from "framer-motion";
-import { Toaster } from "@/components/ui/toaster";
-import { TooltipProvider } from "@/components/ui/tooltip";
 import { HelmetProvider } from 'react-helmet-async';
 import { useEffect } from "react";
 import Lenis from 'lenis';
 import { GlobalSchemas } from '@/components/global-schemas';
+import { Navigation } from '@/components/navigation';
+import { Footer } from '@/components/footer';
+import { CustomCursor } from '@/components/custom-cursor';
 import { Home } from "@/pages/home";
-import { Admin } from "@/pages/admin";
+import { Work } from "@/pages/work";
+import { About } from "@/pages/about";
+import { Contact } from "@/pages/contact";
 import { ProjectPage } from "@/pages/project/[slug]";
+import { PrivacyPolicy } from "@/pages/privacy-policy";
 import NotFound from "@/pages/not-found";
-import { getContent, applyTheme, applyDesign } from "@/lib/content-store";
-
-const queryClient = new QueryClient();
 
 const FontLoader = () => {
   useEffect(() => {
     const link = document.createElement("link");
-    link.href = "https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700;12..96,800&family=Instrument+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap";
+    link.href = "https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500&family=Sora:wght@400;500;600;700;800&display=swap";
     link.rel = "stylesheet";
     document.head.appendChild(link);
     return () => {
@@ -33,9 +33,8 @@ function Router() {
   return (
     <AnimatePresence mode="wait" initial={false}>
       <div key={location} className="relative">
-        {/* Curtain wipe overlay */}
         <motion.div
-          className="fixed inset-0 bg-text z-[100] origin-top pointer-events-none"
+          className="fixed inset-0 bg-[#0F0F0F] z-[100] origin-top pointer-events-none"
           initial={{ scaleY: 1 }}
           animate={{ scaleY: 0 }}
           exit={{ scaleY: 0 }}
@@ -47,35 +46,26 @@ function Router() {
           exit={{ opacity: 0 }}
           transition={{ duration: 0.35, delay: 0.4 }}
         >
+          <Navigation />
           <Switch location={location}>
             <Route path="/" component={Home} />
-            <Route path="/admin" component={Admin} />
+            <Route path="/work" component={Work} />
+            <Route path="/about" component={About} />
+            <Route path="/contact" component={Contact} />
             <Route path="/project/:slug" component={ProjectPage} />
+            <Route path="/privacy-policy" component={PrivacyPolicy} />
             <Route component={NotFound} />
           </Switch>
+          <Footer />
         </motion.div>
       </div>
     </AnimatePresence>
   );
 }
 
-function ThemeManager() {
-  useEffect(() => {
-    const c = getContent()
-    applyTheme(c.theme)
-    applyDesign(c.design)
-  }, [])
-  return null
-}
-
 function App() {
   useEffect(() => {
-    const scrollEl = document.querySelector('.scroll-container') as HTMLElement | undefined
-    if (!scrollEl) return
-
     const lenis = new Lenis({
-      wrapper: scrollEl,
-      content: scrollEl,
       duration: 1.0,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       orientation: 'vertical',
@@ -101,17 +91,12 @@ function App() {
 
   return (
     <HelmetProvider>
-      <ThemeManager />
       <GlobalSchemas />
-      <QueryClientProvider client={queryClient}>
-        <TooltipProvider>
-          <FontLoader />
-          <WouterRouter base={import.meta.env.BASE_URL.replace(/\/$/, "")}>
-            <Router />
-          </WouterRouter>
-          <Toaster />
-        </TooltipProvider>
-      </QueryClientProvider>
+      <FontLoader />
+      <CustomCursor />
+      <WouterRouter base={import.meta.env.BASE_URL.replace(/\/$/, "")}>
+        <Router />
+      </WouterRouter>
     </HelmetProvider>
   );
 }

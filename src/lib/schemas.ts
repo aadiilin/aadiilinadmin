@@ -1,4 +1,4 @@
-import { SITE_URL, SITE_NAME, SITE_DESCRIPTION, PROJECTS, SKILLS, CREATOR_NAME, CREATOR_ALTERNATE_NAME, CREATOR_JOB_TITLE, CREATOR_EMAIL, CREATOR_PHONE, CREATOR_LOCATION, CREATOR_IMAGE, SOCIAL_LINKS } from './seo-data'
+import { SITE_URL, SITE_NAME, SITE_DESCRIPTION, PROJECTS, SKILLS, CREATOR_NAME, CREATOR_ALTERNATE_NAME, CREATOR_ALTERNATE_NAME_2, CREATOR_JOB_TITLE, CREATOR_EMAIL, CREATOR_PHONE, CREATOR_LOCATION, CREATOR_IMAGE, SOCIAL_LINKS } from './seo-data'
 import type { Project } from './seo-data'
 
 export function personSchema() {
@@ -6,7 +6,7 @@ export function personSchema() {
     '@context': 'https://schema.org',
     '@type': 'Person',
     name: CREATOR_ALTERNATE_NAME,
-    alternateName: CREATOR_NAME,
+    alternateName: [CREATOR_NAME, CREATOR_ALTERNATE_NAME_2],
     url: SITE_URL,
     image: `${SITE_URL}${CREATOR_IMAGE}`,
     description: SITE_DESCRIPTION,
@@ -28,7 +28,7 @@ export function websiteSchema() {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
     name: SITE_NAME,
-    alternateName: [CREATOR_NAME, CREATOR_ALTERNATE_NAME],
+    alternateName: [CREATOR_NAME, CREATOR_ALTERNATE_NAME, CREATOR_ALTERNATE_NAME_2],
     url: SITE_URL,
     description: SITE_DESCRIPTION,
     author: { '@type': 'Person', name: CREATOR_ALTERNATE_NAME },
@@ -48,7 +48,7 @@ export function organizationSchema() {
     '@context': 'https://schema.org',
     '@type': 'Organization',
     name: CREATOR_NAME,
-    alternateName: CREATOR_ALTERNATE_NAME,
+    alternateName: [CREATOR_ALTERNATE_NAME, CREATOR_ALTERNATE_NAME_2],
     url: SITE_URL,
     logo: `${SITE_URL}/icon-512.png`,
     email: CREATOR_EMAIL,

@@ -1,8 +1,8 @@
 import { useRoute, Link } from 'wouter'
 import { motion } from 'framer-motion'
-import { ArrowLeft, ExternalLink } from 'lucide-react'
+import { ArrowLeft } from 'lucide-react'
 import { SEO } from '@/components/seo'
-import { findProjectBySlug, SITE_URL, CREATOR_NAME, CREATOR_ALTERNATE_NAME } from '@/lib/seo-data'
+import { findProjectBySlug, SITE_URL, CREATOR_NAME } from '@/lib/seo-data'
 
 export function ProjectPage() {
   const [, params] = useRoute('/project/:slug')
@@ -10,48 +10,32 @@ export function ProjectPage() {
 
   if (!project) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <main className="bg-[#0F0F0F] min-h-screen flex items-center justify-center">
         <SEO title="Project Not Found" path="/project/unknown" noIndex noFollow />
         <div className="text-center space-y-4">
-          <h1 className="font-serif text-4xl">Project not found</h1>
-          <Link href="/" className="text-primary underline text-sm">
-            Back to home
+          <h1 className="font-serif text-4xl italic text-white/60">Project not found</h1>
+          <Link href="/" className="font-sans text-xs uppercase tracking-widest text-white/40 hover:text-white transition-colors inline-block">
+            &larr; Back to home
           </Link>
         </div>
-      </div>
+      </main>
     )
   }
 
-  const isSoftware = ['SaaS', 'E-Commerce', 'Event Management'].includes(project.category || '')
   const projectUrl = `${SITE_URL}/project/${project.slug}`
   const projectImage = `${SITE_URL}${project.image}`
 
   const schema = {
     '@context': 'https://schema.org',
-    '@type': isSoftware ? 'SoftwareApplication' : 'CreativeWork',
+    '@type': 'CreativeWork',
     name: project.title,
     description: project.description,
     url: projectUrl,
     image: projectImage,
-    ...(isSoftware ? {
-      applicationCategory: project.category,
-      operatingSystem: 'Web',
-    } : {}),
-    creator: {
-      '@type': 'Person',
-      name: CREATOR_NAME,
-      alternateName: CREATOR_ALTERNATE_NAME,
-      url: SITE_URL,
-    },
+    creator: { '@type': 'Person', name: CREATOR_NAME, url: SITE_URL },
     dateCreated: project.year,
     keywords: [project.role, CREATOR_NAME, ...(project.tags || [])].join(', '),
     genre: project.category || project.role,
-    about: project.description,
-    isPartOf: {
-      '@type': 'CreativeWork',
-      name: `${CREATOR_NAME} Portfolio`,
-      url: SITE_URL,
-    },
   }
 
   const speakableSchema = {
@@ -59,10 +43,7 @@ export function ProjectPage() {
     '@type': 'WebPage',
     name: `${project.title} — ${CREATOR_NAME}`,
     url: projectUrl,
-    speakable: {
-      '@type': 'SpeakableSpecification',
-      cssSelector: ['h1', 'p'],
-    },
+    speakable: { '@type': 'SpeakableSpecification', cssSelector: ['h1', 'p'] },
   }
 
   return (
@@ -81,60 +62,88 @@ export function ProjectPage() {
         ]}
       />
 
-      <div className="min-h-screen bg-background text-foreground">
+      <main className="bg-[#0F0F0F] min-h-screen">
         <div className="fixed top-6 left-6 z-50">
           <Link
             href="/"
-            className="glass px-4 py-2 rounded-full text-xs font-bold uppercase tracking-widest hover:scale-105 transition-transform inline-flex items-center gap-2"
+            className="font-sans text-xs uppercase tracking-widest text-white/40 hover:text-white transition-colors inline-flex items-center gap-2"
           >
             <ArrowLeft size={14} /> Back
           </Link>
         </div>
 
-        <div className="relative min-h-screen flex flex-col items-center justify-center px-6 py-24">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            className="w-full max-w-5xl space-y-8"
-          >
-            <div className="glass-card rounded-[2rem] overflow-hidden">
-              <img
-                src={project.image}
-                alt={`${project.title} — ${project.role} by Aadiilin`}
-                className="w-full h-auto object-contain bg-black/20"
-              />
-            </div>
-
-            <div className="max-w-2xl mx-auto text-center space-y-6">
-              <div className="flex items-center justify-center gap-4 text-xs uppercase tracking-widest font-bold">
-                <span className="text-primary">{project.role}</span>
-                <span className="w-1 h-1 bg-muted-foreground/30 rounded-full" />
-                <span className="text-muted-foreground">{project.year}</span>
+        <div className="pt-24 pb-24 px-6 md:px-12">
+          <div className="max-w-5xl mx-auto">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+              className="mb-8"
+            >
+              <div className="flex items-center gap-4 text-xs uppercase tracking-widest text-white/30 font-sans mb-6">
+                <span>{project.role}</span>
+                <span className="w-px h-3 bg-white/20" />
+                <span>{project.year}</span>
+                {project.category && (
+                  <>
+                    <span className="w-px h-3 bg-white/20" />
+                    <span>{project.category}</span>
+                  </>
+                )}
               </div>
 
-              <h1 className="font-serif text-4xl md:text-6xl leading-tight">
+              <h1 className="font-serif text-4xl md:text-7xl italic text-white leading-tight mb-6">
                 {project.title}
               </h1>
 
-              <p className="text-muted-foreground text-lg leading-relaxed">
+              <p className="font-sans text-sm md:text-base text-white/50 max-w-2xl leading-relaxed">
                 {project.description}
               </p>
 
-              {project.link && (
+              {project.tags && project.tags.length > 0 && (
+                <div className="flex flex-wrap gap-2 mt-6">
+                  {project.tags.map((tag) => (
+                    <span key={tag} className="font-sans text-[10px] uppercase tracking-widest text-white/30 border border-white/10 rounded-full px-3 py-1">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              )}
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+              className="rounded-lg overflow-hidden bg-[#1A1A1A]"
+            >
+              <img
+                src={project.image}
+                alt={`${project.title} — ${project.role} by Aadiilin`}
+                className="w-full h-auto object-contain"
+              />
+            </motion.div>
+
+            {project.link && (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.6, delay: 0.4 }}
+                className="mt-12 text-center"
+              >
                 <a
                   href={project.link}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="glossy-button inline-flex items-center gap-3 px-8 py-4 rounded-full text-xs font-bold uppercase tracking-widest hover:scale-105 transition-transform"
+                  className="font-sans text-xs uppercase tracking-widest text-white/60 hover:text-white transition-colors border border-white/20 rounded-full px-8 py-4 inline-block"
                 >
-                  Visit Project <ExternalLink size={14} />
+                  Visit Project &rarr;
                 </a>
-              )}
-            </div>
-          </motion.div>
+              </motion.div>
+            )}
+          </div>
         </div>
-      </div>
+      </main>
     </>
   )
 }

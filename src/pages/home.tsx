@@ -1,761 +1,317 @@
-﻿import { Link } from "wouter"
-import { motion, AnimatePresence } from "framer-motion"
-import { useState, useEffect, useRef, ReactNode } from "react"
-import { X, Menu, ChevronRight, ArrowUpRight, Star, Mail, Check } from "lucide-react"
-import { SEO } from "@/components/seo"
-import { ChatBot } from "@/components/chat-bot"
-import { getContent, imageUrl, SiteContent } from "@/lib/content-store"
-import { collectionPageSchema, itemListSchema, contactPageSchema } from "@/lib/schemas"
+﻿import { useRef } from 'react'
+import { Link } from 'wouter'
+import { motion, useInView } from 'framer-motion'
+import { SEO } from '@/components/seo'
+import { PROJECTS } from '@/lib/seo-data'
+import { collectionPageSchema, itemListSchema, contactPageSchema } from '@/lib/schemas'
 
-const content = getContent()
-const design = content.design
-
-const PROJECTS = content.projects.map((p) => ({
-  ...p,
-  image: p.image.startsWith("http") || p.image.startsWith("/") ? p.image : imageUrl(p.image),
-}))
-
-const SKILLS = content.skills
-
-const STATS = content.stats
-
-const SERVICES_DATA = content.services
-
-const INDUSTRIES = content.industries
-
-const WHY_US = [
-  { title: "Design that tells stories", desc: "Every project begins with your story — crafted visuals that communicate and connect." },
-  { title: "Bold, not bloated", desc: "Strong concepts, purposeful elements. Every color, font, and shape has a reason." },
-  { title: "Collaborative process", desc: "You're involved at every stage. Your feedback shapes the outcome." },
-  { title: "Reliable & on time", desc: "High-quality work delivered on schedule. No excuses, just dependable design." },
+const heroImages = [
+  '/images/imbizo.jpeg',
+  '/images/annur.jpeg',
+  '/images/hijra.jpeg',
+  '/images/keam.jpeg',
+  '/images/enroute.jpeg',
+  '/images/guest.jpeg',
+  '/images/Token_Of_Love_Poster_Variety.jpg',
+  '/images/Award_Poster_Design.jpg',
+  '/images/weddingnu.jpeg',
 ]
 
-const TESTIMONIALS = [
-  { quote: "Aadiilin brought our event identity to life with stunning poster designs that captured our vision perfectly.", name: "Baithul Izza Team", role: "Event Management", rating: 5 },
-  { quote: "Exceptional design work with a keen understanding of brand storytelling. Every project exceeded expectations.", name: "Imbizo 1.0", role: "Conference Organizer", rating: 5 },
-  { quote: "Working with Aadiilin was seamless. The creative direction and typography elevated our campaign to a new level.", name: "An-Nur Campaign", role: "Education Sector", rating: 5 },
-]
+const featured = PROJECTS.slice(0, 4)
 
-const AWARDS = [
-  { title: "Client Satisfaction", org: "5.0 Rating", desc: "Across all freelance platforms" },
-  { title: "Top Performer", org: "Consistent Delivery", desc: "100% on-time project completion" },
-  { title: "Creative Excellence", org: "Design Recognition", desc: "Featured in multiple design showcases" },
-]
-
-const SOCIAL_LINKS = content.socialLinks
-
-function SectionLabel({ num, label }: { num: string; label?: string }) {
+function HeroImageGrid() {
   return (
-    <div className="flex items-center gap-4 mb-4 sm:mb-6">
-      <span className="font-mono text-[11px] text-muted uppercase tracking-[0.15em] shrink-0">{num}</span>
-      {label && <h2 className="font-heading font-bold text-3xl sm:text-4xl md:text-5xl tracking-tight">{label}</h2>}
-      <div className="flex-1 h-px bg-line" />
+    <div className="absolute inset-0 overflow-hidden pointer-events-none">
+      <div className="grid grid-cols-3 gap-1.5 md:gap-3 p-3 md:p-6 w-full h-full">
+        {heroImages.map((src, i) => (
+          <motion.div
+            key={i}
+            className="overflow-hidden rounded-md"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 0.35 }}
+            transition={{ duration: 0.8, delay: i * 0.08 }}
+          >
+            <img
+              src={src}
+              alt=""
+              className="w-full h-full object-cover"
+              loading="lazy"
+            />
+          </motion.div>
+        ))}
+      </div>
     </div>
   )
 }
 
-function AnimatedSection({ children, delay = 0, className = "" }: { children: ReactNode; delay?: number; className?: string }) {
+function HeroSection() {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-80px" }}
-      transition={{ duration: 0.6, delay, ease: [0.25, 1, 0.5, 1] }}
-      className={className}
-    >
-      {children}
-    </motion.div>
+    <section className="relative min-h-screen flex flex-col justify-center overflow-hidden bg-[#0F0F0F]">
+      <HeroImageGrid />
+
+      <div className="relative z-10 px-6 md:px-12 lg:px-16">
+        <div className="max-w-7xl">
+          <div className="mb-2 md:mb-3">
+            <motion.span
+              initial={{ opacity: 0, y: 80 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.1, ease: [0.76, 0, 0.24, 1] }}
+              className="font-serif italic text-7xl md:text-9xl lg:text-[10rem] text-white/85 leading-none block"
+            >
+              High
+            </motion.span>
+          </div>
+          <div className="mb-2 md:mb-3">
+            <motion.span
+              initial={{ opacity: 0, y: 80 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2, ease: [0.76, 0, 0.24, 1] }}
+              className="font-serif italic text-7xl md:text-9xl lg:text-[10rem] text-white/85 leading-none block"
+            >
+              end
+            </motion.span>
+          </div>
+          <div className="mb-2 md:mb-3">
+            <motion.span
+              initial={{ opacity: 0, y: 80 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.3, ease: [0.76, 0, 0.24, 1] }}
+              className="font-display font-bold text-7xl md:text-9xl lg:text-[10rem] text-white leading-none block"
+            >
+              digital
+            </motion.span>
+          </div>
+          <div>
+            <motion.span
+              initial={{ opacity: 0, y: 80 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.4, ease: [0.76, 0, 0.24, 1] }}
+              className="font-display font-bold text-7xl md:text-9xl lg:text-[10rem] text-white/70 leading-none block"
+            >
+              experiences
+            </motion.span>
+          </div>
+        </div>
+      </div>
+
+      <motion.div
+        initial={{ opacity: 0, y: 40 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1, delay: 1.2, ease: [0.76, 0, 0.24, 1] }}
+        className="relative z-10 mt-12 md:mt-24 px-6 md:px-12 lg:px-16"
+      >
+        <div className="max-w-7xl flex justify-end">
+          <p className="text-white/60 text-sm md:text-base font-sans leading-relaxed max-w-md text-right">
+            Great design services&nbsp;—
+            <br />
+            without the pretentiousness.
+          </p>
+        </div>
+      </motion.div>
+
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1, delay: 1.5 }}
+        className="absolute bottom-8 left-1/2 -translate-x-1/2"
+      >
+        <div className="flex flex-col items-center gap-2">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="text-white/40 animate-scroll-indicator">
+            <path d="M12 5v14M5 12l7 7 7-7" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+        </div>
+      </motion.div>
+    </section>
   )
 }
 
-function StaggerGrid({ children, className = "" }: { children: ReactNode; className?: string }) {
+function TextRevealSection() {
+  const ref = useRef(null)
+  const isInView = useInView(ref, { once: true, margin: '-20%' })
+
   return (
-    <motion.div
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, margin: "-60px" }}
-      variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.06 } } }}
-      className={className}
-    >
-      {children}
-    </motion.div>
+    <section ref={ref} className="py-24 md:py-40 px-6 md:px-12 lg:px-16 bg-[#0F0F0F]">
+      <div className="max-w-7xl mx-auto">
+        <motion.p
+          initial={{ opacity: 0, y: 40 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
+          className="font-serif text-3xl md:text-5xl lg:text-6xl italic text-white/80 leading-tight"
+        >
+          We&rsquo;ll
+        </motion.p>
+        <motion.p
+          initial={{ opacity: 0, y: 40 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8, delay: 0.1, ease: [0.76, 0, 0.24, 1] }}
+          className="font-display text-4xl md:text-6xl lg:text-7xl font-bold text-white mt-2"
+        >
+          help&nbsp;you
+        </motion.p>
+        <motion.p
+          initial={{ opacity: 0, y: 40 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8, delay: 0.2, ease: [0.76, 0, 0.24, 1] }}
+          className="font-serif text-3xl md:text-5xl lg:text-6xl italic text-white/80 mt-2"
+        >
+          Stand out
+        </motion.p>
+        <motion.p
+          initial={{ opacity: 0, y: 40 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8, delay: 0.3, ease: [0.76, 0, 0.24, 1] }}
+          className="font-serif text-3xl md:text-5xl lg:text-6xl italic text-white/80 mt-2"
+        >
+          &amp;&nbsp;make
+        </motion.p>
+        <motion.p
+          initial={{ opacity: 0, y: 40 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8, delay: 0.4, ease: [0.76, 0, 0.24, 1] }}
+          className="font-display text-4xl md:text-6xl lg:text-7xl font-bold text-white mt-2"
+        >
+          all&nbsp;your dreams
+        </motion.p>
+        <motion.p
+          initial={{ opacity: 0, y: 40 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8, delay: 0.5, ease: [0.76, 0, 0.24, 1] }}
+          className="font-display text-4xl md:text-6xl lg:text-7xl font-bold text-white mt-2"
+        >
+          come&nbsp;true<span className="font-serif italic text-3xl md:text-5xl align-top text-white/30">*</span>
+        </motion.p>
+
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={isInView ? { opacity: 1 } : {}}
+          transition={{ duration: 0.8, delay: 0.7 }}
+          className="text-white/40 text-sm md:text-base font-sans mt-8 max-w-lg"
+        >
+          As long as your dreams revolve around something like; being the proud owner of a spectacular website.
+        </motion.p>
+      </div>
+    </section>
   )
 }
 
-function GridItem({ children, className = "" }: { children: ReactNode; className?: string }) {
+function DescriptionSection() {
+  const ref = useRef(null)
+  const isInView = useInView(ref, { once: true, margin: '-20%' })
+
   return (
-    <motion.div
-      variants={{
-        hidden: { opacity: 0, y: 20 },
-        visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.25, 1, 0.5, 1] } },
-      }}
-      className={className}
-    >
-      {children}
-    </motion.div>
+    <section ref={ref} className="py-16 md:py-24 px-6 md:px-12 lg:px-16 bg-[#0F0F0F]">
+      <div className="max-w-7xl mx-auto flex justify-end">
+        <motion.p
+          initial={{ opacity: 0, y: 30 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
+          className="text-white/50 text-sm md:text-base font-sans leading-relaxed max-w-xl text-right"
+        >
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Aadiilin is a design practice focused on visual experiences. With every single one of our clients, we bring forth a deep passion for creative problem solving&nbsp;—&nbsp;which is what we deliver in the form of custom and memorable experiences.
+        </motion.p>
+      </div>
+    </section>
   )
 }
 
-function Counter({ value, suffix = "" }: { value: string; suffix?: string }) {
-  const ref = useRef<HTMLSpanElement>(null)
-  const [inView, setInView] = useState(false)
-  useEffect(() => {
-    const el = ref.current
-    if (!el) return
-    const obs = new IntersectionObserver(([e]) => { if (e.isIntersecting) { setInView(true); obs.disconnect() } }, { threshold: 0.3 })
-    obs.observe(el)
-    return () => obs.disconnect()
-  }, [])
+function FeaturedWork() {
+  const ref = useRef(null)
+  const isInView = useInView(ref, { once: true, margin: '-10%' })
 
-  const numeric = parseInt(value.replace(/[^0-9]/g, ""))
-  if (isNaN(numeric)) return <span ref={ref}>{value}</span>
+  return (
+    <section ref={ref} className="py-16 md:py-24 px-6 md:px-12 lg:px-16 bg-[#0F0F0F]">
+      <div className="max-w-7xl mx-auto">
+        <div className="mb-12 md:mb-20">
+          <motion.span
+            initial={{ opacity: 0, y: 30 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6, ease: [0.76, 0, 0.24, 1] }}
+            className="font-serif text-4xl md:text-6xl lg:text-7xl italic text-white/80 block"
+          >
+            featured
+          </motion.span>
+          <motion.span
+            initial={{ opacity: 0, y: 30 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6, delay: 0.1, ease: [0.76, 0, 0.24, 1] }}
+            className="font-display text-5xl md:text-7xl lg:text-8xl font-bold text-white block mt-[-0.3em]"
+          >
+            work
+          </motion.span>
+        </div>
 
-  const [display, setDisplay] = useState(0)
-  useEffect(() => {
-    if (!inView) return
-    let current = 0
-    const inc = numeric / 30
-    const timer = setInterval(() => {
-      current += inc
-      if (current >= numeric) { setDisplay(numeric); clearInterval(timer) }
-      else setDisplay(Math.floor(current))
-    }, 40)
-    return () => clearInterval(timer)
-  }, [inView, numeric])
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
+          {featured.map((project, i) => (
+            <motion.div
+              key={project.slug}
+              initial={{ opacity: 0, y: 40 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.6, delay: 0.2 + i * 0.1, ease: [0.76, 0, 0.24, 1] }}
+            >
+              <Link href={`/project/${project.slug}`} className="group block">
+                <div className="relative overflow-hidden rounded-lg mb-4 aspect-[4/3] bg-[#1A1A1A]">
+                  <img
+                    src={project.image}
+                    alt={project.title}
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    loading="lazy"
+                  />
+                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-500" />
+                </div>
+                <div className="flex items-center justify-between">
+                  <h3 className="font-display text-lg md:text-xl font-bold text-white group-hover:text-white/70 transition-colors">
+                    {project.title}
+                  </h3>
+                  <span className="font-sans text-xs text-white/40 tracking-widest">
+                    {i + 1}
+                    <span className="text-white/20">/{featured.length}</span>
+                  </span>
+                </div>
+                <p className="font-sans text-sm text-white/40 mt-1">{project.category}</p>
+              </Link>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
 
-  return <span ref={ref}>{display}{suffix || value.replace(/[0-9]/g, "")}</span>
+function AboutCTA() {
+  return (
+    <section className="relative py-24 md:py-32 bg-[#0F0F0F] overflow-hidden">
+      <Link href="/about" className="block">
+        <div className="flex whitespace-nowrap animate-scroll-marquee" style={{ width: 'fit-content' }}>
+          {Array.from({ length: 16 }).map((_, i) => (
+            <div key={i} className="flex items-center gap-8 md:gap-12 mx-4 md:mx-6">
+              <span className="font-display text-6xl md:text-8xl font-bold text-white/10 hover:text-white/25 transition-colors duration-500">
+                about
+              </span>
+              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" className="text-white/20">
+                <path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+            </div>
+          ))}
+        </div>
+      </Link>
+    </section>
+  )
 }
 
 export function Home() {
-  const [selectedProject, setSelectedProject] = useState<typeof PROJECTS[0] | null>(null)
-  const [mobileMenu, setMobileMenu] = useState(false)
-  const [scrolled, setScrolled] = useState(false)
-  const [activeServiceSlide, setActiveServiceSlide] = useState(0)
-
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 60)
-    window.addEventListener("scroll", onScroll, { passive: true })
-    return () => window.removeEventListener("scroll", onScroll)
-  }, [])
-
   return (
-    <div className="min-h-screen bg-bg text-text overflow-x-hidden">
-      <SEO jsonLd={[collectionPageSchema(), itemListSchema(), contactPageSchema()]} />
-
-      {/* Lightbox */}
-      <AnimatePresence>
-        {selectedProject && (
-          <motion.div
-            initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-10"
-          >
-            <button onClick={() => setSelectedProject(null)} className="absolute inset-0 bg-text/70 backdrop-blur-sm cursor-zoom-out" />
-            <motion.div
-              initial={{ scale: 0.92, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0.92, opacity: 0 }}
-              transition={{ type: "spring", damping: 25, stiffness: 300 }}
-              className="relative w-full max-w-4xl aspect-[4/3] bg-surface rounded-2xl overflow-hidden shadow-2xl z-10"
-            >
-              <button onClick={() => setSelectedProject(null)} className="absolute top-4 right-4 z-20 bg-text/20 backdrop-blur-sm p-2 rounded-full hover:bg-text/30 transition-colors">
-                <X size={16} />
-              </button>
-              <img src={selectedProject.image} alt={selectedProject.title} className="w-full h-full object-contain bg-subtle" />
-              <motion.div
-                initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.1 }}
-                className="absolute bottom-0 left-0 w-full p-6 bg-gradient-to-t from-text/80 to-transparent"
-              >
-                <div className="font-heading font-bold text-2xl text-white mb-1">{selectedProject.title}</div>
-                <div className="flex items-center gap-3 text-xs">
-                  <span className="text-accent font-mono uppercase tracking-wider">{selectedProject.role}</span>
-                  <span className="w-1 h-1 bg-white/30 rounded-full" />
-                  <span className="text-white/60 font-mono">{selectedProject.year}</span>
-                </div>
-              </motion.div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      {/* ━━━━━━ Header ━━━━━━ */}
-      <motion.header
-        initial={{ y: -20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.5 }}
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? "bg-bg/90 backdrop-blur-md shadow-[0_1px_0_rgba(26,26,26,0.06)]" : "bg-transparent"}`}
-      >
-        <div className="max-w-[1320px] mx-auto px-6 h-[72px] flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <button onClick={() => setMobileMenu(!mobileMenu)} className="md:hidden relative z-50 p-2 -ml-2">
-              {mobileMenu ? <X size={20} /> : <Menu size={20} />}
-            </button>
-            <Link href="/" className="font-heading font-bold text-xl tracking-tight select-none">
-              aadiilin<span className="text-accent">.</span>
-            </Link>
-          </div>
-
-          <nav className="hidden md:flex items-center gap-8">
-            <a href="#work" className="text-sm text-muted hover:text-text transition-colors">Work</a>
-            <div className="relative group">
-              <button className="text-sm text-muted hover:text-text transition-colors flex items-center gap-1.5">
-                Services
-                <svg width="10" height="6" viewBox="0 0 10 6" className="fill-current"><path d="M1 1l4 4 4-4" stroke="currentColor" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round" /></svg>
-              </button>
-              <div className="absolute top-full pt-3 left-0 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
-                <div className="bg-surface rounded-2xl shadow-xl border border-line/50 p-4 min-w-[220px]">
-                  {["Poster Design", "Brand Identity", "Campaign Visuals", "Art Direction", "Typography", "Editorial Layout"].map(s => (
-                    <a key={s} href="#services" className="block text-sm hover:text-accent transition-colors py-1.5">{s}</a>
-                  ))}
-                </div>
-              </div>
-            </div>
-            <div className="relative group">
-              <button className="text-sm text-muted hover:text-text transition-colors flex items-center gap-1.5">
-                Industries
-                <svg width="10" height="6" viewBox="0 0 10 6" className="fill-current"><path d="M1 1l4 4 4-4" stroke="currentColor" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round" /></svg>
-              </button>
-              <div className="absolute top-full pt-3 left-0 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
-                <div className="bg-surface rounded-2xl shadow-xl border border-line/50 p-4 min-w-[200px]">
-                  {["Events", "Education", "Branding", "Media"].map(i => (
-                    <a key={i} href="#industries" className="block text-sm hover:text-accent transition-colors py-1.5">{i}</a>
-                  ))}
-                </div>
-              </div>
-            </div>
-            <a href="#about" className="text-sm text-muted hover:text-text transition-colors">About</a>
-          </nav>
-
-          <div className="flex items-center gap-4">
-            <span className="hidden md:inline-flex text-[11px] font-mono font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-accent text-white">Available</span>
-            <a href="#contact" className="text-sm font-semibold px-5 py-2.5 bg-accent text-white rounded-full hover:bg-accent-hover transition-colors">
-              Get in Touch
-            </a>
-          </div>
-        </div>
-
-        <AnimatePresence>
-          {mobileMenu && (
-            <motion.div
-              initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-              className="md:hidden fixed inset-0 z-40 bg-bg flex flex-col items-center justify-center gap-8"
-            >
-              {["Work", "Services", "Industries", "About", "Contact"].map(item => (
-                <a key={item} href={`#${item.toLowerCase()}`} onClick={() => setMobileMenu(false)}
-                  className="font-heading font-bold text-3xl tracking-tight hover:text-accent transition-colors">{item}</a>
-              ))}
-            </motion.div>
-      )}
-        </AnimatePresence>
-      </motion.header>
-
-      {/* ━━━━━━ Hero ━━━━━━ */}
-      <section className="bg-[#080D10] text-white relative overflow-hidden" style={{ clipPath: "polygon(0 0, 100% 0, 100% calc(100% - 48px), 0 100%)" }}>
-        <div className="max-w-[1320px] mx-auto px-6 pt-36 pb-16 w-full">
-          <AnimatedSection>
-            <div className="text-xs sm:text-sm font-mono text-white/50 uppercase tracking-wider mb-5">Freelance Graphic Designer</div>
-            <h1 className="font-heading font-extrabold text-[clamp(2.5rem,9vw,6rem)] leading-[0.95] tracking-tighter max-w-5xl">
-              <span className="block overflow-hidden"><motion.span initial={{ y: "100%" }} whileInView={{ y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: 0.1, ease: [0.25, 1, 0.5, 1] }} className="inline-block">{content.hero.line1}</motion.span></span>
-              <span className="block overflow-hidden"><motion.span initial={{ y: "100%" }} whileInView={{ y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: 0.2, ease: [0.25, 1, 0.5, 1] }} className="inline-block text-accent">{content.hero.line2}</motion.span></span>
-              <span className="block overflow-hidden"><motion.span initial={{ y: "100%" }} whileInView={{ y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: 0.3, ease: [0.25, 1, 0.5, 1] }} className="inline-block">{content.hero.line3}</motion.span></span>
-            </h1>
-          </AnimatedSection>
-
-          <AnimatedSection delay={0.4}>
-            <div className="mt-8 flex flex-wrap items-center gap-4">
-              <motion.a href="#work" whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}
-                className="inline-flex items-center gap-2 px-7 py-3 bg-accent text-white font-heading font-bold text-sm rounded-full hover:bg-accent-hover transition-colors uppercase tracking-wider">
-                View My Work <ArrowUpRight size={14} />
-              </motion.a>
-              <motion.a href="#contact" whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}
-                className="inline-flex items-center gap-2 px-7 py-3 border border-white/20 text-white/80 font-heading font-bold text-sm rounded-full hover:bg-white/10 transition-colors uppercase tracking-wider">
-                Let's Talk <ChevronRight size={14} />
-              </motion.a>
-            </div>
-          </AnimatedSection>
-
-          <AnimatedSection delay={0.5}>
-            <div className="mt-16 grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16">
-              <div className="relative">
-                <div className="aspect-video rounded-xl overflow-hidden bg-white/5">
-                  <div className="w-full h-full flex items-center justify-center">
-                    <span className="text-white/20 text-sm font-mono">Showreel</span>
-                  </div>
-                </div>
-                <div className="mt-3">
-                  <a href="#work" className="inline-flex items-center gap-1.5 text-xs font-mono text-white/60 hover:text-white transition-colors uppercase tracking-wider">
-                    View projects <ChevronRight size={10} />
-                  </a>
-                </div>
-              </div>
-              <div className="flex flex-col justify-center">
-                <p className="text-sm sm:text-base text-white/70 leading-relaxed max-w-lg">
-                  I help brands and events stand out with bold poster design, brand identity, campaign visuals, and art direction — from Kasaragod, Kerala.
-                </p>
-                <div className="mt-8 pt-8 border-t border-white/10">
-                  <div className="text-[11px] font-mono text-white/40 uppercase tracking-wider mb-5">In numbers</div>
-                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-6">
-                    {STATS.map(stat => (
-                      <div key={stat.label}>
-                        <div className="font-heading font-extrabold text-2xl sm:text-3xl text-white">
-                          <Counter value={stat.value} />
-                        </div>
-                        <div className="mt-0.5 font-mono text-[10px] sm:text-xs text-white/50 uppercase tracking-wider">{stat.label}</div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </AnimatedSection>
-        </div>
-      </section>
-
-      {/* ━━━━━━ Marquee Strips ━━━━━━ */}
-      {design.showMarquee !== false && [
-        { items: ["aadiilin", "aadiilin", "aadiilin", "aadiilin", "aadiilin"], bg: "bg-accent", text: "text-white", border: "border-white", line: "#FFFFFF", dot: "#FFFFFF", rev: false, name: "logo" },
-        { items: ["Freelance Graphic Designer", "Based in Kasaragod", "Crafting Bold Visuals", "Brand Identity & Poster Design", "Typography & Art Direction"], bg: "bg-text", text: "text-accent", border: "border-accent", line: "#FF7A00", dot: "#FF7A00", rev: true, name: "about" },
-        { items: [...SKILLS], bg: "bg-accent", text: "text-white", border: "border-white", line: "#FFFFFF", dot: "#FFFFFF", rev: false, name: "skills" },
-      ].map((s, si) => (
-        <div key={si}
-          className={`relative overflow-hidden ${s.bg} flex items-center ${si === 1 ? "py-6" : si === 0 ? "py-5" : "py-4"}`}
-          style={{
-            marginLeft: "calc(-50vw + 50%)", marginRight: "calc(-50vw + 50%)", width: "100vw",
-            transform: si === 0 ? "rotate(-1.8deg)" : si === 2 ? "rotate(-1.8deg)" : "none",
-            transformOrigin: si === 0 ? "right center" : si === 2 ? "left center" : "center",
-            zIndex: si === 1 ? 10 : si === 2 ? 20 : 0,
-            marginTop: si === 1 ? 0 : si === 2 ? "-32px" : 0,
-            marginBottom: si === 0 ? "-18px" : 0,
-          }}>
-          <div className="flex whitespace-nowrap">
-            <div className={`flex ${s.rev ? "animate-marquee-rev" : "animate-marquee"} items-center gap-0`}>
-              {[...s.items, ...s.items].map((item, i) => (
-                <span key={i} className="flex shrink-0 items-center gap-4 sm:gap-8 pr-4 sm:pr-8">
-                  {si === 0 ? (
-                    <svg width="160" height="24" viewBox="0 0 300 40" className="shrink-0 sm:w-[200px] sm:h-[30px]" fill="none">
-                      <text x="50%" y="55%" dominantBaseline="middle" textAnchor="middle"
-                        fontFamily="'Bricolage Grotesque', sans-serif" fontWeight="800"
-                        fontSize="28" letterSpacing="4" fill={s.dot}>
-                        aadiilin
-                      </text>
-                    </svg>
-                  ) : (
-                    <>
-                      <svg width="100" height="16" viewBox="0 0 140 20" className="shrink-0 sm:w-[140px] sm:h-[20px]" fill="none">
-                        <path d="M8 10 C 22 -3, 36 23, 50 10 C 64 -3, 78 23, 92 10 C 102 1, 114 19, 122 10 C 128 4, 134 16, 138 10"
-                          stroke={s.line} strokeWidth="2.5" strokeLinecap="round" fill="none" />
-                        <circle cx="6" cy="10" r="3" fill={s.dot} />
-                        <circle cx="134" cy="10" r="2.5" fill={s.dot} opacity="0.6" />
-                      </svg>
-                      <span className={`font-heading font-bold text-[10px] sm:text-xs uppercase tracking-[0.18em] ${s.text} ${s.border} border-2 rounded-full px-3 sm:px-5 py-1 sm:py-1.5 shrink-0`}>
-                        {item}
-                      </span>
-                    </>
-                  )}
-                </span>
-              ))}
-            </div>
-            <div className={`flex ${s.rev ? "animate-marquee-rev" : "animate-marquee"} items-center gap-0`}>
-              {[...s.items, ...s.items].map((item, i) => (
-                <span key={`${i}-d`} className="flex shrink-0 items-center gap-8 pr-8">
-                  {si === 0 ? (
-                    <svg width="200" height="30" viewBox="0 0 300 40" className="shrink-0" fill="none">
-                      <text x="50%" y="55%" dominantBaseline="middle" textAnchor="middle"
-                        fontFamily="'Bricolage Grotesque', sans-serif" fontWeight="800"
-                        fontSize="28" letterSpacing="4" fill={s.dot}>
-                        aadiilin
-                      </text>
-                    </svg>
-                  ) : (
-                    <>
-                      <svg width="140" height="20" viewBox="0 0 140 20" className="shrink-0" fill="none">
-                        <path d="M8 10 C 22 -3, 36 23, 50 10 C 64 -3, 78 23, 92 10 C 102 1, 114 19, 122 10 C 128 4, 134 16, 138 10"
-                          stroke={s.line} strokeWidth="2.5" strokeLinecap="round" fill="none" />
-                        <circle cx="6" cy="10" r="3" fill={s.dot} />
-                        <circle cx="134" cy="10" r="2.5" fill={s.dot} opacity="0.6" />
-                      </svg>
-                      <span className={`font-heading font-bold text-[11px] sm:text-xs uppercase tracking-[0.18em] ${s.text} ${s.border} border-2 rounded-full px-5 py-1.5 shrink-0`}>
-                        {item}
-                      </span>
-                    </>
-                  )}
-                </span>
-              ))}
-            </div>
-          </div>
-        </div>
-      ))}
-
-      {/* ━━━━━━ Featured Work ━━━━━━ */}
-      <section id="work" className="max-w-[1320px] mx-auto px-6 py-24 sm:py-32">
-        <AnimatedSection>
-          <SectionLabel num="01" label="Featured Work" />
-          <p className="text-muted text-sm sm:text-base max-w-xl mb-12 -mt-2">Selected projects that showcase my approach to design.</p>
-        </AnimatedSection>
-
-        <StaggerGrid className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {PROJECTS.map((project, i) => (
-            <GridItem key={project.slug}>
-              <motion.button
-                onClick={() => setSelectedProject(project)}
-                whileHover={{ y: -4 }}
-                transition={{ type: "spring", stiffness: 200, damping: 15 }}
-                className="group w-full text-left"
-              >
-                <div className="bg-surface rounded-[20px] overflow-hidden border border-line/50 hover:border-line/30 hover:shadow-lg transition-all duration-300">
-                  <div className="relative aspect-[4/3] overflow-hidden bg-subtle">
-                    <span className="absolute top-3 left-3 z-10 text-[10px] font-mono uppercase tracking-wider px-2.5 py-1 rounded-full bg-accent text-white">
-                      {project.category}
-                    </span>
-                    <img src={project.image} alt={project.title}
-                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                      loading="lazy" />
-                    <div className="absolute inset-0 bg-gradient-to-t from-text/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                  </div>
-                  <div className="p-5 sm:p-6">
-                    <div className="flex items-center justify-between gap-4">
-                      <h3 className="font-heading font-bold text-base sm:text-lg tracking-tight truncate">{project.title}</h3>
-                      <span className="font-mono text-xs text-muted shrink-0">{project.year}</span>
-                    </div>
-                    <p className="mt-1.5 font-mono text-xs text-muted uppercase tracking-wider">{project.role}</p>
-                  </div>
-                </div>
-              </motion.button>
-            </GridItem>
-          ))}
-        </StaggerGrid>
-      </section>
-
-      {/* ━━━━━━ Services ━━━━━━ */}
-      <section id="services" className="bg-text text-bg mx-4 sm:mx-6 rounded-[32px] sm:rounded-[40px] py-24 sm:py-32 mb-24 sm:mb-32 overflow-hidden">
-        <div className="max-w-[1320px] mx-auto px-6">
-          <AnimatedSection>
-            <div className="flex items-center gap-4 mb-6">
-              <span className="font-mono text-[11px] text-bg/50 uppercase tracking-[0.15em]">02</span>
-              <h2 className="font-heading font-bold text-3xl sm:text-4xl md:text-5xl tracking-tight">Services</h2>
-              <div className="flex-1 h-px bg-bg/10" />
-            </div>
-            <p className="text-bg/70 max-w-xl mb-16 sm:mb-20">
-              From concept to completion — here's how I can help bring your vision to life.
-            </p>
-          </AnimatedSection>
-
-          {/* Tab Navigation */}
-          <div className="flex flex-wrap gap-2 mb-12 border-b border-bg/10 pb-4">
-            {SERVICES_DATA.slides.map((slide, i) => (
-              <motion.button
-                key={i}
-                onClick={() => setActiveServiceSlide(i)}
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                className={`px-5 py-2.5 text-sm font-heading font-bold rounded-full transition-colors ${
-                  activeServiceSlide === i ? "bg-accent text-white" : "text-bg/60 hover:text-bg hover:bg-bg/10"
-                }`}
-              >
-                {i === 0 ? "Design" : i === 1 ? "Branding" : i === 2 ? "Print" : "Digital"}
-              </motion.button>
-            ))}
-          </div>
-
-          {/* Tab Content */}
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={activeServiceSlide}
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              transition={{ duration: 0.3 }}
-            >
-              <div className="mb-8">
-                <h3 className="font-heading font-bold text-xl sm:text-2xl text-bg">{SERVICES_DATA.slides[activeServiceSlide].title}</h3>
-              </div>
-              <StaggerGrid className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                {SERVICES_DATA.slides[activeServiceSlide].items.map((item) => (
-                  <GridItem key={item.title}>
-                    <div className="bg-bg/5 rounded-[20px] p-8 border border-bg/10 h-full hover:bg-bg/10 transition-colors">
-                      <div className="flex items-center gap-3 mb-5">
-                        <span className="font-mono text-sm text-accent">{item.num}</span>
-                      </div>
-                      <h4 className="font-heading font-bold text-lg sm:text-xl tracking-tight mb-3 text-bg">{item.title}</h4>
-                      <p className="text-sm text-bg/60 leading-relaxed">{item.desc}</p>
-                    </div>
-                  </GridItem>
-                ))}
-              </StaggerGrid>
-            </motion.div>
-          </AnimatePresence>
-
-          <AnimatedSection delay={0.2}>
-            <div className="mt-16 text-center">
-              <a href="#contact" className="inline-flex items-center gap-2 px-7 py-3.5 bg-accent text-white font-heading font-bold text-sm rounded-full hover:bg-accent-hover transition-colors">
-                Let's Work Together <ArrowUpRight size={16} />
-              </a>
-            </div>
-          </AnimatedSection>
-        </div>
-      </section>
-
-      {/* ━━━━━━ Industries ━━━━━━ */}
-      <section id="industries" className="max-w-[1320px] mx-auto px-6 pb-24 sm:pb-32">
-        <AnimatedSection>
-          <SectionLabel num="03" label="Industries" />
-          <p className="text-muted text-sm sm:text-base max-w-xl mb-12 -mt-2">My areas of expertise.</p>
-        </AnimatedSection>
-
-        <StaggerGrid className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-          {INDUSTRIES.map(ind => (
-            <GridItem key={ind.title}>
-              <motion.div whileHover={{ y: -3 }} transition={{ type: "spring", stiffness: 200, damping: 15 }}
-                className="bg-surface rounded-[20px] p-8 sm:p-10 border border-line/50 hover:border-line/30 hover:shadow-md transition-all duration-300 h-full">
-                <h3 className="font-heading font-bold text-2xl sm:text-3xl tracking-tight mb-4">{ind.title}</h3>
-                <p className="text-sm text-muted leading-relaxed">{ind.desc}</p>
-              </motion.div>
-            </GridItem>
-          ))}
-        </StaggerGrid>
-      </section>
-
-      {/* ━━━━━━ Why Choose Me ━━━━━━ */}
-      <section className="max-w-[1320px] mx-auto px-6 pb-24 sm:pb-32">
-        <AnimatedSection>
-          <SectionLabel num="04" label="Why Choose Me" />
-          <p className="text-muted text-sm sm:text-base max-w-xl mb-12 -mt-2">Your success is my priority.</p>
-        </AnimatedSection>
-
-        <StaggerGrid className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {WHY_US.map((item, i) => (
-            <GridItem key={item.title}>
-              <motion.div whileHover={{ y: -3 }} transition={{ type: "spring", stiffness: 200, damping: 15 }}
-                className="bg-surface rounded-[20px] p-8 sm:p-10 border border-line/50 hover:border-line/30 hover:shadow-md transition-all duration-300 h-full">
-                <div className="w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center mb-5">
-                  <span className="font-heading font-bold text-accent text-sm">0{i + 1}</span>
-                </div>
-                <h3 className="font-heading font-bold text-xl tracking-tight mb-3">{item.title}</h3>
-                <p className="text-sm text-muted leading-relaxed">{item.desc}</p>
-              </motion.div>
-            </GridItem>
-          ))}
-        </StaggerGrid>
-      </section>
-
-
-
-      {/* ━━━━━━ Awards ━━━━━━ */}
-      <section className="max-w-[1320px] mx-auto px-6 pb-24 sm:pb-32">
-        <AnimatedSection>
-          <SectionLabel num="05" label="Recognition" />
-        </AnimatedSection>
-
-        <StaggerGrid className="grid grid-cols-1 sm:grid-cols-3 gap-6 mt-12">
-          {AWARDS.map(a => (
-            <GridItem key={a.title}>
-              <div className="bg-surface rounded-[20px] p-8 border border-line/50 text-center hover:border-line/30 hover:shadow-md transition-all duration-300">
-                <div className="font-heading font-bold text-lg mb-2">{a.title}</div>
-                <div className="font-mono text-xs text-accent uppercase tracking-wider mb-2">{a.org}</div>
-                <p className="text-xs text-muted">{a.desc}</p>
-              </div>
-            </GridItem>
-          ))}
-        </StaggerGrid>
-      </section>
-
-      {/* ━━━━━━ About ━━━━━━ */}
-      <section id="about" className="max-w-[1320px] mx-auto px-6 pb-24 sm:pb-32">
-        <AnimatedSection>
-          <SectionLabel num="06" label="About" />
-        </AnimatedSection>
-
-        <div className="grid grid-cols-1 lg:grid-cols-5 gap-10 lg:gap-16 mt-4">
-          <AnimatedSection delay={0.1} className="lg:col-span-3">
-            <p className="font-heading font-bold text-2xl sm:text-3xl tracking-tight leading-tight">
-              {content.about.intro}
-            </p>
-            <p className="mt-5 text-muted leading-relaxed">
-              {content.about.paragraph1}
-            </p>
-            <p className="mt-4 text-muted leading-relaxed">
-              {content.about.paragraph2}
-            </p>
-            <div className="mt-8 flex flex-wrap gap-2.5">
-              {SKILLS.map(s => (
-                <span key={s} className="px-4 py-1.5 bg-surface text-xs font-mono rounded-full border border-line hover:border-accent/30 transition-colors">
-                  {s}
-                </span>
-              ))}
-            </div>
-          </AnimatedSection>
-
-          <AnimatedSection delay={0.2} className="lg:col-span-2">
-            <div className="aspect-[3/4] bg-surface rounded-[20px] border border-line/50 overflow-hidden">
-              <img src={`${import.meta.env.BASE_URL}images/adil-portrait.jpg`} alt="Aadiilin" className="w-full h-full object-cover" />
-            </div>
-          </AnimatedSection>
-        </div>
-      </section>
-
-      {/* ━━━━━━ Contact ━━━━━━ */}
-      <section id="contact" className="bg-text text-bg mx-4 sm:mx-6 rounded-[32px] sm:rounded-[40px] py-24 sm:py-32 mb-24 sm:mb-32 overflow-hidden">
-        <div className="max-w-[1320px] mx-auto px-6">
-          <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 lg:gap-20">
-            <div className="lg:col-span-3">
-              <AnimatedSection>
-                <div className="text-xs font-mono text-bg/60 uppercase tracking-wider mb-4">Contact</div>
-                <h2 className="font-heading font-extrabold text-[clamp(2rem,7vw,4.5rem)] tracking-tight leading-[1.05]">
-                  Have a project<br />in mind?
-                </h2>
-                <p className="mt-4 text-bg/70 max-w-lg mb-10">
-                  Let's talk about how I can help bring your vision to life. Fill in the form or reach out directly.
-                </p>
-              </AnimatedSection>
-
-              <form className="space-y-5" onSubmit={(e) => {
-                e.preventDefault()
-                const form = e.currentTarget
-                const name = (form.querySelector('[name="name"]') as HTMLInputElement)?.value || "Not provided"
-                const email = (form.querySelector('[name="email"]') as HTMLInputElement)?.value || "Not provided"
-                const msg = (form.querySelector('[name="message"]') as HTMLTextAreaElement)?.value || "Not provided"
-                const budget = (form.querySelector('[name="budget"]:checked') as HTMLInputElement)?.value || "To be discussed"
-                const text = `Hello Aadiilin,%0A%0AI hope this message finds you well. My name is *${encodeURIComponent(name)}* and I am reaching out to discuss a potential design collaboration with you.%0A%0A*── Project Overview ──*%0A${encodeURIComponent(msg)}%0A%0A*── Budget Range ──*%0A${encodeURIComponent(budget)}%0A%0A*── Contact Details ──*%0AEmail: ${encodeURIComponent(email)}%0A%0AI came across your portfolio and was truly impressed by your work — particularly in brand identity and poster design. I believe your creative vision aligns perfectly with what I am looking for.%0A%0AI look forward to hearing from you and discussing this further at your earliest convenience.%0A%0A─── *Auto Reply* ───%0A✅ Thank you for reaching out! I have received your inquiry and will respond within 24 hours. In the meantime, feel free to browse my portfolio:%0A🌐 aadiilin.vercel.app%0A📸 Instagram: @aadiil.in%0A%0ABest regards,%0A*Aadiilin*`
-                window.open(`https://wa.me/918137802554?text=${text}`, "_blank")
-              }}>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                  <input name="name" type="text" placeholder="Your Name" className="w-full px-5 py-3.5 bg-bg/10 border border-bg/20 rounded-xl text-sm focus:outline-none focus:border-accent transition-colors placeholder:text-bg/40 text-bg" />
-                  <input name="email" type="email" placeholder="Your Email" className="w-full px-5 py-3.5 bg-bg/10 border border-bg/20 rounded-xl text-sm focus:outline-none focus:border-accent transition-colors placeholder:text-bg/40 text-bg" />
-                </div>
-                <textarea name="message" placeholder="Tell me about your project" rows={5} className="w-full px-5 py-3.5 bg-bg/10 border border-bg/20 rounded-xl text-sm focus:outline-none focus:border-accent transition-colors placeholder:text-bg/40 text-bg resize-none" />
-                <div className="flex flex-wrap gap-3">
-                  <div className="w-full text-xs font-mono text-bg/60 uppercase tracking-wider mb-1">Budget?</div>
-                  {["up to $200", "$200-$500", "$500-$1k", "$1k-$5k", ">$5k"].map(b => (
-                    <label key={b} className="flex items-center gap-2 px-4 py-2.5 bg-bg/10 border border-bg/20 rounded-full text-xs font-mono cursor-pointer hover:border-accent transition-colors">
-                      <input type="radio" name="budget" value={b} className="accent-accent" />
-                      {b}
-                    </label>
-                  ))}
-                </div>
-                <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}
-                  type="submit" className="px-8 py-3.5 bg-accent text-white font-heading font-bold text-sm rounded-full hover:bg-accent-hover transition-colors inline-flex items-center gap-2">
-                  Send Message <ArrowUpRight size={16} />
-                </motion.button>
-              </form>
-            </div>
-
-            <div className="lg:col-span-2">
-              <AnimatedSection delay={0.15}>
-                <div className="bg-bg/5 rounded-[20px] p-8 border border-bg/10">
-                  <h3 className="font-heading font-bold text-lg mb-6">Contact Info</h3>
-                  <div className="space-y-5">
-                    <div>
-                      <div className="font-mono text-xs text-bg/50 uppercase tracking-wider mb-1">Email</div>
-                      <a href="mailto:adilsarvadka@gmail.com" className="text-sm hover:text-accent transition-colors">adilsarvadka@gmail.com</a>
-                    </div>
-                    <div>
-                      <div className="font-mono text-xs text-bg/50 uppercase tracking-wider mb-1">Phone</div>
-                      <a href="tel:+918137802554" className="text-sm hover:text-accent transition-colors">+91 81378 02554</a>
-                    </div>
-                    <div>
-                      <div className="font-mono text-xs text-bg/50 uppercase tracking-wider mb-1">Location</div>
-                      <span className="text-sm">Kasaragod, Kerala, India</span>
-                    </div>
-                    <div className="pt-5 border-t border-bg/10">
-                      <div className="font-mono text-xs text-bg/50 uppercase tracking-wider mb-3">Social</div>
-                      <div className="flex flex-wrap gap-2.5">
-                        {SOCIAL_LINKS.map(s => (
-                          <motion.a key={s.label} href={s.href} target="_blank" rel="noopener noreferrer"
-                            whileHover={{ scale: 1.05 }}
-                            className="px-4 py-2 bg-bg/10 text-xs font-mono rounded-full hover:bg-accent hover:text-white transition-colors">
-                            {s.label}
-                          </motion.a>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </AnimatedSection>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ━━━━━━ CTA Banner ━━━━━━ */}
-      <section className="max-w-[1320px] mx-auto px-6 pb-24 sm:pb-32">
-        <AnimatedSection>
-          <motion.div className="bg-text text-bg rounded-[32px] p-12 sm:p-20 text-center relative overflow-hidden">
-            <div className="absolute -top-20 -right-20 w-60 h-60 bg-accent/10 rounded-full blur-3xl" />
-            <div className="absolute -bottom-20 -left-20 w-60 h-60 bg-accent/10 rounded-full blur-3xl" />
-            <div className="relative z-10">
-              <p className="font-mono text-sm text-bg/50 uppercase tracking-wider mb-4">Let's create</p>
-              <h2 className="font-heading font-extrabold text-[clamp(2rem,6vw,4.5rem)] tracking-tight leading-[1.05]">
-                Something<br />together.
-              </h2>
-              <motion.a href="mailto:adilsarvadka@gmail.com"
-                whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.97 }}
-                className="mt-10 inline-flex items-center gap-2 px-8 py-4 bg-accent text-white font-heading font-bold text-base rounded-full hover:bg-accent-hover transition-colors">
-                <Mail size={18} /> Start a Project
-              </motion.a>
-            </div>
-          </motion.div>
-        </AnimatedSection>
-      </section>
-
-      {/* ━━━━━━ Footer ━━━━━━ */}
-      <footer className="border-t border-line">
-        <div className="max-w-[1320px] mx-auto px-6 py-16">
-          <div className="flex flex-col md:flex-row items-start justify-between gap-10">
-            <div>
-              <Link href="/" className="font-heading font-bold text-xl tracking-tight">
-                aadiilin<span className="text-accent">.</span>
-              </Link>
-              <p className="mt-3 font-mono text-xs text-muted max-w-xs leading-relaxed">
-                Freelance graphic designer crafting bold visuals and brand identities from Kasaragod, Kerala.
-              </p>
-              <div className="flex gap-3 mt-6">
-                {SOCIAL_LINKS.slice(0, 4).map(s => (
-                  <a key={s.label} href={s.href} target="_blank" rel="noopener noreferrer"
-                    className="px-3 py-1.5 bg-subtle text-xs font-mono rounded-full hover:bg-accent hover:text-white transition-colors">
-                    {s.label}
-                  </a>
-                ))}
-              </div>
-            </div>
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-10 sm:gap-16">
-              <div>
-                <div className="font-mono text-[11px] text-muted uppercase tracking-[0.15em] mb-4">Navigate</div>
-                <div className="flex flex-col gap-2.5">
-                  {["Work", "Services", "About", "Contact"].map(item => (
-                    <a key={item} href={`#${item.toLowerCase()}`} className="text-sm hover:text-accent transition-colors">{item}</a>
-                  ))}
-                </div>
-              </div>
-              <div>
-                <div className="font-mono text-[11px] text-muted uppercase tracking-[0.15em] mb-4">Services</div>
-                <div className="flex flex-col gap-2.5">
-                  <a href="#services" className="text-sm hover:text-accent transition-colors">Poster Design</a>
-                  <a href="#services" className="text-sm hover:text-accent transition-colors">Brand Identity</a>
-                  <a href="#services" className="text-sm hover:text-accent transition-colors">Campaign Visuals</a>
-                  <a href="#services" className="text-sm hover:text-accent transition-colors">Art Direction</a>
-                </div>
-              </div>
-              <div>
-                <div className="font-mono text-[11px] text-muted uppercase tracking-[0.15em] mb-4">Contact</div>
-                <div className="flex flex-col gap-2.5">
-                  <a href="mailto:adilsarvadka@gmail.com" className="text-sm hover:text-accent transition-colors">Email</a>
-                  <a href="tel:+918137802554" className="text-sm hover:text-accent transition-colors">Phone</a>
-                  <a href="https://wa.me/918137802554" target="_blank" rel="noopener noreferrer" className="text-sm hover:text-accent transition-colors">WhatsApp</a>
-                </div>
-              </div>
-              <div>
-                <div className="font-mono text-[11px] text-muted uppercase tracking-[0.15em] mb-4">Social</div>
-                <div className="flex flex-col gap-2.5">
-                  <a href="https://www.instagram.com/aadiil.in" target="_blank" rel="noopener noreferrer" className="text-sm hover:text-accent transition-colors">Instagram</a>
-                  <a href="https://www.linkedin.com/in/adil-sarvadka-51282a406" target="_blank" rel="noopener noreferrer" className="text-sm hover:text-accent transition-colors">LinkedIn</a>
-                  <a href="https://github.com/aadiilin" target="_blank" rel="noopener noreferrer" className="text-sm hover:text-accent transition-colors">GitHub</a>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="mt-12 pt-8 border-t border-line flex flex-col sm:flex-row items-center justify-between gap-4 font-mono text-xs text-faint">
-            <span>&copy; {new Date().getFullYear()} Aadiilin. All rights reserved.</span>
-            <span>Freelance Graphic Designer — Kasaragod, Kerala</span>
-          </div>
-        </div>
-      </footer>
-
-      {design.showChatBot !== false && <ChatBot />}
-    </div>
+    <main className="bg-[#0F0F0F] min-h-screen">
+      <SEO
+        title="Freelance Graphic Designer — Aadiilin"
+        description="Portfolio of Aadiilin (Adil Kattathadukka), a freelance graphic designer from Kerala specializing in poster design, brand identity, campaign visuals, and art direction."
+        path="/"
+        jsonLd={[collectionPageSchema(), itemListSchema(), contactPageSchema()]}
+      />
+      <HeroSection />
+      <TextRevealSection />
+      <DescriptionSection />
+      <FeaturedWork />
+      <AboutCTA />
+    </main>
   )
 }

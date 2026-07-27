@@ -1,11 +1,12 @@
 export const SITE_URL = 'https://aadiilin.vercel.app'
 export const SITE_NAME = 'Aadiilin — Freelance Graphic Designer'
 export const SITE_DESCRIPTION =
-  'Official portfolio of Aadiilin (Adil Sarvadka), a freelance graphic designer specializing in poster design, brand identity, campaign visuals, and art direction based in Kerala, India.'
+  'Official portfolio of Aadiilin (Adil Sarvadka), also known as Adil Kattathadukka, a freelance graphic designer specializing in poster design, brand identity, campaign visuals, and art direction based in Kerala, India.'
 export const DEFAULT_OG_IMAGE = '/opengraph.jpg'
 export const SITE_LOCALE = 'en_IN'
 export const CREATOR_NAME = 'Aadiilin'
 export const CREATOR_ALTERNATE_NAME = 'Adil Sarvadka'
+export const CREATOR_ALTERNATE_NAME_2 = 'Adil Kattathadukka'
 export const CREATOR_JOB_TITLE = 'Freelance Graphic Designer'
 export const CREATOR_EMAIL = 'adilsarvadka@gmail.com'
 export const CREATOR_PHONE = '+918137802554'

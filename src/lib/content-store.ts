@@ -76,6 +76,7 @@ export interface SectionStyle {
   lineHeight?: number
   color?: string
   bgColor?: string
+  rotation?: number
 }
 
 export const FONT_OPTIONS = [
