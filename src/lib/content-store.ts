@@ -47,6 +47,12 @@ export interface DecorElement {
   opacity: number
 }
 
+export interface FreeText {
+  text: string
+  fontSize: number
+  color: string
+}
+
 export interface DesignSettings {
   showParticles: boolean
   showMarquee: boolean
@@ -55,6 +61,8 @@ export interface DesignSettings {
   showScrollProgress: boolean
   sectionSpacing: "compact" | "normal" | "spacious"
   decorElements: DecorElement[]
+  elementOffsets: Record<string, { x: number; y: number }>
+  freeTexts: FreeText[]
 }
 
 export interface SiteContent {
@@ -90,6 +98,8 @@ export const DEFAULT_DESIGN: DesignSettings = {
   showScrollProgress: true,
   sectionSpacing: "normal",
   decorElements: [],
+  elementOffsets: {},
+  freeTexts: [],
 }
 
 export const DEFAULTS: SiteContent = {
