@@ -3,7 +3,7 @@ const TOKEN_KEY = "aadiilin_github_token"
 const ADMIN_PASSWORD = "aadiilin2026"
 
 const GITHUB_OWNER = "aadiilin"
-const GITHUB_REPO = "aadiilin"
+const GITHUB_REPO = "aadiilinadmin"
 const GITHUB_PATH = "public/data/content.json"
 
 export function checkPassword(pw: string) {
