@@ -4,10 +4,11 @@ import { useState, useEffect, useRef, ReactNode } from "react"
 import { X, Menu, ChevronRight, ArrowUpRight, Star, Mail, Check } from "lucide-react"
 import { SEO } from "@/components/seo"
 import { ChatBot } from "@/components/chat-bot"
-import { getContent, imageUrl } from "@/lib/content-store"
+import { getContent, imageUrl, SiteContent } from "@/lib/content-store"
 import { collectionPageSchema, itemListSchema, contactPageSchema } from "@/lib/schemas"
 
 const content = getContent()
+const design = content.design
 
 const PROJECTS = content.projects.map((p) => ({
   ...p,
@@ -250,7 +251,7 @@ export function Home() {
             <div className="text-xs sm:text-sm font-mono text-white/50 uppercase tracking-wider mb-5">Freelance Graphic Designer</div>
             <h1 className="font-heading font-extrabold text-[clamp(2.5rem,9vw,6rem)] leading-[0.95] tracking-tighter max-w-5xl">
               <span className="block overflow-hidden"><motion.span initial={{ y: "100%" }} whileInView={{ y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: 0.1, ease: [0.25, 1, 0.5, 1] }} className="inline-block">{content.hero.line1}</motion.span></span>
-              <span className="block overflow-hidden"><motion.span initial={{ y: "100%" }} whileInView={{ y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: 0.2, ease: [0.25, 1, 0.5, 1] }} className="inline-block text-[#FF7A00]">{content.hero.line2}</motion.span></span>
+              <span className="block overflow-hidden"><motion.span initial={{ y: "100%" }} whileInView={{ y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: 0.2, ease: [0.25, 1, 0.5, 1] }} className="inline-block text-accent">{content.hero.line2}</motion.span></span>
               <span className="block overflow-hidden"><motion.span initial={{ y: "100%" }} whileInView={{ y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: 0.3, ease: [0.25, 1, 0.5, 1] }} className="inline-block">{content.hero.line3}</motion.span></span>
             </h1>
           </AnimatedSection>
@@ -258,7 +259,7 @@ export function Home() {
           <AnimatedSection delay={0.4}>
             <div className="mt-8 flex flex-wrap items-center gap-4">
               <motion.a href="#work" whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}
-                className="inline-flex items-center gap-2 px-7 py-3 bg-[#FF7A00] text-white font-heading font-bold text-sm rounded-full hover:bg-[#E66A00] transition-colors uppercase tracking-wider">
+                className="inline-flex items-center gap-2 px-7 py-3 bg-accent text-white font-heading font-bold text-sm rounded-full hover:bg-accent-hover transition-colors uppercase tracking-wider">
                 View My Work <ArrowUpRight size={14} />
               </motion.a>
               <motion.a href="#contact" whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}
@@ -306,10 +307,10 @@ export function Home() {
       </section>
 
       {/* ━━━━━━ Marquee Strips ━━━━━━ */}
-      {[
-        { items: ["aadiilin", "aadiilin", "aadiilin", "aadiilin", "aadiilin"], bg: "bg-[#FF7A00]", text: "text-white", border: "border-white", line: "#FFFFFF", dot: "#FFFFFF", rev: false, name: "logo" },
-        { items: ["Freelance Graphic Designer", "Based in Kasaragod", "Crafting Bold Visuals", "Brand Identity & Poster Design", "Typography & Art Direction"], bg: "bg-[#1A1A1A]", text: "text-[#FF7A00]", border: "border-[#FF7A00]", line: "#FF7A00", dot: "#FF7A00", rev: true, name: "about" },
-        { items: [...SKILLS], bg: "bg-[#FF7A00]", text: "text-white", border: "border-white", line: "#FFFFFF", dot: "#FFFFFF", rev: false, name: "skills" },
+      {design.showMarquee !== false && [
+        { items: ["aadiilin", "aadiilin", "aadiilin", "aadiilin", "aadiilin"], bg: "bg-accent", text: "text-white", border: "border-white", line: "#FFFFFF", dot: "#FFFFFF", rev: false, name: "logo" },
+        { items: ["Freelance Graphic Designer", "Based in Kasaragod", "Crafting Bold Visuals", "Brand Identity & Poster Design", "Typography & Art Direction"], bg: "bg-text", text: "text-accent", border: "border-accent", line: "#FF7A00", dot: "#FF7A00", rev: true, name: "about" },
+        { items: [...SKILLS], bg: "bg-accent", text: "text-white", border: "border-white", line: "#FFFFFF", dot: "#FFFFFF", rev: false, name: "skills" },
       ].map((s, si) => (
         <div key={si}
           className={`relative overflow-hidden ${s.bg} flex items-center ${si === 1 ? "py-6" : si === 0 ? "py-5" : "py-4"}`}
@@ -754,7 +755,7 @@ export function Home() {
         </div>
       </footer>
 
-      <ChatBot />
+      {design.showChatBot !== false && <ChatBot />}
     </div>
   )
 }

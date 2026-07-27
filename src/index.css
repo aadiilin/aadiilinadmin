@@ -2,18 +2,18 @@
 @import "tw-animate-css";
 
 @theme inline {
-  --color-bg: #F2EEE3;
-  --color-surface: #FFFFFF;
-  --color-subtle: #F5F4EE;
-  --color-accent: #FF7A00;
-  --color-accent-hover: #E66A00;
+  --color-bg: var(--theme-bg, #F2EEE3);
+  --color-surface: var(--theme-surface, #FFFFFF);
+  --color-subtle: var(--theme-subtle, #F5F4EE);
+  --color-accent: var(--theme-accent, #FF7A00);
+  --color-accent-hover: var(--theme-accent-hover, #E66A00);
   --color-yellow: #FFC83D;
   --color-green: #7CFFB2;
   --color-blue: #1E37D8;
-  --color-text: #1A1A1A;
-  --color-muted: rgba(26, 26, 26, 0.6);
-  --color-faint: rgba(26, 26, 26, 0.35);
-  --color-line: rgba(26, 26, 26, 0.08);
+  --color-text: var(--theme-text, #1A1A1A);
+  --color-muted: var(--theme-muted, rgba(26, 26, 26, 0.6));
+  --color-faint: var(--theme-faint, rgba(26, 26, 26, 0.35));
+  --color-line: var(--theme-line, rgba(26, 26, 26, 0.08));
 
   --font-sans: 'Instrument Sans', 'system-ui', sans-serif;
   --font-heading: 'Bricolage Grotesque', 'sans-serif';
@@ -23,20 +23,24 @@
   --animate-scroll: scroll 40s linear infinite;
 }
 
+*, *::before, *::after {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
 html {
   scroll-behavior: smooth;
 }
 
 body {
-  background-color: #F2EEE3;
-  color: #1A1A1A;
+  background-color: var(--theme-bg, #F2EEE3);
+  color: var(--theme-text, #1A1A1A);
   font-family: 'Instrument Sans', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 ::selection {
-  background-color: #FF7A00;
+  background-color: var(--theme-accent, #FF7A00);
   color: #FFFFFF;
 }
 

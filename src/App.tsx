@@ -11,6 +11,7 @@ import { Home } from "@/pages/home";
 import { Admin } from "@/pages/admin";
 import { ProjectPage } from "@/pages/project/[slug]";
 import NotFound from "@/pages/not-found";
+import { getContent, applyTheme, applyDesign } from "@/lib/content-store";
 
 const queryClient = new QueryClient();
 
@@ -58,6 +59,15 @@ function Router() {
   );
 }
 
+function ThemeManager() {
+  useEffect(() => {
+    const c = getContent()
+    applyTheme(c.theme)
+    applyDesign(c.design)
+  }, [])
+  return null
+}
+
 function App() {
   useEffect(() => {
     const scrollEl = document.querySelector('.scroll-container') as HTMLElement | undefined
@@ -91,6 +101,7 @@ function App() {
 
   return (
     <HelmetProvider>
+      <ThemeManager />
       <GlobalSchemas />
       <QueryClientProvider client={queryClient}>
         <TooltipProvider>

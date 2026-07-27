@@ -1,8 +1,21 @@
 const STORAGE_KEY = "aadiilin_content"
+const TOKEN_KEY = "aadiilin_github_token"
 const ADMIN_PASSWORD = "aadiilin2026"
+
+const GITHUB_OWNER = "aadiilin"
+const GITHUB_REPO = "aadiilin"
+const GITHUB_PATH = "public/data/content.json"
 
 export function checkPassword(pw: string) {
   return pw === ADMIN_PASSWORD
+}
+
+export function getGitHubToken() {
+  return localStorage.getItem(TOKEN_KEY) || ""
+}
+
+export function setGitHubToken(token: string) {
+  localStorage.setItem(TOKEN_KEY, token)
 }
 
 export interface ProjectContent {
@@ -14,6 +27,36 @@ export interface ProjectContent {
   image: string
 }
 
+export interface ThemeColors {
+  bg: string
+  surface: string
+  subtle: string
+  accent: string
+  accentHover: string
+  text: string
+  muted: string
+  faint: string
+  line: string
+}
+
+export interface DecorElement {
+  type: "blob" | "circle" | "gradient" | "dots" | "grid"
+  position: "top-left" | "top-right" | "bottom-left" | "bottom-right" | "center"
+  color: string
+  size: number
+  opacity: number
+}
+
+export interface DesignSettings {
+  showParticles: boolean
+  showMarquee: boolean
+  showSignature: boolean
+  showChatBot: boolean
+  showScrollProgress: boolean
+  sectionSpacing: "compact" | "normal" | "spacious"
+  decorElements: DecorElement[]
+}
+
 export interface SiteContent {
   hero: { line1: string; line2: string; line3: string }
   stats: { value: string; label: string }[]
@@ -23,9 +66,33 @@ export interface SiteContent {
   industries: { title: string; desc: string }[]
   about: { intro: string; paragraph1: string; paragraph2: string }
   socialLinks: { label: string; href: string }[]
+  theme: ThemeColors
+  design: DesignSettings
 }
 
-const DEFAULTS: SiteContent = {
+export const DEFAULT_THEME: ThemeColors = {
+  bg: "#F2EEE3",
+  surface: "#FFFFFF",
+  subtle: "#F5F4EE",
+  accent: "#FF7A00",
+  accentHover: "#E66A00",
+  text: "#1A1A1A",
+  muted: "rgba(26,26,26,0.6)",
+  faint: "rgba(26,26,26,0.35)",
+  line: "rgba(26,26,26,0.08)",
+}
+
+export const DEFAULT_DESIGN: DesignSettings = {
+  showParticles: true,
+  showMarquee: true,
+  showSignature: true,
+  showChatBot: true,
+  showScrollProgress: true,
+  sectionSpacing: "normal",
+  decorElements: [],
+}
+
+export const DEFAULTS: SiteContent = {
   hero: { line1: "I craft visual", line2: "stories", line3: "that connect." },
   stats: [
     { value: "1+", label: "Years Designing" },
@@ -97,56 +164,89 @@ const DEFAULTS: SiteContent = {
     { label: "Behance", href: "https://www.behance.net/aadiilin" },
     { label: "Dribbble", href: "https://dribbble.com/aadiilin" },
   ],
+  theme: { ...DEFAULT_THEME },
+  design: { ...DEFAULT_DESIGN },
 }
 
 export function getContent(): SiteContent {
-  try {
-    const raw = localStorage.getItem(STORAGE_KEY)
-    if (raw) {
-      const saved = JSON.parse(raw)
-      return { ...DEFAULTS, ...saved }
-    }
-  } catch {}
+  const saved = localStorage.getItem(STORAGE_KEY)
+  if (saved) {
+    try { return { ...DEFAULTS, ...JSON.parse(saved) } } catch {}
+  }
   return { ...DEFAULTS }
 }
 
-export function saveContent(content: SiteContent) {
+export function saveLocal(content: SiteContent) {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(content))
 }
 
-export function resetContent() {
+export function resetLocal() {
   localStorage.removeItem(STORAGE_KEY)
 }
 
-export function exportContent() {
-  const content = getContent()
-  const blob = new Blob([JSON.stringify(content, null, 2)], { type: "application/json" })
+export function exportJSON() {
+  const c = getContent()
+  const blob = new Blob([JSON.stringify(c, null, 2)], { type: "application/json" })
   const url = URL.createObjectURL(blob)
   const a = document.createElement("a")
-  a.href = url
-  a.download = "aadiilin-content.json"
-  a.click()
+  a.href = url; a.download = "aadiilin-content.json"; a.click()
   URL.revokeObjectURL(url)
 }
 
-export function importContent(file: File): Promise<SiteContent> {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader()
-    reader.onload = (e) => {
-      try {
-        const data = JSON.parse(e.target?.result as string)
-        saveContent(data)
-        resolve(data)
-      } catch {
-        reject(new Error("Invalid JSON file"))
-      }
+export async function deployToGitHub(content: SiteContent, token: string): Promise<void> {
+  const json = JSON.stringify(content, null, 2)
+  const encoded = btoa(unescape(encodeURIComponent(json)))
+
+  let sha: string | undefined
+  const existing = await fetch(
+    `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${GITHUB_PATH}`,
+    { headers: { Authorization: `Bearer ${token}`, Accept: "application/vnd.github.v3+json" } }
+  )
+  if (existing.ok) {
+    const data = await existing.json()
+    sha = data.sha
+  }
+
+  const res = await fetch(
+    `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${GITHUB_PATH}`,
+    {
+      method: "PUT",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+        Accept: "application/vnd.github.v3+json",
+      },
+      body: JSON.stringify({
+        message: "update site content from admin panel",
+        content: encoded,
+        sha,
+      }),
     }
-    reader.onerror = () => reject(new Error("Failed to read file"))
-    reader.readAsText(file)
-  })
+  )
+
+  if (!res.ok) {
+    const err = await res.json()
+    throw new Error(err.message || "GitHub deploy failed")
+  }
 }
 
 export function imageUrl(path: string) {
   if (path.startsWith("http") || path.startsWith("/")) return path
   return `${import.meta.env.BASE_URL}images/${path}`
+}
+
+export function applyTheme(theme: ThemeColors) {
+  const root = document.documentElement
+  Object.entries(theme).forEach(([key, value]) => {
+    root.style.setProperty(`--theme-${key}`, value)
+  })
+}
+
+export function applyDesign(design: DesignSettings) {
+  const root = document.documentElement
+  root.style.setProperty("--section-spacing", String({
+    compact: "48",
+    normal: "96",
+    spacious: "144",
+  }[design.sectionSpacing] || "96"))
 }
