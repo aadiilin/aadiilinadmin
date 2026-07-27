@@ -300,7 +300,7 @@ export function Home() {
 
       {/* ━━━━━━ Hero ━━━━━━ */}
       <section className="bg-[#080D10] text-white relative overflow-hidden" style={{ clipPath: "polygon(0 0, 100% 0, 100% calc(100% - 48px), 0 100%)" }}>
-        <div className="max-w-[1320px] mx-auto px-6 pt-36 pb-20 w-full">
+        <div className="max-w-[1320px] mx-auto px-6 pt-36 pb-0 w-full">
           <AnimatedSection>
             <div className="text-xs sm:text-sm font-mono text-white/50 uppercase tracking-wider mb-5">Freelance Graphic Designer</div>
             <h1 className="font-heading font-extrabold text-[clamp(2.5rem,9vw,6rem)] leading-[0.95] tracking-tighter max-w-5xl">
@@ -361,7 +361,7 @@ export function Home() {
       </section>
 
       {/* ━━━━━━ Marquee Strips ━━━━━━ */}
-      <div className="relative" style={{ zIndex: 0 }}>
+      <div className="relative" style={{ zIndex: 0, marginTop: "-48px" }}>
         {/* Orange top strip — angled down right→left, goes behind black strip */}
         <div className="relative overflow-hidden bg-[#FF7A00] flex items-center py-4"
           style={{
