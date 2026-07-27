@@ -150,7 +150,7 @@ const RESPONSES: { keywords: string[]; reply: string }[] = [
   },
   {
     keywords: ["aadiilin", "aadiil.in", "username", "handle", "profile", "portfolio", "instagram handle", "website"],
-    reply: "Aadiilin is active across platforms:\n🌐 Website: aadiilin.vercel.app\n📸 Instagram: @aadiil.in\n💻 GitHub: github.com/aadiilin\n💼 LinkedIn: linkedin.com/in/adil-sarvadka-51282a406\n📌 Pinterest: @aadiilin"
+    reply: "Aadiilin is active across platforms:\n🌐 Website: aadiiloin.vercel.app\n📸 Instagram: @aadiil.in\n💻 GitHub: github.com/aadiilin\n💼 LinkedIn: linkedin.com/in/adil-sarvadka-51282a406\n📌 Pinterest: @aadiilin"
   },
 ]
 

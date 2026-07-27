@@ -81,7 +81,7 @@ export const FAQS: FAQ[] = [
   // ── Website ──
   { question: 'Who built this website?', answer: 'This website was built by Aadiilin (Adil Sarvadka) himself using React, Vite, TypeScript, Tailwind CSS, and Framer Motion.' },
   { question: 'What framework is this site built on?', answer: 'This portfolio is built with React 19, Vite 7, TypeScript, Tailwind CSS v4, Framer Motion, and Wouter for routing.' },
-  { question: 'Where is this website hosted?', answer: 'This website is deployed on Vercel and available at aadiilin.vercel.app.' },
+  { question: 'Where is this website hosted?', answer: 'This website is deployed on Vercel and available at aadiiloin.vercel.app.' },
 
   // ── General ──
   { question: 'Does Aadiilin speak English?', answer: 'Yes, Aadiilin is fluent in English, Malayalam, Hindi, and Arabic.' },

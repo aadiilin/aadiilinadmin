@@ -1,4 +1,4 @@
-export const SITE_URL = 'https://aadiilin.vercel.app'
+export const SITE_URL = 'https://aadiiloin.vercel.app'
 export const SITE_NAME = 'Aadiilin — Freelance Graphic Designer'
 export const SITE_DESCRIPTION =
   'Official portfolio of Aadiilin (Adil Sarvadka), also known as Adil Kattathadukka, a freelance graphic designer specializing in poster design, brand identity, campaign visuals, and art direction based in Kerala, India.'
