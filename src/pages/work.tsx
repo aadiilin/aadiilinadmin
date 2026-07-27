@@ -1,83 +1,110 @@
-import { useRef } from 'react'
+import { useState } from 'react'
 import { Link } from 'wouter'
-import { motion, useInView } from 'framer-motion'
+import { motion } from 'framer-motion'
 import { SEO } from '@/components/seo'
 import { PROJECTS } from '@/lib/seo-data'
+import { soundManager } from '@/lib/sound'
 
-function WorkItem({ project, index }: { project: typeof PROJECTS[0]; index: number }) {
-  const ref = useRef(null)
-  const isInView = useInView(ref, { once: true, margin: '-10%' })
-
-  return (
-    <motion.div
-      ref={ref}
-      initial={{ opacity: 0, y: 40 }}
-      animate={isInView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.6, delay: index * 0.08, ease: [0.76, 0, 0.24, 1] }}
-    >
-      <Link href={`/project/${project.slug}`} className="group block">
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-8 items-center py-8 md:py-12 border-t border-white/5">
-          <div className="md:col-span-7 overflow-hidden rounded-lg aspect-[4/3] bg-[#1A1A1A]">
-            <img
-              src={project.image}
-              alt={project.title}
-              className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-              loading="lazy"
-            />
-          </div>
-          <div className="md:col-span-5">
-            <div className="flex items-center gap-3 mb-2">
-              <span className="font-sans text-xs text-white/30 tracking-widest">
-                {index + 1}<span className="text-white/20">/{PROJECTS.length}</span>
-              </span>
-              <span className="w-8 h-px bg-white/20" />
-              <span className="font-sans text-xs text-white/40">{project.category}</span>
-            </div>
-            <h2 className="font-display text-2xl md:text-4xl font-bold text-white group-hover:text-white/60 transition-colors">
-              {project.title}
-            </h2>
-            <p className="font-sans text-sm text-white/40 mt-3 line-clamp-2">{project.description}</p>
-            <div className="flex flex-wrap gap-2 mt-4">
-              {project.tags?.slice(0, 3).map((tag) => (
-                <span key={tag} className="font-sans text-[10px] tracking-widest text-white/30 border border-white/10 rounded-full px-3 py-1">
-                  {tag}
-                </span>
-              ))}
-            </div>
-          </div>
-        </div>
-      </Link>
-    </motion.div>
-  )
-}
+const categories = ['All', 'Branding & WebGL', 'Interactive Platform', 'Luxury E-Commerce', 'Experimental Web', 'Event Identity']
 
 export function Work() {
-  const ref = useRef(null)
-  const isInView = useInView(ref, { once: true, margin: '-20%' })
+  const [selectedCategory, setSelectedCategory] = useState('All')
+
+  const filteredProjects = selectedCategory === 'All'
+    ? PROJECTS
+    : PROJECTS.filter(p => p.category === selectedCategory || (p.tags && p.tags.some(t => t.toLowerCase().includes(selectedCategory.toLowerCase()))))
 
   return (
-    <main className="bg-[#0F0F0F] min-h-screen pt-32 pb-24">
+    <main className="bg-[#0A0A0A] min-h-screen pt-36 pb-28 px-6 md:px-12 lg:px-16 text-white">
       <SEO
-        title="Work — Aadiilin"
-        description="Portfolio projects by Aadiilin (Adil Kattathadukka) — poster design, brand identity, campaign visuals, and more."
+        title="Work — Jomor Design"
+        description="Selected digital experiences, branding, WebGL applications, and e-commerce projects by Jomor Design."
         path="/work"
       />
 
-      <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-16">
-        <div ref={ref} className="mb-16 md:mb-24">
-          <motion.p
+      <div className="max-w-7xl mx-auto">
+        <header className="mb-16 md:mb-24">
+          <motion.h1
             initial={{ opacity: 0, y: 30 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6, ease: [0.76, 0, 0.24, 1] }}
-            className="font-sans text-sm text-white/40 max-w-xl leading-relaxed"
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
+            className="font-serif italic text-6xl md:text-8xl lg:text-9xl text-white/80"
           >
-            Every project starts with a conversation. We ask questions, listen, and advise — together we create the best custom solutions. Here are a few results.
-          </motion.p>
+            selected
+          </motion.h1>
+          <motion.span
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.1, ease: [0.76, 0, 0.24, 1] }}
+            className="font-display font-black text-6xl md:text-8xl lg:text-9xl text-white block mt-[-0.2em] uppercase tracking-tight"
+          >
+            work
+          </motion.span>
+        </header>
+
+        {/* Filter categories */}
+        <div className="flex items-center gap-3 flex-wrap mb-16 border-b border-white/10 pb-6">
+          {categories.map((cat) => (
+            <button
+              key={cat}
+              onClick={() => {
+                soundManager.playClick()
+                setSelectedCategory(cat)
+              }}
+              onMouseEnter={() => soundManager.playHover()}
+              className={`px-4 py-2 rounded-full text-xs font-mono tracking-wider transition-all duration-300 ${
+                selectedCategory === cat
+                  ? 'bg-white text-black font-bold scale-105'
+                  : 'bg-white/5 text-white/60 hover:bg-white/15 hover:text-white border border-white/10'
+              }`}
+              data-cursor="pointer"
+            >
+              {cat}
+            </button>
+          ))}
         </div>
 
-        <div>
-          {PROJECTS.map((project, i) => (
-            <WorkItem key={project.slug} project={project} index={i} />
+        {/* Projects Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16">
+          {filteredProjects.map((project, i) => (
+            <motion.div
+              key={project.slug}
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.08 * i, ease: [0.76, 0, 0.24, 1] }}
+            >
+              <Link
+                href={`/project/${project.slug}`}
+                className="group block"
+                onMouseEnter={() => soundManager.playHover()}
+                onClick={() => soundManager.playClick()}
+                data-cursor="pointer"
+                data-cursor-text="EXPLORE"
+              >
+                <div className="relative overflow-hidden rounded-xl mb-5 aspect-[16/10] bg-[#141414] border border-white/10 group-hover:border-white/30 transition-all duration-500">
+                  <img
+                    src={project.image}
+                    alt={project.title}
+                    className="w-full h-full object-cover grayscale opacity-80 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700"
+                    loading="lazy"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60 group-hover:opacity-20 transition-opacity" />
+                  <div className="absolute top-4 right-4 bg-black/80 backdrop-blur-md px-3 py-1 rounded-full text-[11px] font-mono text-white/80 border border-white/10">
+                    {project.year}
+                  </div>
+                </div>
+
+                <div className="flex items-baseline justify-between border-b border-white/10 pb-3 group-hover:border-white/40 transition-colors">
+                  <h2 className="font-display text-2xl md:text-3xl font-bold text-white group-hover:text-white/80 transition-colors uppercase">
+                    {project.title}
+                  </h2>
+                  <span className="font-mono text-xs text-white/40">{project.category}</span>
+                </div>
+                <p className="text-white/60 text-xs font-sans mt-3 line-clamp-2 leading-relaxed">
+                  {project.description}
+                </p>
+              </Link>
+            </motion.div>
           ))}
         </div>
       </div>

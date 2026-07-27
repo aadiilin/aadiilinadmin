@@ -11,59 +11,126 @@ export function CanvasBackground() {
     if (!ctx) return
 
     let animId: number
-    let particles: { x: number; y: number; vx: number; vy: number; r: number; a: number }[] = []
-    const COUNT = 80
+    let width = 0
+    let height = 0
+    let mouse = { x: -1000, y: -1000, targetX: -1000, targetY: -1000, radius: 250 }
+
+    interface Particle {
+      x: number
+      y: number
+      baseX: number
+      baseY: number
+      vx: number
+      vy: number
+      size: number
+      alpha: number
+    }
+
+    let particles: Particle[] = []
 
     function resize() {
       if (!canvas) return
-      canvas.width = window.innerWidth
-      canvas.height = window.innerHeight
+      width = canvas.width = window.innerWidth
+      height = canvas.height = window.innerHeight
+      initParticles()
     }
 
-    function init() {
-      resize()
-      particles = Array.from({ length: COUNT }, () => ({
-        x: Math.random() * canvas!.width,
-        y: Math.random() * canvas!.height,
-        vx: (Math.random() - 0.5) * 0.2,
-        vy: (Math.random() - 0.5) * 0.2,
-        r: Math.random() * 1.2 + 0.3,
-        a: Math.random() * 0.3 + 0.05
-      }))
+    function initParticles() {
+      particles = []
+      const step = Math.max(35, Math.floor(Math.sqrt((width * height) / 400)))
+      for (let x = 0; x < width; x += step) {
+        for (let y = 0; y < height; y += step) {
+          particles.push({
+            x,
+            y,
+            baseX: x,
+            baseY: y,
+            vx: (Math.random() - 0.5) * 0.4,
+            vy: (Math.random() - 0.5) * 0.4,
+            size: Math.random() * 1.5 + 0.5,
+            alpha: Math.random() * 0.25 + 0.05,
+          })
+        }
+      }
+    }
+
+    function onMouseMove(e: MouseEvent) {
+      mouse.targetX = e.clientX
+      mouse.targetY = e.clientY
     }
 
     function draw() {
       if (!canvas || !ctx) return
-      ctx.clearRect(0, 0, canvas.width, canvas.height)
+      ctx.clearRect(0, 0, width, height)
 
-      for (const p of particles) {
-        p.x += p.vx
-        p.y += p.vy
+      // Smooth mouse interpolation
+      mouse.x += (mouse.targetX - mouse.x) * 0.1
+      mouse.y += (mouse.targetY - mouse.y) * 0.1
 
-        if (p.x < 0) p.x = canvas.width
-        if (p.x > canvas.width) p.x = 0
-        if (p.y < 0) p.y = canvas.height
-        if (p.y > canvas.height) p.y = 0
+      // Subtle gradient radial spot following mouse
+      if (mouse.x > 0 && mouse.y > 0) {
+        const gradient = ctx.createRadialGradient(
+          mouse.x,
+          mouse.y,
+          0,
+          mouse.x,
+          mouse.y,
+          mouse.radius * 1.8
+        )
+        gradient.addColorStop(0, "rgba(255, 255, 255, 0.04)")
+        gradient.addColorStop(0.5, "rgba(200, 200, 255, 0.015)")
+        gradient.addColorStop(1, "rgba(0, 0, 0, 0)")
+        ctx.fillStyle = gradient
+        ctx.fillRect(0, 0, width, height)
+      }
 
+      // Draw mesh nodes & connection lines
+      for (let i = 0; i < particles.length; i++) {
+        const p = particles[i]
+
+        // Mouse displacement force
+        const dx = mouse.x - p.x
+        const dy = mouse.y - p.y
+        const dist = Math.sqrt(dx * dx + dy * dy)
+
+        if (dist < mouse.radius) {
+          const force = (1 - dist / mouse.radius) * 45
+          const angle = Math.atan2(dy, dx)
+          p.x -= Math.cos(angle) * force * 0.05
+          p.y -= Math.sin(angle) * force * 0.05
+        }
+
+        // Elastic return to base position
+        p.x += (p.baseX - p.x) * 0.03 + p.vx
+        p.y += (p.baseY - p.y) * 0.03 + p.vy
+
+        // Draw particle dot
         ctx.beginPath()
-        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2)
-        ctx.fillStyle = `rgba(255, 255, 255, ${p.a})`
+        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2)
+        ctx.fillStyle = `rgba(255, 255, 255, ${p.alpha})`
         ctx.fill()
       }
 
       animId = requestAnimationFrame(draw)
     }
 
-    init()
+    resize()
     draw()
 
     window.addEventListener("resize", resize)
+    window.addEventListener("mousemove", onMouseMove)
 
     return () => {
       cancelAnimationFrame(animId)
       window.removeEventListener("resize", resize)
+      window.removeEventListener("mousemove", onMouseMove)
     }
   }, [])
 
-  return <canvas ref={canvasRef} className="fixed inset-0 -z-1 pointer-events-none" />
+  return (
+    <canvas
+      ref={canvasRef}
+      className="fixed inset-0 z-0 pointer-events-none opacity-80"
+    />
+  )
 }

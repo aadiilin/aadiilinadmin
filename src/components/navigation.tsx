@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react'
 import { Link, useLocation } from 'wouter'
 import { motion, AnimatePresence } from 'framer-motion'
-import { FaInstagram, FaTwitter, FaYoutube } from 'react-icons/fa'
-import { SiWebflow } from 'react-icons/si'
-import { RiAwardFill } from 'react-icons/ri'
+import { FaInstagram, FaTwitter, FaGithub, FaWhatsapp, FaPinterest } from 'react-icons/fa'
+import { SoundToggle } from '@/components/sound-toggle'
+import { LiveClock } from '@/components/live-clock'
+import { soundManager } from '@/lib/sound'
 
 const navItems = [
   { href: '/work', label: 'work' },
@@ -31,63 +32,118 @@ export function Navigation() {
     if (location === prevLocation) return
     setPrevLocation(location)
     setFlash(true)
-    const timer = setTimeout(() => setFlash(false), 400)
+    soundManager.playClick()
+    const timer = setTimeout(() => setFlash(false), 350)
     return () => clearTimeout(timer)
   }, [location, prevLocation])
 
   return (
     <>
-      <nav className="fixed left-8 top-1/2 -translate-y-1/2 z-50 flex flex-col items-center gap-12 mix-blend-exclusion">
-        <Link href="/" className="flex flex-col items-center gap-1">
-          <span className="font-display text-lg font-bold text-white tracking-tight">A</span>
-          <span className="font-serif italic text-white/60 text-sm">aadiilin</span>
+      <header className="fixed top-0 left-0 w-full z-50 px-6 md:px-12 py-6 flex items-center justify-between pointer-events-none mix-blend-exclusion">
+        <Link
+          href="/"
+          className="pointer-events-auto group flex items-center gap-2"
+          onMouseEnter={() => soundManager.playHover()}
+          onClick={() => soundManager.playClick()}
+          data-cursor="pointer"
+        >
+          <span className="font-display text-xl font-bold tracking-tight text-white uppercase group-hover:opacity-70 transition-opacity">
+            Jomor Design
+          </span>
+          <span className="text-white/40 text-xs font-serif italic hidden sm:inline">
+            / websadilo
+          </span>
         </Link>
 
-        <button
-          onClick={() => setMenuOpen(true)}
-          className="flex flex-col items-center gap-1 py-2 group"
-          aria-label="Open menu"
-        >
-          <span className="text-xs font-bold tracking-[0.15em] text-white/80 font-display group-hover:text-white transition-colors">
+        <div className="flex items-center gap-4 md:gap-8 pointer-events-auto">
+          <SoundToggle />
+
+          <nav className="hidden md:flex items-center gap-6">
+            {navItems.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                onMouseEnter={() => soundManager.playHover()}
+                onClick={() => soundManager.playClick()}
+                className={`text-xs font-mono tracking-widest uppercase transition-all duration-300 relative py-1 ${
+                  location === item.href ? 'text-white font-bold' : 'text-white/60 hover:text-white'
+                }`}
+                data-cursor="pointer"
+              >
+                {item.label}
+                {location === item.href && (
+                  <motion.span
+                    layoutId="activeNav"
+                    className="absolute bottom-0 left-0 w-full h-[1px] bg-white"
+                  />
+                )}
+              </Link>
+            ))}
+          </nav>
+
+          <button
+            onClick={() => {
+              soundManager.playClick()
+              setMenuOpen(true)
+            }}
+            onMouseEnter={() => soundManager.playHover()}
+            className="text-xs font-mono font-bold tracking-[0.2em] uppercase text-white/80 hover:text-white px-3 py-1.5 rounded-full bg-white/5 hover:bg-white/15 border border-white/10 transition-all duration-300"
+            aria-label="Open menu"
+            data-cursor="pointer"
+          >
             MENU
-          </span>
-        </button>
-      </nav>
+          </button>
+        </div>
+      </header>
 
       <AnimatePresence>
         {menuOpen && (
           <motion.div
-            initial={{ clipPath: 'circle(0% at 100% 0%)' }}
-            animate={{ clipPath: 'circle(150% at 100% 0%)' }}
-            exit={{ clipPath: 'circle(0% at 100% 0%)' }}
-            transition={{ duration: 0.6, ease: [0.76, 0, 0.24, 1] }}
-            className="fixed inset-0 z-[100] bg-[#0F0F0F] flex flex-col justify-between p-12 md:p-16"
+            initial={{ clipPath: 'circle(0% at 95% 5%)' }}
+            animate={{ clipPath: 'circle(150% at 95% 5%)' }}
+            exit={{ clipPath: 'circle(0% at 95% 5%)' }}
+            transition={{ duration: 0.7, ease: [0.76, 0, 0.24, 1] }}
+            className="fixed inset-0 z-[100] bg-[#0A0A0A] flex flex-col justify-between p-8 md:p-16 border-l border-white/10"
           >
-            <button
-              onClick={() => setMenuOpen(false)}
-              className="absolute top-8 right-8 text-white/40 hover:text-white text-xs tracking-[0.2em] uppercase font-sans transition-colors"
-            >
-              Close
-            </button>
+            <div className="flex items-center justify-between">
+              <LiveClock label="MONTREAL, CA" timezone="America/Toronto" />
+              <button
+                onClick={() => {
+                  soundManager.playClick()
+                  setMenuOpen(false)
+                }}
+                onMouseEnter={() => soundManager.playHover()}
+                className="text-white/60 hover:text-white text-xs tracking-[0.25em] font-mono uppercase px-4 py-2 rounded-full border border-white/10 hover:border-white/30 transition-all"
+                data-cursor="pointer"
+              >
+                CLOSE [X]
+              </button>
+            </div>
 
-            <div className="flex flex-col items-start gap-8 md:gap-10 mt-20">
+            <div className="flex flex-col items-start gap-6 md:gap-8 my-auto py-12">
               {navItems.map((item, i) => (
                 <motion.div
                   key={item.href}
                   initial={{ opacity: 0, x: -40 }}
                   animate={{ opacity: 1, x: 0 }}
                   exit={{ opacity: 0, x: -40 }}
-                  transition={{ duration: 0.5, delay: 0.1 * i, ease: [0.76, 0, 0.24, 1] }}
+                  transition={{ duration: 0.5, delay: 0.08 * i, ease: [0.76, 0, 0.24, 1] }}
                 >
                   <Link
                     href={item.href}
-                    onClick={() => setMenuOpen(false)}
+                    onClick={() => {
+                      soundManager.playClick()
+                      setMenuOpen(false)
+                    }}
+                    onMouseEnter={() => soundManager.playHover()}
                     className="group relative block"
+                    data-cursor="pointer"
+                    data-cursor-text="GO"
                   >
-                    <span className="font-serif text-6xl md:text-8xl italic text-white/20 transition-colors duration-300 group-hover:text-white">
+                    <span className="font-serif text-6xl md:text-8xl lg:text-9xl italic text-white/20 transition-colors duration-300 group-hover:text-white/40">
                       {item.label}
                     </span>
-                    <span className="absolute inset-0 flex items-center justify-start font-display text-6xl md:text-8xl font-bold text-white opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                    <span className="absolute inset-0 flex items-center justify-start font-display text-6xl md:text-8xl lg:text-9xl font-bold text-white opacity-0 transition-opacity duration-300 group-hover:opacity-100">
                       {item.label}
                     </span>
                   </Link>
@@ -95,26 +151,34 @@ export function Navigation() {
               ))}
             </div>
 
-            <div className="flex flex-col items-start gap-4">
-              <div className="flex flex-col items-start gap-2 text-white/30 text-xs tracking-[0.2em] uppercase font-sans">
-                <a href="tel:+918137802554" className="hover:text-white transition-colors">+91 81378 02554</a>
-                <a href="mailto:adilsarvadka@gmail.com" className="hover:text-white transition-colors">adilsarvadka@gmail.com</a>
+            <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 pt-8 border-t border-white/10">
+              <div className="space-y-2">
+                <p className="text-white/40 text-xs font-mono uppercase tracking-widest">GET IN TOUCH</p>
+                <div className="flex flex-col gap-1 text-sm font-sans text-white/80">
+                  <a href="mailto:jomor@jomordesign.com" className="hover:text-white transition-colors" data-cursor="pointer">
+                    jomor@jomordesign.com
+                  </a>
+                  <a href="tel:5142223461" className="hover:text-white transition-colors" data-cursor="pointer">
+                    +1 (514) 222-3461
+                  </a>
+                </div>
               </div>
-              <div className="flex items-center gap-4 text-white/30">
-                <a href="https://www.instagram.com/aadiil.in" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">
-                  <FaInstagram size={16} />
+
+              <div className="flex items-center gap-5 text-white/50">
+                <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors" data-cursor="pointer">
+                  <FaInstagram size={18} />
                 </a>
-                <a href="https://www.linkedin.com/in/adil-sarvadka-51282a406" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">
-                  <FaTwitter size={16} />
+                <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors" data-cursor="pointer">
+                  <FaTwitter size={18} />
                 </a>
-                <a href="https://github.com/aadiilin" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">
-                  <RiAwardFill size={16} />
+                <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors" data-cursor="pointer">
+                  <FaGithub size={18} />
                 </a>
-                <a href="https://wa.me/918137802554" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">
-                  <FaYoutube size={16} />
+                <a href="https://wa.me" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors" data-cursor="pointer">
+                  <FaWhatsapp size={18} />
                 </a>
-                <a href="https://in.pinterest.com/aadiilin" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">
-                  <SiWebflow size={16} />
+                <a href="https://pinterest.com" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors" data-cursor="pointer">
+                  <FaPinterest size={18} />
                 </a>
               </div>
             </div>
@@ -125,10 +189,10 @@ export function Navigation() {
       <AnimatePresence>
         {flash && (
           <motion.div
-            initial={{ opacity: 1 }}
+            initial={{ opacity: 0.8 }}
             animate={{ opacity: 0 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.3, ease: [0.76, 0, 0.24, 1] }}
+            transition={{ duration: 0.35, ease: [0.76, 0, 0.24, 1] }}
             className="fixed inset-0 z-[200] bg-white pointer-events-none"
           />
         )}

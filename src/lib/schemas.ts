@@ -4,9 +4,9 @@ import type { Project } from './seo-data'
 export function personSchema() {
   return {
     '@context': 'https://schema.org',
-    '@type': 'Person',
-    name: CREATOR_ALTERNATE_NAME,
-    alternateName: [CREATOR_NAME, CREATOR_ALTERNATE_NAME_2],
+    '@type': 'Organization',
+    name: CREATOR_NAME,
+    alternateName: [CREATOR_ALTERNATE_NAME, CREATOR_ALTERNATE_NAME_2],
     url: SITE_URL,
     image: `${SITE_URL}${CREATOR_IMAGE}`,
     description: SITE_DESCRIPTION,
@@ -14,11 +14,9 @@ export function personSchema() {
     email: CREATOR_EMAIL,
     telephone: CREATOR_PHONE,
     address: { '@type': 'PostalAddress', addressLocality: CREATOR_LOCATION },
-    nationality: { '@type': 'Country', name: 'India' },
     knowsAbout: SKILLS,
     sameAs: Object.values(SOCIAL_LINKS),
-    mainEntityOfPage: { '@type': 'ProfilePage', '@id': `${SITE_URL}#person` },
-    knowsLanguage: ['Malayalam', 'English', 'Hindi', 'Arabic'],
+    mainEntityOfPage: { '@type': 'ProfilePage', '@id': `${SITE_URL}#organization` },
     brand: { '@type': 'Brand', name: CREATOR_NAME },
   }
 }
@@ -28,16 +26,16 @@ export function websiteSchema() {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
     name: SITE_NAME,
-    alternateName: [CREATOR_NAME, CREATOR_ALTERNATE_NAME, CREATOR_ALTERNATE_NAME_2],
+    alternateName: [CREATOR_NAME, CREATOR_ALTERNATE_NAME],
     url: SITE_URL,
     description: SITE_DESCRIPTION,
-    author: { '@type': 'Person', name: CREATOR_ALTERNATE_NAME },
+    author: { '@type': 'Organization', name: CREATOR_NAME },
     potentialAction: {
       '@type': 'SearchAction',
       target: { '@type': 'EntryPoint', urlTemplate: `${SITE_URL}/?q={search_term_string}` },
       'query-input': 'required name=search_term_string',
     },
-    inLanguage: 'en-IN',
+    inLanguage: 'en-US',
     copyrightYear: new Date().getFullYear(),
     isFamilyFriendly: true,
   }
@@ -50,10 +48,8 @@ export function organizationSchema() {
     name: CREATOR_NAME,
     alternateName: [CREATOR_ALTERNATE_NAME, CREATOR_ALTERNATE_NAME_2],
     url: SITE_URL,
-    logo: `${SITE_URL}/icon-512.png`,
     email: CREATOR_EMAIL,
     sameAs: Object.values(SOCIAL_LINKS),
-    founder: { '@type': 'Person', name: CREATOR_ALTERNATE_NAME },
   }
 }
 
@@ -63,9 +59,8 @@ export function profilePageSchema() {
     '@type': 'ProfilePage',
     '@id': `${SITE_URL}#profile`,
     url: SITE_URL,
-    mainEntity: { '@type': 'Person', name: CREATOR_ALTERNATE_NAME },
-    dateCreated: '2024-01-01',
-    inLanguage: 'en-IN',
+    mainEntity: { '@type': 'Organization', name: CREATOR_NAME },
+    inLanguage: 'en-US',
     isAccessibleForFree: true,
   }
 }
@@ -83,27 +78,13 @@ export function breadcrumbSchema(items: { name: string; path: string }[]) {
   }
 }
 
-export function projectSchema(project: Project) {
-  return {
-    '@context': 'https://schema.org',
-    '@type': 'CreativeWork',
-    name: project.title,
-    description: project.description,
-    image: `${SITE_URL}${project.image}`,
-    author: { '@type': 'Person', name: CREATOR_ALTERNATE_NAME },
-    datePublished: project.year ? `${project.year}-01-01` : undefined,
-    keywords: project.tags?.join(', '),
-    about: { '@type': 'Thing', name: project.category },
-  }
-}
-
 export function collectionPageSchema() {
   return {
     '@context': 'https://schema.org',
     '@type': 'CollectionPage',
-    name: 'Projects by Aadiilin',
-    description: 'Portfolio of graphic design projects by Adil Sarvadka (Aadiilin)',
-    url: `${SITE_URL}/#work`,
+    name: 'Projects by Jomor Design',
+    description: 'Selected digital experiences, branding, WebGL applications, and e-commerce projects by Jomor Design.',
+    url: `${SITE_URL}/work`,
     mainEntity: {
       '@type': 'ItemList',
       itemListElement: PROJECTS.map((p, i) => ({
@@ -133,7 +114,7 @@ export function imageObjectSchema(url: string, caption: string) {
     '@type': 'ImageObject',
     url: `${SITE_URL}${url}`,
     caption,
-    author: { '@type': 'Person', name: CREATOR_ALTERNATE_NAME },
+    author: { '@type': 'Organization', name: CREATOR_NAME },
   }
 }
 
@@ -141,10 +122,10 @@ export function contactPageSchema() {
   return {
     '@context': 'https://schema.org',
     '@type': 'ContactPage',
-    name: 'Contact Aadiilin',
-    url: `${SITE_URL}/#contact`,
-    description: 'Get in touch with Adil Sarvadka (Aadiilin) for graphic design projects',
-    mainEntity: { '@type': 'Person', name: CREATOR_ALTERNATE_NAME, email: CREATOR_EMAIL },
+    name: 'Contact Jomor Design',
+    url: `${SITE_URL}/contact`,
+    description: 'Get in touch with Jomor Design for digital experience design and WebGL development.',
+    mainEntity: { '@type': 'Organization', name: CREATOR_NAME, email: CREATOR_EMAIL },
   }
 }
 
@@ -154,7 +135,7 @@ export function creativeWorkSeriesSchema() {
     '@type': 'CreativeWorkSeries',
     name: SITE_NAME,
     description: SITE_DESCRIPTION,
-    author: { '@type': 'Person', name: CREATOR_ALTERNATE_NAME },
+    author: { '@type': 'Organization', name: CREATOR_NAME },
   }
 }
 
