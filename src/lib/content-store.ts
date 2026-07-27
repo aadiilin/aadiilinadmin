@@ -49,8 +49,67 @@ export interface DecorElement {
 
 export interface FreeText {
   text: string
+  fontFamily: string
   fontSize: number
+  fontWeight: number
   color: string
+  bgColor: string
+  rotation: number
+  textAlign: "left" | "center" | "right"
+  letterSpacing: number
+  lineHeight: number
+  italic: boolean
+  underline: boolean
+  borderWidth: number
+  borderColor: string
+  shadowColor: string
+  shadowBlur: number
+  zIndex: number
+}
+
+export interface SectionStyle {
+  fontFamily?: string
+  fontSize?: number
+  fontWeight?: number
+  textAlign?: string
+  letterSpacing?: number
+  lineHeight?: number
+  color?: string
+  bgColor?: string
+}
+
+export const FONT_OPTIONS = [
+  { name: "Bricolage Grotesque", value: "'Bricolage Grotesque', sans-serif", type: "heading" },
+  { name: "Instrument Sans", value: "'Instrument Sans', sans-serif", type: "body" },
+  { name: "Space Mono", value: "'Space Mono', monospace", type: "mono" },
+  { name: "Arial", value: "Arial, sans-serif", type: "sans" },
+  { name: "Helvetica", value: "Helvetica, sans-serif", type: "sans" },
+  { name: "Georgia", value: "Georgia, serif", type: "serif" },
+  { name: "Times New Roman", value: "'Times New Roman', serif", type: "serif" },
+  { name: "Courier New", value: "'Courier New', monospace", type: "mono" },
+  { name: "Verdana", value: "Verdana, sans-serif", type: "sans" },
+  { name: "Trebuchet MS", value: "'Trebuchet MS', sans-serif", type: "sans" },
+  { name: "Impact", value: "Impact, sans-serif", type: "display" },
+  { name: "Comic Sans MS", value: "'Comic Sans MS', cursive", type: "fun" },
+]
+
+export const FREE_TEXT_DEFAULTS: Omit<FreeText, "text"> = {
+  fontFamily: "'Bricolage Grotesque', sans-serif",
+  fontSize: 24,
+  fontWeight: 800,
+  color: "#FF7A00",
+  bgColor: "transparent",
+  rotation: 0,
+  textAlign: "center",
+  letterSpacing: 0,
+  lineHeight: 1.2,
+  italic: false,
+  underline: false,
+  borderWidth: 0,
+  borderColor: "#FF7A00",
+  shadowColor: "transparent",
+  shadowBlur: 0,
+  zIndex: 10,
 }
 
 export interface DesignSettings {
@@ -63,6 +122,7 @@ export interface DesignSettings {
   decorElements: DecorElement[]
   elementOffsets: Record<string, { x: number; y: number }>
   freeTexts: FreeText[]
+  sectionStyles: Record<string, SectionStyle>
 }
 
 export interface SiteContent {
@@ -100,6 +160,7 @@ export const DEFAULT_DESIGN: DesignSettings = {
   decorElements: [],
   elementOffsets: {},
   freeTexts: [],
+  sectionStyles: {},
 }
 
 export const DEFAULTS: SiteContent = {
