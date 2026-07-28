@@ -48,10 +48,10 @@ export function Navigation() {
           data-cursor="pointer"
         >
           <span className="font-display text-xl font-bold tracking-tight text-white uppercase group-hover:opacity-70 transition-opacity">
-            Jomor Design
+            Aadiilin
           </span>
           <span className="text-white/40 text-xs font-serif italic hidden sm:inline">
-            / websadilo
+            / digital practice
           </span>
         </Link>
 

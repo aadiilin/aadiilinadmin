@@ -27,7 +27,8 @@ export function PageLoader() {
             className="flex flex-col items-center"
           >
             <span className="font-display text-4xl font-bold text-white">A</span>
-            <span className="font-serif italic text-white/40 text-sm mt-1">aadiilin</span>
+            <span className="font-serif italic text-white/40 text-sm mt-1">jomor design</span>
+
           </motion.div>
         </motion.div>
       )}

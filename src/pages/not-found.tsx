@@ -4,7 +4,8 @@ import { SEO } from "@/components/seo";
 export default function NotFound() {
   return (
     <>
-      <SEO title="Page Not Found" description="The requested page could not be found on Aadiilin's portfolio." path="/404" noIndex noFollow />
+      <SEO title="Page Not Found" description="The requested page could not be found on Jomor Design." path="/404" noIndex noFollow />
+
       <main className="bg-[#0F0F0F] min-h-screen flex flex-col items-center justify-center p-6 text-center">
         <div className="max-w-md">
           <h1 className="font-serif text-8xl md:text-9xl italic text-white/20 mb-6">404</h1>

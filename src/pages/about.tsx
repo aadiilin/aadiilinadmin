@@ -6,21 +6,21 @@ import { LiveClock } from '@/components/live-clock'
 import { soundManager } from '@/lib/sound'
 
 const awards = [
-  { title: 'Jomor Design', detail: 'Awwwards Site Of The Day', year: '2025' },
-  { title: 'Jomor Design', detail: 'FWA Of The Month', year: '2025' },
-  { title: 'Jomor Design', detail: 'CSS Design Awards Website Of The Year', year: '2024' },
-  { title: 'Jomor Design', detail: 'Awwwards Developer Award', year: '2024' },
-  { title: 'Jomor Design', detail: 'CSS Design Awards Best UI/UX', year: '2024' },
-  { title: 'Jomor Design', detail: 'Awwwards Independent Of The Year (Nominee)', year: '2023' },
-  { title: 'Jomor Design', detail: 'CSS Design Awards Special Kudos', year: '2023' },
-  { title: 'Jomor Design', detail: 'Awwwards Mobile Excellence', year: '2023' },
+  { title: 'Aadiilin', detail: 'Awwwards Site Of The Day', year: '2025' },
+  { title: 'Aadiilin', detail: 'FWA Of The Month', year: '2025' },
+  { title: 'Aadiilin', detail: 'CSS Design Awards Website Of The Year', year: '2024' },
+  { title: 'Aadiilin', detail: 'Awwwards Developer Award', year: '2024' },
+  { title: 'Aadiilin', detail: 'CSS Design Awards Best UI/UX', year: '2024' },
+  { title: 'Aadiilin', detail: 'Awwwards Independent Of The Year (Nominee)', year: '2023' },
+  { title: 'Aadiilin', detail: 'CSS Design Awards Special Kudos', year: '2023' },
+  { title: 'Aadiilin', detail: 'Awwwards Mobile Excellence', year: '2023' },
 ]
 
 const services = [
-  { name: 'Web Design & WebGL', desc: 'Custom interactive websites, fluid WebGL graphics, and responsive web experiences.' },
-  { name: 'Brand Identity', desc: 'Art direction, logo systems, brand guidelines, and visual storytelling.' },
-  { name: 'Motion & 3D Physics', desc: 'Micro-animations, 3D interactive viewports, particle systems, and audio synthesis.' },
-  { name: 'E-Commerce Architecture', desc: 'Bespoke high-conversion storefronts, headless Shopify, and smooth checkout flows.' },
+  { name: 'Poster Design & Visuals', desc: 'Custom event posters, campaign visuals, and striking typographic compositions.' },
+  { name: 'Brand Identity', desc: 'Art direction, logo systems, brand guidelines, and strategic visual storytelling.' },
+  { name: 'Web Design & WebGL', desc: 'Interactive digital platforms, 3D viewports, particle systems, and responsive web experiences.' },
+  { name: 'Editorial & Packaging', desc: 'Bespoke publication design, rank showcases, magazine layouts, and packaging.' },
 ]
 
 export function About() {
@@ -30,8 +30,8 @@ export function About() {
   return (
     <main className="bg-[#0A0A0A] min-h-screen pt-36 pb-28 px-6 md:px-12 lg:px-16 text-white">
       <SEO
-        title="About — Jomor Design"
-        description="Jomor Design is an independent design practice focused on digital experiences. Driven by grit & dedicated to quality."
+        title="About — Aadiilin"
+        description="Aadiilin (Adil Sarvadka) is a freelance graphic designer based in Kasaragod, Kerala. Driven by grit & dedicated to quality."
         path="/about"
         jsonLd={[personSchema()]}
       />
@@ -44,7 +44,7 @@ export function About() {
             transition={{ duration: 0.6 }}
             className="flex items-center justify-between border-b border-white/10 pb-6 mb-12"
           >
-            <LiveClock label="MONTREAL STUDIO" timezone="America/Toronto" />
+            <LiveClock label="KASARAGOD STUDIO" timezone="Asia/Kolkata" />
             <div className="flex items-center gap-2 text-xs font-mono text-emerald-400 bg-emerald-950/40 px-3 py-1 rounded-full border border-emerald-500/20">
               <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
               AVAILABLE FOR NEW PROJECTS Q3/Q4
@@ -57,7 +57,7 @@ export function About() {
             transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
             className="font-serif italic text-4xl md:text-6xl lg:text-7xl text-white/90 leading-tight max-w-5xl"
           >
-            I love water and looking<br />like a complete tool in photos.
+            Crafting bold visuals,<br />high-end poster design &amp; identities.
           </motion.p>
 
           <motion.div
@@ -82,12 +82,13 @@ export function About() {
 
             <div className="space-y-6 self-end">
               <p className="font-sans text-base md:text-lg text-white/70 leading-relaxed">
-                Jomor Design is an independent design practice focused on digital experiences. Based in Montreal, Canada, we partner with visionary clients worldwide across technology, culture, architecture, and luxury.
+                Aadiilin (Adil Sarvadka) is a freelance graphic designer focused on high-end digital experiences, poster design, and brand identity. Based in Kasaragod, Kerala, India, partnering with clients worldwide.
               </p>
               <p className="font-sans text-base md:text-lg text-white/70 leading-relaxed">
-                Plain and simple; we do good ol&rsquo; fashioned branding and websites. Our goal is to make it as easy as possible for you to walk away with the solution that suits your needs perfectly. Straightforward, honest, and genuine.
+                Plain and simple; we do good ol&rsquo; fashioned branding, poster visuals, and websites. Our goal is to make it as easy as possible for you to walk away with the solution that suits your needs perfectly. Straightforward, honest, and genuine.
               </p>
             </div>
+
           </motion.div>
         </div>
 

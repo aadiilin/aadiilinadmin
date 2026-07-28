@@ -83,8 +83,8 @@ export function SEO({
       <meta name="twitter:description" content={seoDescription} />
       <meta name="twitter:image" content={ogImageUrl} />
       <meta name="twitter:image:alt" content={seoTitle} />
-      <meta name="twitter:site" content="@aadiilin" />
-      <meta name="twitter:creator" content="@aadiilin" />
+      <meta name="twitter:site" content="@jomordesign" />
+      <meta name="twitter:creator" content="@jomordesign" />
 
       {type === 'article' && (
         <>

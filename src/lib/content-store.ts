@@ -224,18 +224,17 @@ export const DEFAULTS: SiteContent = {
     { title: "Media", desc: "Editorial design and campaign visuals for media houses and content creators." },
   ],
   about: {
-    intro: "Hi, I'm Aadiilin — a freelance graphic designer crafting bold visuals from Kasaragod, Kerala.",
-    paragraph1: "I specialize in brand identities, poster design, campaign visuals, and art direction that tell stories and drive impact. Every project is built on a foundation of strategic thinking and bold creative vision.",
-    paragraph2: "I've partnered with organizations like Baithul Izza on event identities and campaign visuals. Currently available for freelance projects — let's create something great together.",
+    intro: "Jomor Design is an independent design practice focused on digital experiences. Based in Montreal, Canada.",
+    paragraph1: "We specialize in brand identities, WebGL experiences, art direction, and custom e-commerce platforms.",
+    paragraph2: "We partner with visionary clients worldwide across technology, culture, architecture, and luxury. Currently available for new projects.",
   },
   socialLinks: [
-    { label: "Instagram", href: "https://www.instagram.com/aadiil.in" },
-    { label: "LinkedIn", href: "https://www.linkedin.com/in/adil-sarvadka-51282a406" },
-    { label: "WhatsApp", href: "https://wa.me/918137802554" },
-    { label: "GitHub", href: "https://github.com/aadiilin" },
-    { label: "Behance", href: "https://www.behance.net/aadiilin" },
-    { label: "Dribbble", href: "https://dribbble.com/aadiilin" },
+    { label: "Instagram", href: "https://www.instagram.com/jomordesign" },
+    { label: "Twitter", href: "https://twitter.com/jomordesign" },
+    { label: "GitHub", href: "https://github.com/jomordesign" },
+    { label: "Pinterest", href: "https://pinterest.com/jomordesign" },
   ],
+
   theme: { ...DEFAULT_THEME },
   design: { ...DEFAULT_DESIGN },
 }

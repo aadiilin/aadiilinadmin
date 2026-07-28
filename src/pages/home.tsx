@@ -33,8 +33,9 @@ function HeroSection() {
           className="mt-12 md:mt-20 flex flex-col md:flex-row md:items-end justify-between gap-8"
         >
           <p className="text-white/60 text-sm md:text-base font-sans leading-relaxed max-w-xl">
-            Jomor Design is a design practice focused on digital experiences. With every single one of our clients, we bring forth a deep passion for creative problem solving — which is what we deliver in the form of custom and memorable experiences.
+            Aadiilin (Adil Sarvadka) is a freelance graphic designer based in Kerala focused on digital experiences, poster design, and brand identity. With every single client, we bring forth a deep passion for creative problem solving — delivering custom and memorable visual experiences.
           </p>
+
 
           <div className="text-right shrink-0">
             <p className="text-white/40 text-xs md:text-sm font-mono leading-relaxed">
@@ -256,11 +257,12 @@ export function Home() {
   return (
     <main className="bg-[#0A0A0A] min-h-screen text-white">
       <SEO
-        title="Jomor Design | High-End Digital Experiences"
-        description="Jomor Design is an independent design practice focused on digital experiences. We mostly do good ol’ fashioned branding and websites."
+        title="Aadiilin — Freelance Graphic Designer & Visual Artist"
+        description="Portfolio of Aadiilin (Adil Sarvadka), a freelance graphic designer from Kerala specializing in poster design, brand identity, and campaign visuals."
         path="/"
         jsonLd={[collectionPageSchema(), itemListSchema(), contactPageSchema()]}
       />
+
       <HeroSection />
       <TextRevealSection />
       <FeaturedWork />

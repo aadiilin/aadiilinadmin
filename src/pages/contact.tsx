@@ -24,14 +24,14 @@ export function Contact() {
   return (
     <main className="bg-[#0A0A0A] min-h-screen pt-36 pb-28 px-6 md:px-12 lg:px-16 text-white">
       <SEO
-        title="Contact — Jomor Design"
-        description="Let's build something memorable together. Contact Jomor Design at jomor@jomordesign.com or call 514-222-3461."
+        title="Contact — Aadiilin"
+        description="Let's build something memorable together. Contact Aadiilin at adilsarvadka@gmail.com or call +91 81378 02554."
         path="/contact"
       />
 
       <div className="max-w-7xl mx-auto">
         <header className="mb-16 md:mb-24">
-          <LiveClock label="MONTREAL, QC" timezone="America/Toronto" />
+          <LiveClock label="KASARAGOD, KL" timezone="Asia/Kolkata" />
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -54,40 +54,41 @@ export function Contact() {
           {/* Contact Details Left Column */}
           <div className="lg:col-span-5 space-y-12">
             <div>
-              <p className="text-xs font-mono text-white/40 uppercase tracking-widest mb-2">EMAIL US DIRECTLY</p>
+              <p className="text-xs font-mono text-white/40 uppercase tracking-widest mb-2">EMAIL DIRECTLY</p>
               <a
-                href="mailto:jomor@jomordesign.com?subject=Hello%20Jomor%20Design!"
+                href="mailto:adilsarvadka@gmail.com?subject=Hello%20Aadiilin!"
                 onMouseEnter={() => soundManager.playHover()}
                 onClick={() => soundManager.playClick()}
-                className="font-display text-2xl md:text-3xl font-bold text-white hover:text-white/70 transition-colors block"
+                className="font-display text-xl md:text-2xl font-bold text-white hover:text-white/70 transition-colors block"
                 data-cursor="pointer"
               >
-                jomor@jomordesign.com
+                adilsarvadka@gmail.com
               </a>
             </div>
 
             <div>
               <p className="text-xs font-mono text-white/40 uppercase tracking-widest mb-2">PHONE / WHATSAPP</p>
               <a
-                href="tel:5142223461"
+                href="https://wa.me/918137802554"
                 onMouseEnter={() => soundManager.playHover()}
                 onClick={() => soundManager.playClick()}
                 className="font-display text-2xl md:text-3xl font-bold text-white hover:text-white/70 transition-colors block"
                 data-cursor="pointer"
               >
-                +1 (514) 222-3461
+                +91 81378 02554
               </a>
             </div>
 
             <div>
               <p className="text-xs font-mono text-white/40 uppercase tracking-widest mb-2">STUDIO LOCATION</p>
               <p className="font-sans text-lg text-white/80 leading-relaxed">
-                Jomor Design Practice<br />
-                Montreal, Quebec<br />
-                Canada
+                Aadiilin Design Practice<br />
+                Kasaragod, Kerala<br />
+                India
               </p>
             </div>
           </div>
+
 
           {/* Interactive Form Right Column */}
           <div className="lg:col-span-7 bg-white/5 p-8 md:p-12 rounded-2xl border border-white/10">

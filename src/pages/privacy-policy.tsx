@@ -4,8 +4,8 @@ export function PrivacyPolicy() {
   return (
     <main className="bg-[#0A0A0A] min-h-screen pt-36 pb-28 px-6 md:px-12 lg:px-16 text-white">
       <SEO
-        title="Privacy Policy — Jomor Design"
-        description="Privacy policy and data protection terms for Jomor Design digital practice."
+        title="Privacy Policy — Aadiilin"
+        description="Privacy policy and data protection terms for Aadiilin design practice."
         path="/privacy-policy"
       />
 
@@ -20,12 +20,12 @@ export function PrivacyPolicy() {
         <section className="space-y-6 text-white/70 font-sans text-base leading-relaxed border-t border-white/10 pt-8">
           <h2 className="font-display text-2xl font-bold text-white uppercase">1. Information Collection</h2>
           <p>
-            Jomor Design values your privacy. We collect minimal personal information when you fill out our contact or inquiry forms (such as your name, email address, project requirements, and budget specifications).
+            Aadiilin values your privacy. We collect minimal personal information when you fill out our contact or inquiry forms (such as your name, email address, project requirements, and budget specifications).
           </p>
 
           <h2 className="font-display text-2xl font-bold text-white uppercase">2. Use of Information</h2>
           <p>
-            Any information collected through this website is strictly used for respond to client inquiries, scope design projects, and communicate regarding creative services. We do not sell or share your data with third parties.
+            Any information collected through this website is strictly used to respond to client inquiries, scope design projects, and communicate regarding creative services. We do not sell or share your data with third parties.
           </p>
 
           <h2 className="font-display text-2xl font-bold text-white uppercase">3. Cookies & Analytics</h2>
@@ -36,12 +36,13 @@ export function PrivacyPolicy() {
           <h2 className="font-display text-2xl font-bold text-white uppercase">4. Contact Us</h2>
           <p>
             If you have any questions regarding this Privacy Policy, please email us directly at{' '}
-            <a href="mailto:jomor@jomordesign.com" className="text-white underline">
-              jomor@jomordesign.com
+            <a href="mailto:adilsarvadka@gmail.com" className="text-white underline">
+              adilsarvadka@gmail.com
             </a>
             .
           </p>
         </section>
+
       </div>
     </main>
   )

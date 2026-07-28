@@ -51,7 +51,8 @@ export function ProjectPage() {
   return (
     <>
       <SEO
-        title={`${project.title} — Jomor Design`}
+        title={`${project.title} — Aadiilin`}
+
         description={project.description}
         path={`/project/${project.slug}`}
         image={project.image}

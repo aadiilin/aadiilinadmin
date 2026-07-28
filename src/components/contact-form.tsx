@@ -3,7 +3,6 @@ import { Send, Instagram } from "lucide-react"
 
 const PHONE = "918137802554"
 const INSTA_USER = "aadiil.in"
-
 export function ContactForm() {
   const [name, setName] = useState("")
   const [email, setEmail] = useState("")
@@ -11,13 +10,13 @@ export function ContactForm() {
 
   function sendWhatsApp(e: FormEvent) {
     e.preventDefault()
-    const text = `Hi Aadiilin,%0a%0aName: ${encodeURIComponent(name)}%0aEmail: ${encodeURIComponent(email)}%0aMessage: ${encodeURIComponent(message)}`
-    window.open(`https://wa.me/${PHONE}?text=${text}`, "_blank")
+    const text = `Hello Jomor Design,%0a%0aName: ${encodeURIComponent(name)}%0aEmail: ${encodeURIComponent(email)}%0aMessage: ${encodeURIComponent(message)}`
+    window.open(`https://wa.me/15142223461?text=${text}`, "_blank")
   }
 
   function sendInstagram() {
-    const text = `Hi Aadiilin! I'm ${encodeURIComponent(name || "someone")}. ${encodeURIComponent(message || "I'd like to discuss a project.")}`
-    window.open(`https://ig.me/m/${INSTA_USER}`, "_blank")
+    const text = `Hello Jomor Design! I'm ${encodeURIComponent(name || "someone")}. ${encodeURIComponent(message || "I'd like to discuss a project.")}`
+    window.open(`https://ig.me/m/jomordesign?text=${text}`, "_blank")
   }
 
   return (

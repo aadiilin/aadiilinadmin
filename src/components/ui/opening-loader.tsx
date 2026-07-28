@@ -46,7 +46,8 @@ export function OpeningLoader({ onComplete }: { onComplete: () => void }) {
               className="mb-12 overflow-hidden"
             >
               <h1 className="font-title font-extrabold text-5xl md:text-8xl tracking-tighter text-foreground flex items-baseline gap-2">
-                ADIL<span className="text-primary italic">.S</span>
+                JOMOR<span className="text-primary italic">.DESIGN</span>
+
               </h1>
             </motion.div>
 

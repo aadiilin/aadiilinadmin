@@ -9,7 +9,7 @@ export function Footer() {
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-8">
           <div className="flex items-center gap-3">
             <span className="font-display text-xl md:text-2xl font-black uppercase tracking-tight text-white">
-              Jomor Design
+              Aadiilin
             </span>
             <span className="font-serif text-xl md:text-2xl italic text-white/40">&amp;</span>
             <span className="font-display text-xl md:text-2xl font-bold text-white/70">digital experiences</span>
@@ -18,7 +18,7 @@ export function Footer() {
           <div className="flex flex-col md:flex-row md:items-center gap-6 text-white/40 text-xs font-mono tracking-widest uppercase">
             <div className="flex items-center gap-4 text-white/60">
               <a
-                href="https://www.instagram.com"
+                href="https://www.instagram.com/aadiil.in"
                 target="_blank"
                 rel="noopener noreferrer"
                 onMouseEnter={() => soundManager.playHover()}
@@ -28,7 +28,7 @@ export function Footer() {
                 <FaInstagram size={18} />
               </a>
               <a
-                href="https://twitter.com"
+                href="https://twitter.com/aadiilin"
                 target="_blank"
                 rel="noopener noreferrer"
                 onMouseEnter={() => soundManager.playHover()}
@@ -38,7 +38,7 @@ export function Footer() {
                 <FaTwitter size={18} />
               </a>
               <a
-                href="https://github.com"
+                href="https://github.com/aadiilin"
                 target="_blank"
                 rel="noopener noreferrer"
                 onMouseEnter={() => soundManager.playHover()}
@@ -48,7 +48,7 @@ export function Footer() {
                 <FaGithub size={18} />
               </a>
               <a
-                href="https://wa.me"
+                href="https://wa.me/918137802554"
                 target="_blank"
                 rel="noopener noreferrer"
                 onMouseEnter={() => soundManager.playHover()}
@@ -58,7 +58,7 @@ export function Footer() {
                 <FaWhatsapp size={18} />
               </a>
               <a
-                href="https://pinterest.com"
+                href="https://pinterest.com/aadiilin"
                 target="_blank"
                 rel="noopener noreferrer"
                 onMouseEnter={() => soundManager.playHover()}
@@ -69,7 +69,8 @@ export function Footer() {
               </a>
             </div>
 
-            <span className="text-white/30">&copy; 2025–2026 Jomor Design — All Rights Reserved</span>
+            <span className="text-white/30">&copy; 2025–2026 Aadiilin — All Rights Reserved</span>
+
             <Link
               href="/privacy-policy"
               onMouseEnter={() => soundManager.playHover()}

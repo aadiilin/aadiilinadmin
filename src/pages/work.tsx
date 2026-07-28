@@ -17,10 +17,11 @@ export function Work() {
   return (
     <main className="bg-[#0A0A0A] min-h-screen pt-36 pb-28 px-6 md:px-12 lg:px-16 text-white">
       <SEO
-        title="Work — Jomor Design"
-        description="Selected digital experiences, branding, WebGL applications, and e-commerce projects by Jomor Design."
+        title="Work — Aadiilin"
+        description="Selected poster designs, branding, event identities, and editorial projects by Aadiilin."
         path="/work"
       />
+
 
       <div className="max-w-7xl mx-auto">
         <header className="mb-16 md:mb-24">
