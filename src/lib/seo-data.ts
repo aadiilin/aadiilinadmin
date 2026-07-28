@@ -1,4 +1,4 @@
-export const SITE_URL = 'https://websadilo.vercel.app'
+export const SITE_URL = typeof window !== 'undefined' ? window.location.origin : 'https://aadiilin.parle.vercel.app'
 export const SITE_NAME = 'Jomor Design | High-End Digital Experiences'
 export const SITE_DESCRIPTION =
   'Jomor Design is an independent design practice focused on digital experiences. We mostly do good ol’ fashioned branding and websites. How can we help you?'
