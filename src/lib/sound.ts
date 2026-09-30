@@ -8,12 +8,18 @@ const CHORDS: number[][] = [
 ]
 const CHORD_DURATION = 4 // seconds per chord
 const ARP_PATTERN = [0, 2, 1, 3, 2, 0, 3, 1]
+const TRACK_SRC = `${import.meta.env.BASE_URL}kood.mp3`
+const TRACK_VOLUME = 0.35
 
 class SoundManager {
   private ctx: AudioContext | null = null
   private enabled: boolean = false
 
   private musicEnabled = false
+  private musicAudio: HTMLAudioElement | null = null
+  private musicFadeTimer: ReturnType<typeof setInterval> | null = null
+  private musicPauseTimer: ReturnType<typeof setTimeout> | null = null
+  private usingSynth = false
   private musicGain: GainNode | null = null
   private musicTimer: ReturnType<typeof setInterval> | null = null
   private nextChordTime = 0
@@ -47,13 +53,107 @@ class SoundManager {
     return this.enabled
   }
 
-  // ---------- Background music ----------
+  // ---------- Background music (Kood — Ababeel) ----------
+
+  private getMusicAudio(): HTMLAudioElement | null {
+    if (typeof window === 'undefined') return null
+    if (!this.musicAudio) {
+      const audio = new Audio(TRACK_SRC)
+      audio.loop = true
+      audio.preload = 'auto'
+      audio.volume = 0
+      this.musicAudio = audio
+    }
+    return this.musicAudio
+  }
+
+  private fadeAudio(target: number, durationMs: number) {
+    const audio = this.musicAudio
+    if (!audio) return
+    if (this.musicFadeTimer) clearInterval(this.musicFadeTimer)
+    const from = audio.volume
+    const steps = Math.max(1, Math.round(durationMs / 50))
+    let step = 0
+    this.musicFadeTimer = setInterval(() => {
+      step++
+      const t = step / steps
+      audio.volume = Math.min(1, Math.max(0, from + (target - from) * t))
+      if (step >= steps) {
+        if (this.musicFadeTimer) clearInterval(this.musicFadeTimer)
+        this.musicFadeTimer = null
+      }
+    }, durationMs / steps)
+  }
 
   public startMusic() {
     if (this.musicEnabled) return
     this.initCtx()
-    if (!this.ctx) return
+    this.musicEnabled = true
 
+    if (this.musicPauseTimer) {
+      clearTimeout(this.musicPauseTimer)
+      this.musicPauseTimer = null
+    }
+
+    const audio = this.getMusicAudio()
+    if (!audio) {
+      this.startSynth()
+      return
+    }
+
+    audio.play().then(() => {
+      if (!this.musicEnabled) {
+        audio.pause()
+        return
+      }
+      this.usingSynth = false
+      this.fadeAudio(TRACK_VOLUME, 1500)
+    }).catch(() => {
+      if (!this.musicEnabled) return
+      if (audio.error) {
+        // Track failed to load → fall back to the ambient synth
+        this.startSynth()
+        return
+      }
+      // Autoplay blocked → retry on the next user gesture
+      const retry = () => {
+        if (!this.musicEnabled) return
+        audio.play().then(() => {
+          this.usingSynth = false
+          this.fadeAudio(TRACK_VOLUME, 1500)
+        }).catch(() => {
+          if (this.musicEnabled) this.startSynth()
+        })
+      }
+      window.addEventListener('pointerdown', retry, { once: true })
+      window.addEventListener('keydown', retry, { once: true })
+    })
+  }
+
+  public stopMusic() {
+    if (!this.musicEnabled) return
+    this.musicEnabled = false
+    if (this.usingSynth) this.stopSynth()
+
+    const audio = this.musicAudio
+    if (audio && !audio.paused) {
+      this.fadeAudio(0, 500)
+      if (this.musicPauseTimer) clearTimeout(this.musicPauseTimer)
+      this.musicPauseTimer = setTimeout(() => {
+        if (!this.musicEnabled) audio.pause()
+        this.musicPauseTimer = null
+      }, 550)
+    }
+  }
+
+  public isMusicEnabled(): boolean {
+    return this.musicEnabled
+  }
+
+  private startSynth() {
+    if (this.usingSynth) return
+    this.initCtx()
+    if (!this.ctx) return
     if (!this.musicGain) {
       this.musicGain = this.ctx.createGain()
       this.musicGain.connect(this.ctx.destination)
@@ -64,15 +164,14 @@ class SoundManager {
     this.musicGain.gain.setValueAtTime(this.musicGain.gain.value, now)
     this.musicGain.gain.linearRampToValueAtTime(1, now + 2)
 
-    this.musicEnabled = true
+    this.usingSynth = true
     this.chordIndex = 0
     this.nextChordTime = now + 0.1
     this.musicTimer = setInterval(() => this.scheduleMusic(), 100)
   }
 
-  public stopMusic() {
-    if (!this.musicEnabled) return
-    this.musicEnabled = false
+  private stopSynth() {
+    this.usingSynth = false
     if (this.musicTimer) {
       clearInterval(this.musicTimer)
       this.musicTimer = null
@@ -83,10 +182,6 @@ class SoundManager {
       this.musicGain.gain.setValueAtTime(this.musicGain.gain.value, now)
       this.musicGain.gain.linearRampToValueAtTime(0, now + 0.6)
     }
-  }
-
-  public isMusicEnabled(): boolean {
-    return this.musicEnabled
   }
 
   private scheduleMusic() {
