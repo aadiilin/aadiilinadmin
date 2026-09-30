@@ -3,6 +3,7 @@ import { Link, useLocation } from 'wouter'
 import { motion, AnimatePresence } from 'framer-motion'
 import { FaInstagram, FaTwitter, FaGithub, FaWhatsapp, FaPinterest } from 'react-icons/fa'
 import { SoundToggle } from '@/components/sound-toggle'
+import { MusicToggle } from '@/components/music-toggle'
 import { LiveClock } from '@/components/live-clock'
 import { soundManager } from '@/lib/sound'
 
@@ -57,6 +58,9 @@ export function Navigation() {
 
         <div className="flex items-center gap-4 md:gap-8 pointer-events-auto">
           <SoundToggle />
+          <div className="hidden sm:block">
+            <MusicToggle />
+          </div>
 
           <nav className="hidden md:flex items-center gap-6">
             {navItems.map((item) => (
