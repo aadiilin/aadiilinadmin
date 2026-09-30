@@ -115,6 +115,9 @@ export function ProjectPage() {
                 ))}
               </div>
             )}
+            <p className="font-sans text-base md:text-xl text-white/70 mt-4">
+              Contact me now and get a 30% discount on your new project.
+            </p>
           </motion.div>
 
           <motion.div

@@ -1,5 +1,5 @@
 import { Link } from 'wouter'
-import { FaInstagram, FaTwitter, FaGithub, FaWhatsapp, FaPinterest } from 'react-icons/fa'
+import { FaFacebook, FaInstagram, FaTwitter } from 'react-icons/fa'
 import { soundManager } from '@/lib/sound'
 
 export function Footer() {
@@ -18,7 +18,17 @@ export function Footer() {
           <div className="flex flex-col md:flex-row md:items-center gap-6 text-white/40 text-xs font-mono tracking-widest uppercase">
             <div className="flex items-center gap-4 text-white/60">
               <a
-                href="https://www.instagram.com/aadiil.in"
+                href="https://www.facebook.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                onMouseEnter={() => soundManager.playHover()}
+                className="hover:text-white transition-colors"
+                data-cursor="pointer"
+              >
+                <FaFacebook size={18} />
+              </a>
+              <a
+                href="https://www.instagram.com"
                 target="_blank"
                 rel="noopener noreferrer"
                 onMouseEnter={() => soundManager.playHover()}
@@ -28,7 +38,7 @@ export function Footer() {
                 <FaInstagram size={18} />
               </a>
               <a
-                href="https://twitter.com/aadiilin"
+                href="https://twitter.com"
                 target="_blank"
                 rel="noopener noreferrer"
                 onMouseEnter={() => soundManager.playHover()}
@@ -36,36 +46,6 @@ export function Footer() {
                 data-cursor="pointer"
               >
                 <FaTwitter size={18} />
-              </a>
-              <a
-                href="https://github.com/aadiilin"
-                target="_blank"
-                rel="noopener noreferrer"
-                onMouseEnter={() => soundManager.playHover()}
-                className="hover:text-white transition-colors"
-                data-cursor="pointer"
-              >
-                <FaGithub size={18} />
-              </a>
-              <a
-                href="https://wa.me/918137802554"
-                target="_blank"
-                rel="noopener noreferrer"
-                onMouseEnter={() => soundManager.playHover()}
-                className="hover:text-white transition-colors"
-                data-cursor="pointer"
-              >
-                <FaWhatsapp size={18} />
-              </a>
-              <a
-                href="https://pinterest.com/aadiilin"
-                target="_blank"
-                rel="noopener noreferrer"
-                onMouseEnter={() => soundManager.playHover()}
-                className="hover:text-white transition-colors"
-                data-cursor="pointer"
-              >
-                <FaPinterest size={18} />
               </a>
             </div>
 

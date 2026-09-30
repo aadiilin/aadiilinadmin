@@ -17,10 +17,10 @@ const awards = [
 ]
 
 const services = [
-  { name: 'Poster Design & Visuals', desc: 'Custom event posters, campaign visuals, and striking typographic compositions.' },
-  { name: 'Brand Identity', desc: 'Art direction, logo systems, brand guidelines, and strategic visual storytelling.' },
-  { name: 'Web Design & WebGL', desc: 'Interactive digital platforms, 3D viewports, particle systems, and responsive web experiences.' },
-  { name: 'Editorial & Packaging', desc: 'Bespoke publication design, rank showcases, magazine layouts, and packaging.' },
+  { name: 'I develop the user interface.', desc: '' },
+  { name: 'Web page development.', desc: '' },
+  { name: 'I create ux element interactions.', desc: '' },
+  { name: 'I position your company brand.', desc: '' },
 ]
 
 export function About() {
@@ -48,6 +48,17 @@ export function About() {
             <div className="flex items-center gap-2 text-xs font-mono text-emerald-400 bg-emerald-950/40 px-3 py-1 rounded-full border border-emerald-500/20">
               <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
               AVAILABLE FOR NEW PROJECTS Q3/Q4
+            </div>
+            <div className="ml-6">
+              <p className="text-xs font-mono text-white/60 uppercase tracking-wider">
+                Years <br /> experience
+              </p>
+              <p className="text-xs font-mono text-white/60 uppercase tracking-wider">
+                Completed <br /> projects
+              </p>
+              <p className="text-xs font-mono text-white/60 uppercase tracking-wider">
+                Companies <br /> worked
+              </p>
             </div>
           </motion.div>
 
@@ -82,7 +93,7 @@ export function About() {
 
             <div className="space-y-6 self-end">
               <p className="font-sans text-base md:text-lg text-white/70 leading-relaxed">
-                Aadiilin (Adil Sarvadka) is a freelance graphic designer focused on high-end digital experiences, poster design, and brand identity. Based in Kasaragod, Kerala, India, partnering with clients worldwide.
+                Web developer, with extensive knowledge and years of experience, working in web technologies and Ui / Ux design, delivering quality work.
               </p>
               <p className="font-sans text-base md:text-lg text-white/70 leading-relaxed">
                 Plain and simple; we do good ol&rsquo; fashioned branding, poster visuals, and websites. Our goal is to make it as easy as possible for you to walk away with the solution that suits your needs perfectly. Straightforward, honest, and genuine.

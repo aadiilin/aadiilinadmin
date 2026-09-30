@@ -8,6 +8,7 @@ import { CanvasBackground } from '@/components/canvas-background'
 import { HeroTitle3D } from '@/components/hero-title-3d'
 import { ProjectCard3D } from '@/components/project-card-3d'
 import { soundManager } from '@/lib/sound'
+import { FaLinkedin, FaDribbble, FaGithub } from 'react-icons/fa'
 
 const featured = PROJECTS.slice(0, 4)
 
@@ -33,7 +34,7 @@ function HeroSection() {
           className="mt-12 md:mt-20 flex flex-col md:flex-row md:items-end justify-between gap-8"
         >
           <p className="text-white/60 text-sm md:text-base font-sans leading-relaxed max-w-xl">
-            Aadiilin (Adil Sarvadka) is a freelance graphic designer based in Kerala focused on digital experiences, poster design, and brand identity. With every single client, we bring forth a deep passion for creative problem solving — delivering custom and memorable visual experiences.
+            High level experience in web design and development knowledge, producing quality work.
           </p>
 
 
@@ -42,6 +43,35 @@ function HeroSection() {
               Great design services —<br />
               <span className="text-white/80">without the pretentiousness.</span>
             </p>
+            <div className="flex gap-4 mt-4">
+              <a
+                href="https://www.linkedin.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-white/60 hover:text-white transition-colors"
+                data-cursor="pointer"
+              >
+                <FaLinkedin size={20} />
+              </a>
+              <a
+                href="https://dribbble.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-white/60 hover:text-white transition-colors"
+                data-cursor="pointer"
+              >
+                <FaDribbble size={20} />
+              </a>
+              <a
+                href="https://github.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-white/60 hover:text-white transition-colors"
+                data-cursor="pointer"
+              >
+                <FaGithub size={20} />
+              </a>
+            </div>
           </div>
         </motion.div>
       </div>
@@ -194,6 +224,34 @@ function FeaturedWork() {
   )
 }
 
+function TestimonialSection() {
+  const ref = useRef(null)
+  const isInView = useInView(ref, { once: true, margin: '-20%' })
+
+  return (
+    <section ref={ref} className="py-28 md:py-40 px-6 md:px-12 lg:px-16 bg-[#0A0A0A] border-t border-white/5">
+      <div className="max-w-4xl mx-auto text-center">
+        <motion.span
+          initial={{ opacity: 0, y: 30 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6, ease: [0.76, 0, 0.24, 1] }}
+          className="font-mono text-xs tracking-widest uppercase text-white/40 block mb-8"
+        >
+          Testimonial
+        </motion.span>
+        <motion.p
+          initial={{ opacity: 0, y: 40 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8, delay: 0.1, ease: [0.76, 0, 0.24, 1] }}
+          className="font-serif italic text-3xl md:text-5xl lg:text-6xl text-white/80 leading-tight"
+        >
+          &ldquo;I get a good impression, I carry out my project with all the possible quality and attention and support 24 hours a day.&rdquo;
+        </motion.p>
+      </div>
+    </section>
+  )
+}
+
 function AboutMarquee() {
   return (
     <section className="relative py-20 md:py-32 bg-[#0A0A0A] overflow-hidden border-t border-b border-white/10">
@@ -266,6 +324,12 @@ export function Home() {
       <HeroSection />
       <TextRevealSection />
       <FeaturedWork />
+      <div className="py-24 md:py-36 px-6 md:px-12 lg:px-16 bg-[#0A0A0A] text-center">
+        <p className="text-white/60 text-lg md:text-xl font-sans leading-relaxed max-w-2xl mx-auto">
+          Website adaptable to all devices, with ui components and animated interactions.
+        </p>
+      </div>
+      <TestimonialSection />
       <AboutMarquee />
       <ContactCTA />
     </main>
