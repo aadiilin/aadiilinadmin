@@ -5,6 +5,9 @@ import {
   SITE_DESCRIPTION,
   SITE_LOCALE,
   DEFAULT_OG_IMAGE,
+  DEFAULT_OG_IMAGE_WIDTH,
+  DEFAULT_OG_IMAGE_HEIGHT,
+  OG_IMAGE_ALT,
   CREATOR_NAME,
 } from '@/lib/seo-data'
 
@@ -13,6 +16,8 @@ interface SEOProps {
   description?: string
   path?: string
   image?: string
+  imageWidth?: number
+  imageHeight?: number
   type?: 'website' | 'article'
   noIndex?: boolean
   noFollow?: boolean
@@ -28,6 +33,8 @@ export function SEO({
   description,
   path = '',
   image,
+  imageWidth,
+  imageHeight,
   type = 'website',
   noIndex = false,
   noFollow = false,
@@ -39,8 +46,12 @@ export function SEO({
 }: SEOProps) {
   const seoTitle = title ? `${title} | Aadiilin` : SITE_NAME
   const seoDescription = description || SITE_DESCRIPTION
+  const usingDefaultImage = !image
   const ogImage = image || DEFAULT_OG_IMAGE
   const ogImageUrl = ogImage.startsWith('http') ? ogImage : `${SITE_URL}${ogImage}`
+  const ogImageWidth = imageWidth ?? (usingDefaultImage ? DEFAULT_OG_IMAGE_WIDTH : undefined)
+  const ogImageHeight = imageHeight ?? (usingDefaultImage ? DEFAULT_OG_IMAGE_HEIGHT : undefined)
+  const ogImageAlt = usingDefaultImage ? OG_IMAGE_ALT : seoTitle
   const url = `${SITE_URL}${path}`
   const robotsContent = noIndex && noFollow ? 'noindex, nofollow' : noIndex ? 'noindex, follow' : noFollow ? 'index, nofollow' : undefined
 
@@ -72,9 +83,9 @@ export function SEO({
       <meta property="og:type" content={type} />
       <meta property="og:url" content={url} />
       <meta property="og:image" content={ogImageUrl} />
-      <meta property="og:image:width" content="1200" />
-      <meta property="og:image:height" content="630" />
-      <meta property="og:image:alt" content={seoTitle} />
+      {ogImageWidth && <meta property="og:image:width" content={String(ogImageWidth)} />}
+      {ogImageHeight && <meta property="og:image:height" content={String(ogImageHeight)} />}
+      <meta property="og:image:alt" content={ogImageAlt} />
       <meta property="og:site_name" content={SITE_NAME} />
       <meta property="og:locale" content={SITE_LOCALE} />
 
@@ -82,9 +93,9 @@ export function SEO({
       <meta name="twitter:title" content={seoTitle} />
       <meta name="twitter:description" content={seoDescription} />
       <meta name="twitter:image" content={ogImageUrl} />
-      <meta name="twitter:image:alt" content={seoTitle} />
-      <meta name="twitter:site" content="@jomordesign" />
-      <meta name="twitter:creator" content="@jomordesign" />
+      <meta name="twitter:image:alt" content={ogImageAlt} />
+      <meta name="twitter:site" content="@aadiilin" />
+      <meta name="twitter:creator" content="@aadiilin" />
 
       {type === 'article' && (
         <>

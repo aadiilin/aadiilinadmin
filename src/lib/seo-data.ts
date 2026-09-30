@@ -3,7 +3,10 @@ export const SITE_URL = typeof window !== 'undefined' ? window.location.origin :
 export const SITE_NAME = 'Aadiilin — Freelance Graphic Designer'
 export const SITE_DESCRIPTION =
   'Portfolio of Aadiilin (Adil Sarvadka), a freelance graphic designer from Kerala specializing in poster design, brand identity, and campaign visuals.'
-export const DEFAULT_OG_IMAGE = '/opengraph.jpg'
+export const DEFAULT_OG_IMAGE = '/images/adil-profile.jpg'
+export const DEFAULT_OG_IMAGE_WIDTH = 1123
+export const DEFAULT_OG_IMAGE_HEIGHT = 1401
+export const OG_IMAGE_ALT = 'Adil Sarvadka (Aadiilin) — Freelance Graphic Designer'
 export const SITE_LOCALE = 'en_US'
 export const CREATOR_NAME = 'Aadiilin'
 export const CREATOR_FULL_NAME = 'Adil Sarvadka'
@@ -13,7 +16,7 @@ export const CREATOR_JOB_TITLE = 'Freelance Graphic Designer & Creative Director
 export const CREATOR_EMAIL = 'adilsarvadka@gmail.com'
 export const CREATOR_PHONE = '+91 81378 02554'
 export const CREATOR_LOCATION = 'Kasaragod, Kerala, India'
-export const CREATOR_IMAGE = '/images/avatar.png'
+export const CREATOR_IMAGE = '/images/adil-profile.jpg'
 export const GOOGLE_SITE_VERIFICATION = 'tJGBFrKTrRuP6XLRKlOAF4IP8nO7hcRe-AuFYIxK6mI'
 
 
