@@ -8,6 +8,10 @@ import {
   DEFAULT_OG_IMAGE_WIDTH,
   DEFAULT_OG_IMAGE_HEIGHT,
   OG_IMAGE_ALT,
+  SECONDARY_OG_IMAGE,
+  SECONDARY_OG_IMAGE_WIDTH,
+  SECONDARY_OG_IMAGE_HEIGHT,
+  SECONDARY_OG_IMAGE_ALT,
   CREATOR_NAME,
 } from '@/lib/seo-data'
 
@@ -86,6 +90,14 @@ export function SEO({
       {ogImageWidth && <meta property="og:image:width" content={String(ogImageWidth)} />}
       {ogImageHeight && <meta property="og:image:height" content={String(ogImageHeight)} />}
       <meta property="og:image:alt" content={ogImageAlt} />
+      {usingDefaultImage && (
+        <>
+          <meta property="og:image" content={`${SITE_URL}${SECONDARY_OG_IMAGE}`} />
+          <meta property="og:image:width" content={String(SECONDARY_OG_IMAGE_WIDTH)} />
+          <meta property="og:image:height" content={String(SECONDARY_OG_IMAGE_HEIGHT)} />
+          <meta property="og:image:alt" content={SECONDARY_OG_IMAGE_ALT} />
+        </>
+      )}
       <meta property="og:site_name" content={SITE_NAME} />
       <meta property="og:locale" content={SITE_LOCALE} />
 
