@@ -3,7 +3,7 @@ import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion'
 import { soundManager } from '@/lib/sound'
 
 interface HeroTitle3DProps {
-  lines: { text: string; style: 'serif' | 'display'; italic?: boolean; opacity?: string }[]
+  lines: { text: string; style: 'serif' | 'display'; italic?: boolean; opacity?: string; small?: boolean }[]
 }
 
 export function HeroTitle3D({ lines }: HeroTitle3DProps) {
@@ -58,7 +58,11 @@ export function HeroTitle3D({ lines }: HeroTitle3DProps) {
           <span
             className={`block tracking-tight uppercase leading-[0.85] ${
               line.style === 'serif' ? 'font-serif' : 'font-display font-black'
-            } ${line.italic ? 'italic' : ''} ${line.opacity || 'text-white'} text-6xl sm:text-8xl md:text-9xl lg:text-[11rem]`}
+            } ${line.italic ? 'italic' : ''} ${line.opacity || 'text-white'} ${
+              line.small
+                ? 'text-3xl sm:text-5xl md:text-6xl lg:text-7xl mt-2'
+                : 'text-6xl sm:text-8xl md:text-9xl lg:text-[11rem]'
+            }`}
           >
             {line.text}
           </span>

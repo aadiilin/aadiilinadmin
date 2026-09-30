@@ -3,10 +3,11 @@ import { Link } from 'wouter'
 import { motion, useInView } from 'framer-motion'
 import { SEO } from '@/components/seo'
 import { PROJECTS } from '@/lib/seo-data'
-import { collectionPageSchema, itemListSchema, contactPageSchema } from '@/lib/schemas'
+import { collectionPageSchema, itemListSchema, contactPageSchema, personSchema } from '@/lib/schemas'
 import { CanvasBackground } from '@/components/canvas-background'
 import { HeroTitle3D } from '@/components/hero-title-3d'
 import { ProjectCard3D } from '@/components/project-card-3d'
+import { LiveClock } from '@/components/live-clock'
 import { soundManager } from '@/lib/sound'
 import { FaLinkedin, FaDribbble, FaGithub } from 'react-icons/fa'
 
@@ -17,6 +18,7 @@ const heroLines = [
   { text: 'end', style: 'serif' as const, italic: true, opacity: 'text-white/70' },
   { text: 'digital', style: 'display' as const, italic: false, opacity: 'text-white' },
   { text: 'experiences', style: 'display' as const, italic: false, opacity: 'text-white/80' },
+  { text: 'By Adil', style: 'serif' as const, italic: true, opacity: 'text-white/60', small: true },
 ]
 
 function HeroSection() {
@@ -252,14 +254,120 @@ function TestimonialSection() {
   )
 }
 
+const services = [
+  { name: 'I develop the user interface.', desc: '' },
+  { name: 'Web page development.', desc: '' },
+  { name: 'I create ux element interactions.', desc: '' },
+  { name: 'I position your company brand.', desc: '' },
+]
+
+function AboutSection() {
+  const ref = useRef(null)
+  const isInView = useInView(ref, { once: true, margin: '-15%' })
+
+  return (
+    <section id="about" ref={ref} className="py-24 md:py-36 px-6 md:px-12 lg:px-16 bg-[#0A0A0A] text-white">
+      <div className="max-w-7xl mx-auto">
+        <div className="mb-24 md:mb-36">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6 }}
+            className="flex items-center justify-between gap-6 flex-wrap border-b border-white/10 pb-6 mb-12"
+          >
+            <LiveClock label="KASARAGOD STUDIO" timezone="Asia/Kolkata" />
+            <div className="flex items-center gap-2 text-xs font-mono text-emerald-400 bg-emerald-950/40 px-3 py-1 rounded-full border border-emerald-500/20">
+              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
+              AVAILABLE FOR NEW PROJECTS Q3/Q4
+            </div>
+            <div className="flex items-start gap-6">
+              <p className="text-xs font-mono text-white/60 uppercase tracking-wider text-center">
+                Years <br /> experience
+              </p>
+              <p className="text-xs font-mono text-white/60 uppercase tracking-wider text-center">
+                Completed <br /> project
+              </p>
+              <p className="text-xs font-mono text-white/60 uppercase tracking-wider text-center">
+                Companies <br /> worked
+              </p>
+            </div>
+          </motion.div>
+
+          <motion.p
+            initial={{ opacity: 0, y: 40 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
+            className="font-serif italic text-4xl md:text-6xl lg:text-7xl text-white/90 leading-tight max-w-5xl"
+          >
+            Crafting bold visuals,<br />high-end poster design &amp; identities.
+          </motion.p>
+
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.8, delay: 0.15, ease: [0.76, 0, 0.24, 1] }}
+            className="mt-16 md:mt-24 grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20"
+          >
+            <div>
+              <p className="font-serif italic text-white/40 text-xl md:text-2xl mb-4">
+                driven by
+              </p>
+              <p className="text-5xl md:text-7xl lg:text-8xl leading-tight">
+                <span className="font-display font-black text-white uppercase tracking-tight block">grit</span>
+                <span className="font-serif italic text-white/40">&amp; </span>
+                <span className="font-display font-bold text-white uppercase tracking-tight">dedicated</span>
+                <br />
+                <span className="font-serif italic text-white/40">to </span>
+                <span className="font-display font-black text-white uppercase tracking-tight">quality</span>
+              </p>
+            </div>
+
+            <div className="space-y-6 self-end">
+              <p className="font-sans text-base md:text-lg text-white/70 leading-relaxed">
+                Web developer, with extensive knowledge and years of experience, working in web technologies and Ui / Ux design, delivering quality work.
+              </p>
+              <p className="font-sans text-base md:text-lg text-white/70 leading-relaxed">
+                Plain and simple; we do good ol&rsquo; fashioned branding, poster visuals, and websites. Our goal is to make it as easy as possible for you to walk away with the solution that suits your needs perfectly. Straightforward, honest, and genuine.
+              </p>
+            </div>
+          </motion.div>
+        </div>
+
+        {/* Capabilities */}
+        <section className="border-t border-white/10 pt-16">
+          <h2 className="font-serif text-3xl md:text-5xl italic text-white/80 mb-12">
+            capabilities &amp; expertise
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {services.map((srv, i) => (
+              <div
+                key={i}
+                className="p-8 rounded-xl bg-white/5 border border-white/10 hover:border-white/20 transition-colors"
+                onMouseEnter={() => soundManager.playHover()}
+              >
+                <h3 className="font-display text-xl font-bold text-white mb-2 uppercase">{srv.name}</h3>
+                <p className="text-white/60 text-sm font-sans leading-relaxed">{srv.desc}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+      </div>
+    </section>
+  )
+}
+
 function AboutMarquee() {
   return (
     <section className="relative py-20 md:py-32 bg-[#0A0A0A] overflow-hidden border-t border-b border-white/10">
-      <Link
-        href="/about"
+      <a
+        href="#about"
         className="block group"
         onMouseEnter={() => soundManager.playHover()}
-        onClick={() => soundManager.playClick()}
+        onClick={(e) => {
+          e.preventDefault()
+          soundManager.playClick()
+          document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' })
+        }}
         data-cursor="pointer"
         data-cursor-text="ABOUT"
       >
@@ -278,7 +386,7 @@ function AboutMarquee() {
             </div>
           ))}
         </div>
-      </Link>
+      </a>
     </section>
   )
 }
@@ -318,7 +426,7 @@ export function Home() {
         title="Aadiilin — Freelance Graphic Designer & Visual Artist"
         description="Portfolio of Aadiilin (Adil Sarvadka), a freelance graphic designer from Kerala specializing in poster design, brand identity, and campaign visuals."
         path="/"
-        jsonLd={[collectionPageSchema(), itemListSchema(), contactPageSchema()]}
+        jsonLd={[collectionPageSchema(), itemListSchema(), contactPageSchema(), personSchema()]}
       />
 
       <HeroSection />
@@ -331,6 +439,7 @@ export function Home() {
       </div>
       <TestimonialSection />
       <AboutMarquee />
+      <AboutSection />
       <ContactCTA />
     </main>
   )

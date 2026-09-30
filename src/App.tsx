@@ -10,7 +10,6 @@ import { CustomCursor } from '@/components/custom-cursor';
 import { PageLoader } from '@/components/page-loader';
 import { Home } from "@/pages/home";
 import { Work } from "@/pages/work";
-import { About } from "@/pages/about";
 import { Contact } from "@/pages/contact";
 import { ProjectPage } from "@/pages/project/[slug]";
 import { PrivacyPolicy } from "@/pages/privacy-policy";
@@ -51,7 +50,6 @@ function Router() {
           <Switch location={location}>
             <Route path="/" component={Home} />
             <Route path="/work" component={Work} />
-            <Route path="/about" component={About} />
             <Route path="/contact" component={Contact} />
             <Route path="/project/:slug" component={ProjectPage} />
             <Route path="/privacy-policy" component={PrivacyPolicy} />
