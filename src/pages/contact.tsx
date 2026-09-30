@@ -14,11 +14,38 @@ export function Contact() {
   const [email, setEmail] = useState('')
   const [message, setMessage] = useState('')
   const [submitted, setSubmitted] = useState(false)
+  const [submitting, setSubmitting] = useState(false)
+  const [error, setError] = useState('')
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     soundManager.playClick()
-    setSubmitted(true)
+    setSubmitting(true)
+    setError('')
+    try {
+      const endpoint =
+        import.meta.env.VITE_INQUIRY_ENDPOINT || 'https://aadiilin-inquiry.vercel.app/api/inquiry'
+      const res = await fetch(endpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name,
+          email,
+          type: selectedType,
+          budget: selectedBudget,
+          message,
+        }),
+      })
+      if (!res.ok) {
+        const data = (await res.json().catch(() => ({}))) as { error?: string }
+        throw new Error(data.error || 'Failed to send')
+      }
+      setSubmitted(true)
+    } catch {
+      setError('Could not send your inquiry — please email adilsarvadka@gmail.com directly.')
+    } finally {
+      setSubmitting(false)
+    }
   }
 
   return (
@@ -211,13 +238,20 @@ export function Contact() {
                   />
                 </div>
 
+                {error && (
+                  <p className="text-red-400 text-xs font-sans text-center -mt-4">
+                    {error}
+                  </p>
+                )}
+
                 <button
                   type="submit"
+                  disabled={submitting}
                   onMouseEnter={() => soundManager.playHover()}
-                  className="w-full py-4 rounded-full bg-white text-black font-mono text-sm font-bold uppercase tracking-wider hover:bg-white/90 transition-all duration-300 shadow-xl"
+                  className="w-full py-4 rounded-full bg-white text-black font-mono text-sm font-bold uppercase tracking-wider hover:bg-white/90 transition-all duration-300 shadow-xl disabled:opacity-60 disabled:cursor-wait"
                   data-cursor="pointer"
                 >
-                  SEND INQUIRY
+                  {submitting ? 'SENDING...' : 'SEND INQUIRY'}
                 </button>
               </form>
             )}
